@@ -1,4 +1,9 @@
 apply plugin: 'war'
+apply plugin: 'jetty'
+
 task karmaTest(type:Exec) {
-    commandLine 'karma start --singleRun true --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
+    commandLine 'karma start --singleRun false --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
 }
+
+jettyRun.contextPath = ''
+jettyRun.httpPort = 8081
