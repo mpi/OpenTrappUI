@@ -1,1 +1,4 @@
 apply plugin: 'war'
+task karmaTest(type:Exec) {
+    commandLine 'karma start --singleRun true --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
+}
