@@ -1,4 +1,4 @@
-angular.module('openTrApp', []).controller('RegistrationCtrl',
+angular.module('openTrApp.registration', []).controller('RegistrationCtrl',
 		function($scope, $http) {
 //			2h on #ProjectManhattan @2014/01/03
 			$scope.logWork = function(){

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Open TrApp</title>
+<script type="text/javascript" src="lib/angular.js"></script>
+<script type="text/javascript" src="home/ReportCtrl.js"></script>
+
+</head>
+<body ng-app="openTrApp.report">
+
+    <div ng-controller="ReportCtrl" ng-init="fetchItems()">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Employee ID</th>
+                    <th>Workload</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="item in workLog.items">
+                <td><a ng-href="{{item.link}}">{{item.id}}</a></td>
+                <td>{{item.projectName}}</td>
+                <td>{{item.employee}}</td>
+                <td>{{item.workload}}</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
