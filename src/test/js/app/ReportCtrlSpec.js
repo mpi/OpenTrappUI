@@ -1,5 +1,5 @@
 describe('Report Controller should', function() {
-	beforeEach(module('openTrApp.report'))
+	beforeEach(module('openTrApp'))
 
 	var scope, httpBackend;
 	beforeEach(inject(function($rootScope, $controller, $httpBackend) {

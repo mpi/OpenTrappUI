@@ -1,4 +1,4 @@
-angular.module('openTrApp.report', []).controller('ReportCtrl',
+angular.module('openTrApp').controller('ReportCtrl',
 		function($scope, $http) {
 	
 			$scope.fetchItems = function(){

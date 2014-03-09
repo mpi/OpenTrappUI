@@ -1,0 +1,98 @@
+<!-- RegistrationCtrl -->
+<div ng-controller="RegistrationCtrl">
+    <div class="container">
+        <div class="row" style="height:70px;">
+            <div ng-repeat="alert in alerts" class="fade in alert alert-{{alert.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                {{alert.message}}
+            </div>
+        </div>    
+        <div class="row">    
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Report your time <small>using our expression language, to make it quick!</small></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form class="form-inline" role="form" style="width:100%">
+                    <div class="input-group has-feedback has-{{status}}">
+                        
+                        <span class="input-group-btn">
+                            <button
+                                ng-click="logWork()" 
+                                class="btn btn-lg btn-primary" 
+                                style="height:46px;" 
+                                type="button">
+                                
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </span>
+                        
+                        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span class="glyphicon glyphicon-ban-circle form-control-feedback"></span>
+    
+                        <input 
+                            class="form-control input-lg" 
+                            ng-model="workLogExpression"
+                            ng-change="update()" 
+                            type="text" 
+                            placeholder="eg.: 5h 30m on #Stuff @yesterday">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div style="color: #999">
+            <div class="row">    
+                <div class="col-md-8 col-md-offset-2">
+                    <h3>Examples:</h3>               
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1h 30m</code>, <code>90m</code>               
+                </div>
+            </div>
+            <div class="row">                    
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>1 hour 30 minutes</strong> to <strong>default</strong> project on <strong>today</strong>.</p>               
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d on #Manhattan</code>               
+                </div>
+            </div>
+            <div class="row">                    
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8h</strong> to <strong>Manhattan</strong> project on <strong>today</strong>.</p>               
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d on #Manhattan @yesterday</code>,
+                    <code>1d on #Manhattan @t-1</code>               
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8h</strong> to <strong>Manhattan</strong> project on <strong>yesterday</strong>.</p>               
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d on #ProgramApollo @1966/02/26</code>
+                </div>
+            </div>
+            <div class="row">    
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8h</strong> to <strong>ProgramApollo</strong> project on <strong>Feburary 26, 1966</strong>.</p>               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /RegistrationCtrl -->

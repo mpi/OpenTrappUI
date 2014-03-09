@@ -1,18 +1,125 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Open TrApp</title>
-<script type="text/javascript" src="lib/angular.js"></script>
-<script type="text/javascript" src="home/RegistrationCtrl.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Open TrApp</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route.min.js"></script>
+    <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+    <script type="text/javascript" src="app/RouterCtrl.js"></script>
+    <script type="text/javascript" src="app/ReportCtrl.js"></script>
+    <script type="text/javascript" src="app/RegistrationCtrl.js"></script>
+    <style>
+        code{
+            font-size: 18px;
+            line-height: 200%;
+        }
+        
+        .has-feedback .glyphicon-remove,
+        .has-feedback .glyphicon-ban-circle{
+            padding: 7px;
+            margin-right: 10px;
+            font-size:2em; 
+            z-index: 3;
+        }
+        .has-feedback .glyphicon-ok{
+            padding: 5px;
+            margin-right: 10px;
+            font-size:2em; 
+            z-index: 3;
+        }
+        .has-feedback.has-error .glyphicon-remove,
+        .has-feedback.has-error .glyphicon-ban-circle,
+        .has-feedback.has-success .glyphicon-ok {
+            display: inline-block;
+        }
+        .has-feedback .glyphicon-ok,
+        .has-feedback .glyphicon-remove,
+        .has-feedback .glyphicon-ban-circle {
+            display: none;
+        }
+        .content{
+            margin-top: 72px; margin-bottom: 72px;
+            position: relative;
+        }
+        .view.ng-enter, .view.ng-leave {
+            -webkit-transition: 0.5s linear all; 
+            transition: 0.5s linear all;
+            width: 100%; 
+        }
+        .view.ng-enter {
+            position: absolute;
+            left: 100%;
+        }
+        .view.ng-enter.ng-enter-active {
+            left: 0px;
+        }
+        .view.ng-leave {
+            position: absolute;
+            left: 0px;
+        }
+        .view.ng-leave.ng-leave-active{
+            left: -100%;
+        }        
+    </style>
 </head>
-<body ng-app="openTrApp.registration">
+<body ng-app="openTrApp">
 
-    <form ng-controller="RegistrationCtrl">
-        <input ng-model="workLogExpression" type="text">
-        <input type="submit" ng-click="logWork()">
-    </form>
+    <!-- Menu -->
+    <nav ng-controller="RouterCtrl" class="navbar navbar-default navbar-fixed-top" role="navigation">
 
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            <span class="glyphicon glyphicon-time"></span> Open<b>Trapp</b>
+          </a>
+        </div>
+    
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-class="{active: isActive('/registration')}">
+                <a href="registration">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Register time
+                </a>
+            </li>
+            <li ng-class="{active: isActive('/report')}">
+                <a href="report">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Reports
+                </a>
+            </li>
+            <li ng-class="{active: isActive('/config')}">
+                <a href="config">
+                    <span class="glyphicon glyphicon-wrench"></span>
+                    <!-- <span class="glyphicon glyphicon-cog"></span> -->
+                    Settings
+                </a>
+            </li>
+            <li>
+                <p class="navbar-text">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Signed in as Homer Simpson
+                    <a href="#">
+                        <span class="glyphicon glyphicon-off"></span>
+                        Logout
+                    </a>
+                </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- /Menu -->
+    
+    <div class="content">
+        <div ng-view class="view"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
 </body>
 </html>
