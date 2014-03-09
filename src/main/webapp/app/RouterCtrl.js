@@ -6,9 +6,9 @@ angular.module('openTrApp', ['ngRoute', 'ngAnimate'])
   $routeProvider.when('/report', {
     templateUrl: 'report.html'
   });
-  $routeProvider.otherwise({
-	redirectTo: 'registration.html'
-  });
+//  $routeProvider.otherwise({
+//	redirectTo: 'registration'
+//  });
   
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(true);

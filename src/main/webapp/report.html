@@ -1,6 +1,356 @@
 <!-- ReportCtrl -->
 <div ng-controller="ReportCtrl" ng-init="fetchItems()">
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Review reports <small>by month, project and employee</small></h2>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-2">
+                <h4>Month:</h4>
+                <ul class="nav nav-pills small">
+                    <li>
+                        <a href="#">
+                            2013/12
+                        </a>
+                    </li> 
+                    <li class="active">
+                        <a href="#">
+                            2013/12
+                            <span class="badge badge-default">124h 30m</span>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="#">2014/02</a>
+                    </li> 
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Projects:</h4>
+                <ul class="nav nav-pills small">
+                    <li class="active">
+                        <a href="#">
+                            #nfon 
+                            <span class="badge badge-default">4h</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            #on
+                            <span class="badge badge-default">34h</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">#internal</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            #obf
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            #unity
+                            <span class="badge badge-default">20h 45m</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>Employees:</h4>
+                <ul class="nav nav-pills small">
+                    <li class="active">
+                        <a href="#">
+                            bart.simpson
+                            <span class="badge badge-default">12h 15m</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            homer.simpson
+                            <span class="badge badge-default">5h</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            principal.skinner
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            marge.simpson
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            mr.burns
+                            <span class="badge badge-default">43h 30m</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-12">
+                <h2>2014/01</h2>
+            </div>
+        </div>    
+        <div class="row">    
+            <table class="table table-striped" style="table-layout: fixed">
+                <thead>
+                    <tr>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Weekend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="week">    
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <h5>2014/01/01</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/02</h5>
+                           <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/03</h5>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">4h 2m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">8h</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/04, 2014/01/05</h5>
+                        </td>
+                    </tr>                    
+                    <tr class="week">    
+                        <td>
+                            <h5>2014/01/06</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/07</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/08</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/09</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/10</h5>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">4h 2m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">8h</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/11, 2014/01/12</h5>
+                        </td>
+                    </tr>                    
+                    <tr class="week">    
+                        <td>
+                            <h5>2014/01/13</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/14</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/15</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/16</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/17</h5>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">4h 2m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">8h</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/18, 2014/01/19</h5>
+                        </td>
+                    </tr>                    
+                    <tr class="week">    
+                        <td>
+                            <h5>2014/01/20</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/21</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/22</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/23</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/24</h5>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">4h 2m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">8h</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/25, 2014/01/26</h5>
+                        </td>
+                    </tr>                    
+                    <tr class="week">    
+                        <td>
+                            <h5>2014/01/27</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/28</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/29</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">6h</span>
+                            <span class="badge badge-primary">4h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/30</h5>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">4h 30m</span>
+                        </td>
+                        <td>
+                            <h5>2014/01/31</h5>
+                            <span class="badge badge-primary">5h 15m</span>
+                            <span class="badge badge-primary">4h 2m</span>
+                            <span class="badge badge-primary">8h</span>
+                            <span class="badge badge-primary">2h</span>
+                            <span class="badge badge-primary">8h</span>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
         <div class="row">    
             <table>
                 <thead>
