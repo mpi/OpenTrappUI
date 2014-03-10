@@ -6,6 +6,9 @@ angular.module('openTrApp', ['ngRoute', 'ngAnimate'])
   $routeProvider.when('/report', {
     templateUrl: 'report.html'
   });
+  $routeProvider.when('/config', {
+	  templateUrl: 'configuration.html'
+  });
 //  $routeProvider.otherwise({
 //	redirectTo: 'registration'
 //  });
