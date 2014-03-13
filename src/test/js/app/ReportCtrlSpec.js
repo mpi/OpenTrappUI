@@ -10,7 +10,7 @@ describe('Report Controller should', function() {
 		httpBackend = $httpBackend;
 	}));
 
-	it('create socpe', function() {
+	it('create scope', function() {
 		expect(scope).toBeDefined();
 	});
 
