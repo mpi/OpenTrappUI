@@ -1,5 +1,5 @@
 describe('Registration Controller should', function() {
-	beforeEach(module('openTrApp'))
+	beforeEach(module('openTrApp'));
 
 	var scope, httpBackend;
 	beforeEach(inject(function($rootScope, $controller, $httpBackend) {
@@ -10,7 +10,7 @@ describe('Registration Controller should', function() {
 		httpBackend = $httpBackend;
 	}));
 
-	it('create socpe', function() {
+	it('create scope', function() {
 		expect(scope).toBeDefined();
 	});
 
@@ -36,7 +36,7 @@ describe('Registration Controller should', function() {
 		
 		scope.logWork();
 		httpBackend.flush();
-		
+
 		expect(scope.workLogExpression).toBe('');
 	});
 	

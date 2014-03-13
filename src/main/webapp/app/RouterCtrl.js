@@ -1,4 +1,4 @@
-angular.module('openTrApp', ['ngRoute', 'ngAnimate'])
+angular.module('openTrApp')
 .config(function($routeProvider, $locationProvider) {
   $routeProvider.when('/registration', {
     templateUrl: 'registration.html'
