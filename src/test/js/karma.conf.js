@@ -4,13 +4,15 @@ module.exports = function (config) {
         exclude: ['**/bootstrap.js', '**/bootstrap.min.js'],
         frameworks: ['jasmine'],
         files: [
+            '**/lib/angular.js',
             '**/lib/*.js',
-            '**/*.js'
+            '**/app/OpenTrAppModule.js',
+            '**/app/*.js'
         ],
 
         browsers: [
-            'Chrome',
-            'PhantomJS'
+            'PhantomJS',
+            'Chrome'
         ],
         autoWatch: true
     });
