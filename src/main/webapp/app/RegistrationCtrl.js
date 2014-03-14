@@ -33,6 +33,8 @@ angular.module('openTrApp').controller('RegistrationCtrl',
             var getDayFromExpression = function(expression) {
                 if(matchesDayRegex(expression) && dayRegexHasValidDate(expression)) {
                     return dayPattern.exec(expression)[1]
+                } else if (forYesterday(expression)) {
+                    return moment(timeProvider.getCurrentDate()).subtract('days', 1).format("YYYY/MM/DD")
                 } else {
                     return moment(timeProvider.getCurrentDate()).format("YYYY/MM/DD");
                 }
@@ -42,9 +44,16 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                 return /@/.test(expression);
             }
 
+            function hasValidDateExpression(expression) {
+                return (hasDayExpression(expression) && dayRegexHasValidDate(expression));
+            }
+
+            function forYesterday(expression) {
+                return /@yesterday/.test(expression);
+            }
+
             var dayValid = function(expression) {
-                return (hasDayExpression(expression) && dayRegexHasValidDate(expression)) ||
-                    !hasDayExpression(expression)
+                return hasValidDateExpression(expression) || forYesterday(expression) || !hasDayExpression(expression)
             }
 
             var isValid = function(expression){

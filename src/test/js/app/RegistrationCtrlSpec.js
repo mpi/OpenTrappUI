@@ -2,7 +2,8 @@ describe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
 
     var timeProvider;
-    var currentDateString = "2014/01/01"
+    var currentDateString = "2014/01/02"
+    var yesterdayDateString = "2014/01/01"
 
 	var scope, httpBackend;
 	beforeEach(inject(function($rootScope, $controller, $httpBackend, _timeProvider_) {
@@ -36,7 +37,19 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '2h',
-            day: '2014/01/01'
+            day: currentDateString
+        }).respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+    });
+
+    it('log work for yesterday with @yesterday', function() {
+        scope.workLogExpression = '2h on #ProjectManhattan @yesterday';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '2h',
+            day: yesterdayDateString
         }).respond(200);
 
         scope.logWork();
