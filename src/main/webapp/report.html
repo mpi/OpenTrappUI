@@ -1,5 +1,5 @@
 <!-- ReportCtrl -->
-<div ng-controller="ReportCtrl" ng-init="init()">
+<div ng-controller="ReportCtrl" ng-init="init();display='table'">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -46,10 +46,22 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>2014/01</h2>
+                <ul class="nav nav-pills small">
+                    <li ng-class="{active: display=='table'}" ng-click="display='table'">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </a>
+                    </li>
+                    <li ng-class="{active: display=='calendar'}" ng-click="display='calendar'">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>    
-        <div class="row">    
-            <table class="table table-striped" style="table-layout: fixed">
+        </div>
+        <div class="row" ng-show="display=='calendar'">
+            <table  class="table table-striped" style="table-layout: fixed">
                 <thead>
                     <tr>
                         <th>Monday</th>
@@ -304,21 +316,21 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">    
-            <table>
+        <div class="row" ng-show="display=='table'">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Project</th>
                         <th>Employee ID</th>
                         <th>Workload</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tr ng-repeat="item in workLog.items">
-                    <td><a ng-href="{{item.link}}">{{item.id}}</a></td>
                     <td>{{item.projectName}}</td>
-                    <td>{{item.employee}}</td>
                     <td>{{item.workload}}</td>
+                    <td>{{item.employee}}</td>
+                    <td>{{item.day}}</td>
                 </tr>
             </table>
         </div>
