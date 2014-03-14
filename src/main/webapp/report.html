@@ -9,11 +9,11 @@
         <div class="row">
             <div class="col-md-2">
                 <h4>Month:</h4>
-                <ul class="nav nav-pills small" ng-repeat="report in report.months">
-                    <li ng-class="$first ? 'active' : ''">
-                        <a href="#">
-                            {{report}}
-                            <span ng-if="$first" class="badge badge-default">h124 30m</span>
+                <ul class="nav nav-pills small" ng-repeat="month in report.months">
+                    <li ng-class="report.isActive(month) ? 'active' : ''">
+                        <a href="#" ng-click="report.setActive(month)">
+                            {{month}}
+                            <span ng-if="report.isActive(month)" class="badge badge-default">h124 30m</span>
                         </a>
                     </li> 
                 </ul>

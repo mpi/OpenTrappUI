@@ -17,25 +17,9 @@ describe('Report Controller should', function () {
         expect(scope).toBeDefined();
     });
 
-    it('fetch items for selected month', function () {
-        var response = {
-            "items": items
-        };
-        scope.report = {
-            year: '2015',
-            month: '05'
-        };
-        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/2015/05/work-log/entries").respond(200, response);
-
-        scope.fetchItems();
-        httpBackend.flush();
-
-        expect(scope.workLog.items).toEqual(items);
-    });
-
-    it('fetch items for current month', function () {
-        var date = moment().format("YYYY/MM");
-        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + date + "/work-log/entries").respond(200, {
+    it('fetch items for active month', function () {
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
+        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/2014/02/work-log/entries").respond(200, {
             "items": items
         });
 
@@ -45,12 +29,29 @@ describe('Report Controller should', function () {
         expect(scope.workLog.items).toEqual(items);
     });
 
-    it('fetch report dates', function() {
-        spyOn(reportDates,'getMonths').and.returnValue(["2014/01"]);
+    it('fetch report dates', function () {
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/01"]);
 
         scope.init();
 
         expect(scope.report.months).toEqual(["2014/01"]);
+    });
+
+    it('first month is active by default', function () {
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
+
+        scope.init();
+
+        expect(scope.report.activeMonth).toEqual("2014/02");
+    });
+
+    it('should set active month', function () {
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
+        scope.init();
+
+        scope.report.setActive("2013/12");
+
+        expect(scope.report.activeMonth).toEqual("2013/12");
     });
 
     var items = [
