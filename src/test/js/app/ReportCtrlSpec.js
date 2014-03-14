@@ -228,6 +228,37 @@ describe('Report Controller', function () {
             expect(scope.filter.isActiveEmployee("bart.simpson")).toBeFalsy();
         });
 
+        it('filter only active projects & employees',function(){
+
+            scope.init();
+            scope.filter.activeProjects = ["ProjectManhattan"];
+            scope.filter.activeEmployees = ["homer.simpson"];
+
+            expect(scope.satisfies(
+                {
+                    "projectName": "ProjectManhattan",
+                    "employee": "homer.simpson"
+                }
+            )).toBeTruthy();
+            expect(scope.satisfies(
+                {
+                    "projectName": "ApolloProgram",
+                    "employee": "homer.simpson"
+                }
+            )).toBeFalsy();
+            expect(scope.satisfies(
+                {
+                    "projectName": "ProjectManhattan",
+                    "employee": "bart.simpson"
+                }
+            )).toBeFalsy();
+            expect(scope.satisfies(
+                {
+                    "projectName": "ApolloProgram",
+                    "employee": "bart.simpson"
+                }
+            )).toBeFalsy();
+        });
 
     });
 

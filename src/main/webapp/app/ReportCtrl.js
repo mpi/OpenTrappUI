@@ -53,5 +53,9 @@ angular.module('openTrApp').controller('ReportCtrl',
             }
         };
 
+        $scope.satisfies = function (item) {
+            return $scope.filter.isActiveProject(item.projectName) && $scope.filter.isActiveEmployee(item.employee);
+        }
+
     })
 ;

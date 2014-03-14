@@ -326,7 +326,7 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <tr ng-repeat="item in workLog.items">
+                <tr ng-repeat="item in workLog.items | filter:satisfies">
                     <td>{{item.projectName}}</td>
                     <td>{{item.workload}}</td>
                     <td>{{item.employee}}</td>
