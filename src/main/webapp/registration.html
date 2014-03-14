@@ -46,8 +46,15 @@
         </div>
     </div>
     <div class="container">
-        <div style="color: #999">
-
+        <div style="float:right">
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <h3>Available projects</h3>
+                    <ul><li ng-repeat="project in projectList">{{project}}</li></ul>
+                </div>
+            </div>
+        </div>
+        <div style="color: #999; float:left">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h3>Examples:</h3>
@@ -121,11 +128,6 @@
             <div class="row">
                 <div class="col-md-7 col-md-offset-3">
                     <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>monday and tuesday</strong>. (not yet implemented)</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-7 col-md-offset-3">
-                    <p class="lead">Available projects <span></span></p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http, worklogEntryParser, projectList) {
-
+            $scope.projectList = projectList.projectList;
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
