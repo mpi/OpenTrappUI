@@ -2,21 +2,24 @@ describe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
 
     var timeProvider;
+    var projectList;
     var currentDateString = "2014/01/02"
     var yesterdayDateString = "2014/01/01"
 
 	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _timeProvider_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _timeProvider_,_projectList_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
 		});
 		httpBackend = $httpBackend;
         timeProvider = _timeProvider_;
+        projectList = _projectList_;
         spyOn(timeProvider,'getCurrentDate').and.returnValue(new Date(currentDateString));
+        projectList.projectList.push("ProjectManhattan")
 	}));
 
-	it('create scope', function() {
+    it('create scope', function() {
 		expect(scope).toBeDefined();
 	});
 
@@ -31,6 +34,25 @@ describe('Registration Controller should', function() {
 		scope.logWork();
 		httpBackend.flush();
 	});
+
+    it('should not log work for not existing project', function() {
+        scope.workLogExpression = '2h on #notexisting @2014/01/03';
+
+        scope.logWork();
+
+        httpBackend.verifyNoOutstandingExpectation();
+    });
+
+    it('should show warning about not existing project', function() {
+        scope.workLogExpression = '2h on #notexisting @2014/01/03';
+
+        scope.logWork();
+
+        expect(scope.alert).toEqual({
+            type: 'danger',
+            message: 'no project \'notexisting\' defined - contact CEO ;-)'
+        });
+    });
 
     it('be invalid when date is not a proper format', function() {
         scope.workLogExpression = 'invalid';

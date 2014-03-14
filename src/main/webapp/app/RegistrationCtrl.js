@@ -1,13 +1,18 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
-		function($scope, $http, worklogEntryParser) {
+		function($scope, $http, worklogEntryParser, projectList) {
 
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
 					return;
 				}
-				
 				var data = worklogEntryParser.parse($scope.workLogExpression);
+                if(!projectList.contains(data.projectName)){
+                    var message = sprintf("no project '%s' defined - contact CEO ;-)",data.projectName);
+                    $scope.alert = ({ type: 'danger', message: message});
+                    return;
+                }
+
 				$http
 					.post('http://localhost:8080/endpoints/v1/employee/1/work-log/entries', data)
 					.success(function(response, status){

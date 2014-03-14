@@ -93,4 +93,10 @@ describe('WorkLogEntry Parser should', function() {
         expect(worklogEntryParser.parse(workLogExpression).projectName).toEqual("project2d");
     });
 
+    it('parse worklog with hyphen in project for today', function() {
+        workLogExpression = '2h on #Project-Manhattan';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(true);
+        expect(worklogEntryParser.parse(workLogExpression).projectName).toEqual("Project-Manhattan");
+    });
 });
