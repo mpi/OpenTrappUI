@@ -1,17 +1,15 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http) {
 
-//            1d 3h
-
 			var projectPattern = /#([a-zA-Z0-9_]*)?/;
-			var workloadPattern = /(\d+(d|h|m) )+/;
+			var workloadPattern = /(\d+(d|h|m)( )?)+/;
 			var dayPattern = /@([0-9\/]*)/;
 
             var getWorkloadFromExpression = function(expression) {
                 if (workloadPattern.test(expression)) {
                     return workloadPattern.exec(expression)[0].trim()
                 } else {
-                    return "";
+                    return "1d";
                 }
             }
 
@@ -49,9 +47,8 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                     !hasDayExpression(expression)
             }
 
-			var isValid = function(expression){
+            var isValid = function(expression){
 				return projectPattern.test(expression) &&
-                    workloadPattern.test(expression) &&
                     dayValid(expression)
 			};
 	
@@ -68,7 +65,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						$scope.update();
-                        var message = 'Worklog entry has been successfully created!';
+                        var message = sprintf("%s logged on %s at %s", data.workload, data.projectName, data.day);
                         $scope.alert = ({ type: 'success', message: message});
 					}).error(function(response,status){
                         var message = 'Server not responding';

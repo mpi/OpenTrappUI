@@ -63,10 +63,22 @@ describe('Registration Controller should', function() {
     });
 
     it('log work with days hours and minutes workload', function() {
-        scope.workLogExpression = '1d 5h 15m on #ProjectManhattan';
+        scope.workLogExpression = '1d 5h 5m on #ProjectManhattan';
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
-            workload: '1d 5h 15m',
+            workload: '1d 5h 5m',
+            day: '2014/03/14'
+        }).respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+    });
+
+    it('1d is the default', function() {
+        scope.workLogExpression = '#ProjectManhattan';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '1d',
             day: '2014/03/14'
         }).respond(200);
 
@@ -95,6 +107,20 @@ describe('Registration Controller should', function() {
 
 		expect(scope.workLogExpression).toBe('');
 	});
+
+    it('show succesfull alert with actual data', function() {
+        scope.workLogExpression = '#ProjectManhattan 1d 2h 5m';
+        scope.alert = { type: 'success', message: '1' };
+        httpBackend.expectPOST().respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+
+        expect(scope.alert).toEqual({
+            type: 'success',
+            message: '1d 2h 5m logged on ProjectManhattan at 2014/03/14'
+        });
+    });
 	
 	it('replace alert on second request', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
@@ -106,7 +132,7 @@ describe('Registration Controller should', function() {
 
 		expect(scope.alert).toEqual({
 			type: 'success',
-			message: 'Worklog entry has been successfully created!'
+			message: '2h logged on ProjectManhattan at 2014/01/03'
 		});
 	});
 
