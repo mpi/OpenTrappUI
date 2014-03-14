@@ -1,8 +1,6 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
-		function($scope, $http, timeProvider, worklogEntryParser) {
+		function($scope, $http, worklogEntryParser) {
 
-
-			//	2h on #ProjectManhattan @2014/01/03
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
@@ -38,17 +36,4 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 				}
 			};
 			
-		})
-        .directive('ngEnter', function () {
-            return function (scope, element, attrs) {
-                element.bind("keydown keypress", function (event) {
-                    if(event.which === 13) {
-                        scope.$apply(function (){
-                            scope.$eval(attrs.ngEnter);
-                        });
-
-                        event.preventDefault();
-                    }
-                });
-            };
-        });
+		});
