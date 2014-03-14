@@ -39,7 +39,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						$scope.update();
-                        var message = 'Worklog entry <strong>WL.0001</strong> has been successfully created!';
+                        var message = 'Worklog entry has been successfully created!';
                         $scope.alert = ({ type: 'success', message: message});
 					}).error(function(response,status){
                         var message = 'Server not responding';

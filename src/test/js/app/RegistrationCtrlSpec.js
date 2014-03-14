@@ -62,7 +62,7 @@ describe('Registration Controller should', function() {
 
 		expect(scope.alert).toEqual({
 			type: 'success',
-			message: 'Worklog entry <strong>WL.0001</strong> has been successfully created!'
+			message: 'Worklog entry has been successfully created!'
 		});
 	});
 
