@@ -29,7 +29,7 @@ describe('Report Controller', function () {
 
         scope.init();
 
-        expect(scope.report.months).toEqual(["2014/01"]);
+        expect(scope.filter.months).toEqual(["2014/01"]);
     });
 
     it('first month is active by default', function () {
@@ -37,16 +37,30 @@ describe('Report Controller', function () {
 
         scope.init();
 
-        expect(scope.report.activeMonth).toEqual("2014/02");
+        expect(scope.filter.activeMonth).toEqual("2014/02");
     });
 
     it('should set active month', function () {
         spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
         scope.init();
 
-        scope.report.setActive("2013/12");
+        scope.filter.setActive("2013/12");
 
-        expect(scope.report.activeMonth).toEqual("2013/12");
+        expect(scope.filter.activeMonth).toEqual("2013/12");
+    });
+
+    it('should fetch log entries on changing active month', function () {
+        currentMonthIs("2014/02");
+        worklogForMonthContains("2014/02", []);
+
+        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + "2014/03" + "/work-log/entries").respond(200, {
+            "items": items
+        });
+
+        scope.filter.setActive("2014/03");
+        httpBackend.flush();
+
+        expect(scope.workLog.items).toEqual(items);
     });
 
     var items = [
@@ -129,6 +143,7 @@ describe('Report Controller', function () {
             expect(scope.employees).toEqual(["bart.simpson"]);
         });
     });
+
     function worklogForMonthContains(month, items) {
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
             "items": items

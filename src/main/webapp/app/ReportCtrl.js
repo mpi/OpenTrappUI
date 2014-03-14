@@ -3,7 +3,7 @@ angular.module('openTrApp').controller('ReportCtrl',
 
         $scope.init = function () {
             var months = reportDates.getMonths();
-            $scope.report = {
+            $scope.filter = {
                 months: months,
                 activeMonth: months[0],
                 isActive: function (month) {
@@ -11,14 +11,15 @@ angular.module('openTrApp').controller('ReportCtrl',
                 },
                 setActive: function (month) {
                     this.activeMonth = month;
+                    $scope.fetchItems(month);
                 }
             };
 
-            $scope.fetchItems();
+            $scope.filter.setActive($scope.filter.activeMonth);
         };
 
-        $scope.fetchItems = function () {
-            $http.get('http://localhost:8080/endpoints/v1/calendar/' + $scope.report.activeMonth + '/work-log/entries').success(function (data) {
+        $scope.fetchItems = function (month) {
+            $http.get('http://localhost:8080/endpoints/v1/calendar/' + month + '/work-log/entries').success(function (data) {
                 $scope.workLog = data;
                 $scope.projects = distinct('projectName');
                 $scope.employees = distinct('employee');
