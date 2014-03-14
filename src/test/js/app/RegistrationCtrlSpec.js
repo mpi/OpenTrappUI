@@ -74,7 +74,7 @@ describe('Registration Controller should', function() {
 		httpBackend.flush();
 
         expect(scope.alert).toEqual({
-            type: 'error',
+            type: 'danger',
             message: 'Server not responding'
         });
     });

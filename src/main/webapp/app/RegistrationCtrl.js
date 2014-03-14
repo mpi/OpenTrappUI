@@ -43,7 +43,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                         $scope.alert = ({ type: 'success', message: message});
 					}).error(function(response,status){
                         var message = 'Server not responding';
-                        $scope.alert = ({ type: 'error', message: message});
+                        $scope.alert = ({ type: 'danger', message: message});
                     });
 			};
 			
