@@ -18,7 +18,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                 if (dayAsString) {
                     return dayAsString
                 } else {
-                    return "2014/03/14"
+                    return moment().format("YYYY/MM/DD");
                 }
             }
 	
