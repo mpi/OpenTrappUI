@@ -21,8 +21,8 @@
             <div class="col-md-4">
                 <h4>Projects:</h4>
                 <ul class="nav nav-pills small" ng-repeat="project in projects">
-                    <li class="active">
-                        <a href="#">
+                    <li ng-class="{active: filter.isActiveProject(project)}">
+                        <a href="#" ng-click="filter.toggleActiveProject(project)">
                             {{project}}
                             <span class="badge badge-default">h4</span>
                         </a>

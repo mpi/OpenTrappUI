@@ -6,13 +6,26 @@ angular.module('openTrApp').controller('ReportCtrl',
             $scope.filter = {
                 months: months,
                 activeMonth: months[0],
+                activeProjects: [],
+                activeEmployees: [],
                 isActive: function (month) {
                     return month == this.activeMonth;
                 },
                 setActive: function (month) {
                     this.activeMonth = month;
                     $scope.fetchItems(month);
+                },
+                toggleActiveProject: function (project) {
+                    if (_.contains(this.activeProjects, project)) {
+                        this.activeProjects = _.without(this.activeProjects, project);
+                    } else {
+                        this.activeProjects.push(project);
+                    }
+                },
+                isActiveProject: function (project) {
+                    return _.contains(this.activeProjects, project);
                 }
+
             };
 
             $scope.filter.setActive($scope.filter.activeMonth);
@@ -23,6 +36,8 @@ angular.module('openTrApp').controller('ReportCtrl',
                 $scope.workLog = data;
                 $scope.projects = distinct('projectName');
                 $scope.employees = distinct('employee');
+                $scope.filter.activeProjects = $scope.projects;
+                $scope.filter.activeEmployees = $scope.employees;
             });
 
             function distinct(property) {
@@ -30,4 +45,5 @@ angular.module('openTrApp').controller('ReportCtrl',
             }
         };
 
-    });
+    })
+;

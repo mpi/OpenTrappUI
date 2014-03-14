@@ -144,6 +144,67 @@ describe('Report Controller', function () {
         });
     });
 
+
+    describe('filters',function(){
+        it('all project are active by default',function(){
+            worklogForMonthContains("2014/03", [
+                {
+                    "projectName": "ProjectManhattan"
+                },
+                {
+                    "projectName": "ApolloProgram"
+                }
+            ]);
+
+            scope.filter.setActive("2014/03");
+
+            expect(scope.filter.activeProjects).toEqual(scope.projects);
+        });
+
+        it('all employees are selected by default',function(){
+            worklogForMonthContains("2014/03", [
+                {
+                    "employee": "bart.simpson"
+                },
+                {
+                    "employee": "homer.simpson"
+                }
+            ]);
+
+            scope.filter.setActive("2014/03");
+
+            expect(scope.filter.activeEmployees).toEqual(scope.employees);
+        });
+
+        it('setting active project',function(){
+            scope.init();
+            scope.filter.activeProjects = [];
+
+            scope.filter.toggleActiveProject("ProjectManhattan");
+
+            expect(scope.filter.activeProjects).toContain("ProjectManhattan");
+        });
+
+        it('resetting active project',function(){
+            scope.init();
+            scope.filter.activeProjects = ["ProjectManhattan"];
+
+            scope.filter.toggleActiveProject("ProjectManhattan");
+
+            expect(scope.filter.activeProjects).not.toContain("ProjectManhattan");
+        });
+
+        it('asking for active Project',function(){
+            scope.init();
+            scope.filter.activeProjects = ["ProjectManhattan"];
+
+            expect(scope.filter.isActiveProject("ProjectManhattan")).toBeTruthy();
+            expect(scope.filter.isActiveProject("ApolloProgram")).toBeFalsy();
+        });
+
+
+    });
+
     function worklogForMonthContains(month, items) {
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
             "items": items
@@ -154,6 +215,6 @@ describe('Report Controller', function () {
     }
 
     function currentMonthIs(currentMonth) {
-        spyOn(reportDates, 'getMonths').and.returnValue([ currentMonth]);
+        spyOn(reportDates, 'getMonths').and.returnValue([currentMonth]);
     }
 });
