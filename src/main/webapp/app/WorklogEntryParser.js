@@ -53,9 +53,13 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
         return hasValidDateExpression(expression) || forYesterday(expression) || isForDaysAgo(expression) || !hasDayExpression(expression)
     }
 
+    function projectValid(expression) {
+        return projectPattern.test(expression);
+    }
+
     return{
         isValid: function(expression) {
-            return projectPattern.test(expression) && dayValid(expression)
+            return projectValid(expression) && dayValid(expression)
         },
         parse: function(expression) {
             return {
