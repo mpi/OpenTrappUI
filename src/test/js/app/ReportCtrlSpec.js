@@ -97,6 +97,38 @@ describe('Report Controller', function () {
         });
 
     });
+
+    describe('employees', function () {
+
+        it('are fetched from worklog entries', function () {
+
+            currentMonthIs("2014/03");
+            worklogForMonthContains("2014/03", [
+                {
+                    "employee": "bart.simpson"
+                },
+                {
+                    "employee": "homer.simpson"
+                }
+            ]);
+            expect(scope.employees).toContain("homer.simpson", "bart.simpson");
+        });
+
+
+        it('are fetched from worklog entries (ignoring duplicates)', function () {
+
+            currentMonthIs("2014/03");
+            worklogForMonthContains("2014/03", [
+                {
+                    "employee": "bart.simpson"
+                },
+                {
+                    "employee": "bart.simpson"
+                }
+            ]);
+            expect(scope.employees).toEqual(["bart.simpson"]);
+        });
+    });
     function worklogForMonthContains(month, items) {
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
             "items": items

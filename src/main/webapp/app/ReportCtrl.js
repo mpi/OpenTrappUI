@@ -20,8 +20,13 @@ angular.module('openTrApp').controller('ReportCtrl',
         $scope.fetchItems = function () {
             $http.get('http://localhost:8080/endpoints/v1/calendar/' + $scope.report.activeMonth + '/work-log/entries').success(function (data) {
                 $scope.workLog = data;
-                $scope.projects = _($scope.workLog.items).pluck('projectName').uniq().value();
+                $scope.projects = distinct('projectName');
+                $scope.employees = distinct('employee');
             });
+
+            function distinct(property) {
+                return _($scope.workLog.items).pluck(property).uniq().value();
+            }
         };
 
     });
