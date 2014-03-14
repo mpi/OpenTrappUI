@@ -39,6 +39,13 @@ describe('WorkLogEntry Parser should', function() {
         expect(worklogEntryParser.parse(workLogExpression).day).toEqual(yesterdayDateString);
     });
 
+    it('parse worklog for yesterday by t-1', function() {
+        workLogExpression = '2h on #ProjectManhattan @t-1';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(true);
+        expect(worklogEntryParser.parse(workLogExpression).day).toEqual(yesterdayDateString);
+    });
+
     it('parse worklog with days and hours', function() {
         workLogExpression = '1d 3h on #ProjectManhattan @yesterday';
 

@@ -3,6 +3,7 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
     var projectPattern = /#([a-zA-Z0-9_]*)?/;
     var workloadPattern = /(\d+(d|h|m)( )?)+/;
     var dayPattern = /@([0-9\/]*)/;
+    var daysAgoPattern = /@t-(\d*)/;
 
     var getWorkloadFromExpression = function(expression) {
         if (workloadPattern.test(expression)) {
@@ -25,6 +26,8 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
             return dayPattern.exec(expression)[1]
         } else if (forYesterday(expression)) {
             return moment(timeProvider.getCurrentDate()).subtract('days', 1).format("YYYY/MM/DD")
+        } else if (isForDaysAgo(expression)) {
+            return moment(timeProvider.getCurrentDate()).subtract('days', daysAgoPattern.exec(expression)[1]).format("YYYY/MM/DD")
         } else {
             return moment(timeProvider.getCurrentDate()).format("YYYY/MM/DD");
         }
@@ -42,8 +45,12 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
         return /@yesterday/.test(expression);
     }
 
+    function isForDaysAgo(expression) {
+        return daysAgoPattern.test(expression);
+    }
+
     var dayValid = function(expression) {
-        return hasValidDateExpression(expression) || forYesterday(expression) || !hasDayExpression(expression)
+        return hasValidDateExpression(expression) || forYesterday(expression) || isForDaysAgo(expression) || !hasDayExpression(expression)
     }
 
     return{

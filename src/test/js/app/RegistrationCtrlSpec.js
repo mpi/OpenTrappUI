@@ -32,84 +32,12 @@ describe('Registration Controller should', function() {
 		httpBackend.flush();
 	});
 
-    it('log work for today by default in simplified way', function() {
-        scope.workLogExpression = '2h on #ProjectManhattan';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '2h',
-            day: currentDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
-    it('log work for yesterday with @yesterday', function() {
-        scope.workLogExpression = '2h on #ProjectManhattan @yesterday';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '2h',
-            day: yesterdayDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
-    it('log work with days workload by default in simplified way', function() {
-        scope.workLogExpression = '1d on #ProjectManhattan';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '1d',
-            day: currentDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
-    it('log work with days and hours workload', function() {
-        scope.workLogExpression = '1d 3h on #ProjectManhattan';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '1d 3h',
-            day: currentDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
-    it('log work with days hours and minutes workload', function() {
-        scope.workLogExpression = '1d 5h 5m on #ProjectManhattan';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '1d 5h 5m',
-            day: currentDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
-    it('1d is the default', function() {
-        scope.workLogExpression = '#ProjectManhattan';
-        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-            projectName: 'ProjectManhattan',
-            workload: '1d',
-            day: currentDateString
-        }).respond(200);
-
-        scope.logWork();
-        httpBackend.flush();
-    });
-
     it('be invalid when date is not a proper format', function() {
-        scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+        scope.workLogExpression = 'invalid';
 
         scope.logWork();
 
-        httpBackend.verifyNoOutstandingRequest();
+        httpBackend.verifyNoOutstandingExpectation();
     });
 
 	it('clear input after successfull submit', function() {
