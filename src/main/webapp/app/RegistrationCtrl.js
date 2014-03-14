@@ -1,5 +1,5 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
-		function($scope, $http) {
+		function($scope, $http, timeProvider) {
 
 			var projectPattern = /#([a-zA-Z0-9_]*)?/;
 			var workloadPattern = /(\d+(d|h|m)( )?)+/;
@@ -34,7 +34,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                 if(matchesDayRegex(expression) && dayRegexHasValidDate(expression)) {
                     return dayPattern.exec(expression)[1]
                 } else {
-                    return moment().format("YYYY/MM/DD");
+                    return moment(timeProvider.getCurrentDate()).format("YYYY/MM/DD");
                 }
             }
 

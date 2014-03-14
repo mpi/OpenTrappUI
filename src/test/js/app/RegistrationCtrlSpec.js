@@ -1,13 +1,18 @@
 describe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
 
+    var timeProvider;
+    var currentDateString = "2014/01/01"
+
 	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _timeProvider_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
 		});
 		httpBackend = $httpBackend;
+        timeProvider = _timeProvider_;
+        spyOn(timeProvider,'getCurrentDate').and.returnValue(new Date(currentDateString));
 	}));
 
 	it('create scope', function() {
@@ -31,7 +36,7 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '2h',
-            day: '2014/03/14'
+            day: '2014/01/01'
         }).respond(200);
 
         scope.logWork();
@@ -43,7 +48,7 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '1d',
-            day: '2014/03/14'
+            day: currentDateString
         }).respond(200);
 
         scope.logWork();
@@ -55,7 +60,7 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '1d 3h',
-            day: '2014/03/14'
+            day: currentDateString
         }).respond(200);
 
         scope.logWork();
@@ -67,7 +72,7 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '1d 5h 5m',
-            day: '2014/03/14'
+            day: currentDateString
         }).respond(200);
 
         scope.logWork();
@@ -79,7 +84,7 @@ describe('Registration Controller should', function() {
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '1d',
-            day: '2014/03/14'
+            day: currentDateString
         }).respond(200);
 
         scope.logWork();
@@ -118,7 +123,7 @@ describe('Registration Controller should', function() {
 
         expect(scope.alert).toEqual({
             type: 'success',
-            message: '1d 2h 5m logged on ProjectManhattan at 2014/03/14'
+            message: '1d 2h 5m logged on ProjectManhattan at '+currentDateString
         });
     });
 	
