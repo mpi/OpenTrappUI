@@ -4,7 +4,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 //            1d 3h
 
 			var projectPattern = /#([a-zA-Z0-9_]*)?/;
-			var workloadPattern = /(\d(d|h) )+/;
+			var workloadPattern = /(\d+(d|h|m) )+/;
 			var dayPattern = /@([0-9\/]*)/;
 
             var getWorkloadFromExpression = function(expression) {

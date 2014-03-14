@@ -50,11 +50,23 @@ describe('Registration Controller should', function() {
         httpBackend.flush();
     });
 
-    it('log work with days and hours workload by default in simplified way', function() {
+    it('log work with days and hours workload', function() {
         scope.workLogExpression = '1d 3h on #ProjectManhattan';
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
             workload: '1d 3h',
+            day: '2014/03/14'
+        }).respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+    });
+
+    it('log work with days hours and minutes workload', function() {
+        scope.workLogExpression = '1d 5h 15m on #ProjectManhattan';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '1d 5h 15m',
             day: '2014/03/14'
         }).respond(200);
 
