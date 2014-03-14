@@ -1,4 +1,4 @@
-describe('Report Controller should', function () {
+describe('Report Controller', function () {
 
     beforeEach(module('openTrApp'));
 
@@ -18,13 +18,8 @@ describe('Report Controller should', function () {
     });
 
     it('fetch items for active month', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
-        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/2014/02/work-log/entries").respond(200, {
-            "items": items
-        });
-
-        scope.init();
-        httpBackend.flush();
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
+        worklogForMonthContains("2014/02", items);
 
         expect(scope.workLog.items).toEqual(items);
     });
@@ -38,7 +33,7 @@ describe('Report Controller should', function () {
     });
 
     it('first month is active by default', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
 
         scope.init();
 
@@ -46,7 +41,7 @@ describe('Report Controller should', function () {
     });
 
     it('should set active month', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02","2014/01"]);
+        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
         scope.init();
 
         scope.report.setActive("2013/12");
@@ -70,4 +65,48 @@ describe('Report Controller should', function () {
             "employee": "Jane"
         }
     ];
+
+    describe('project names', function () {
+
+        it('are fetched from worklog entries', function () {
+
+            currentMonthIs("2014/03");
+            worklogForMonthContains("2014/03", [
+                {
+                    "projectName": "ProjectManhattan"
+                },
+                {
+                    "projectName": "AppolloProgram"
+                }
+            ]);
+            expect(scope.projects).toContain("AppolloProgram", "ProjectManhattan");
+        });
+
+        it('are fetched from worklog entries (ignoring duplicates)', function () {
+
+            currentMonthIs("2014/03");
+            worklogForMonthContains("2014/03", [
+                {
+                    "projectName": "ProjectManhattan"
+                },
+                {
+                    "projectName": "ProjectManhattan"
+                }
+            ]);
+            expect(scope.projects).toEqual(["ProjectManhattan"]);
+        });
+
+    });
+    function worklogForMonthContains(month, items) {
+        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
+            "items": items
+        });
+
+        scope.init();
+        httpBackend.flush();
+    }
+
+    function currentMonthIs(currentMonth) {
+        spyOn(reportDates, 'getMonths').and.returnValue([ currentMonth]);
+    }
 });
