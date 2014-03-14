@@ -39,7 +39,7 @@
                             ng-change="update()" 
                             type="text"
                             ng-enter="logWork()"
-                            placeholder="eg.: 5h 30m on #Stuff @yesterday">
+                            placeholder="1d #my-project">
                     </div>
                 </div>
             </div>
@@ -47,51 +47,80 @@
     </div>
     <div class="container">
         <div style="color: #999">
-            <div class="row">    
-                <div class="col-md-8 col-md-offset-2">
-                    <h3>Examples:</h3>               
-                </div>
-            </div>
-            <div class="row">    
-                <div class="col-md-7 col-md-offset-3">
-                    <code>1h 30m</code>, <code>90m</code>               
-                </div>
-            </div>
-            <div class="row">                    
-                <div class="col-md-7 col-md-offset-3">
-                    <p class="lead">Report <strong>1 hour 30 minutes</strong> to <strong>default</strong> project on <strong>today</strong>. (not yet implemented)</p>
-                </div>
-            </div>
-            <div class="row">    
-                <div class="col-md-7 col-md-offset-3">
-                    <code>#Manhattan</code>, <code>1d #Manhattan</code>
-                </div>
-            </div>
-            <div class="row">                    
-                <div class="col-md-7 col-md-offset-3">
-                    <p class="lead">Report <strong>8h</strong> to <strong>Manhattan</strong> project on <strong>today</strong>. </p>
-                </div>
-            </div>
 
-            <div class="row">    
-                <div class="col-md-7 col-md-offset-3">
-                    <code>1d on #Manhattan @yesterday</code>,
-                    <code>1d on #Manhattan @t-1</code>               
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3>Examples:</h3>
                 </div>
             </div>
-            <div class="row">    
+            <div class="row">
                 <div class="col-md-7 col-md-offset-3">
-                    <p class="lead">Report <strong>8h</strong> to <strong>Manhattan</strong> project on <strong>yesterday</strong>.</p>               
+                    <code>1d #my-project</code>
                 </div>
             </div>
-            <div class="row">    
+            <div class="row">
                 <div class="col-md-7 col-md-offset-3">
-                    <code>1d on #ProgramApollo @1966/02/26</code>
+                    <p class="lead">Report <strong>8h</strong> to <strong>my-project</strong> for <strong>today</strong>. </p>
                 </div>
             </div>
-            <div class="row">    
+            <div class="row">
                 <div class="col-md-7 col-md-offset-3">
-                    <p class="lead">Report <strong>8h</strong> to <strong>ProgramApollo</strong> project on <strong>Feburary 26, 1966</strong>.</p>               
+                    <code>1d #my-project @t-1</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8 hours</strong> to <strong>my-project</strong> for <strong>yesterday</strong>. </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d 2h 15m #my-project</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>10 hours and 15 minutes</strong> to <strong>my-project</strong> for <strong>today</strong>. </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d on #my-project @1966/02/26</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8h</strong> to <strong>my-project</strong> on <strong>Feburary 26, 1966</strong>.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>your default project</strong> for <strong>today</strong>. (not yet implemented)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d #my-project @monday</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>last monday</strong>. (not yet implemented)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <code>1d #my-project @monday~1</code>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-3">
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>monday and tuesday</strong>. (not yet implemented)</p>
                 </div>
             </div>
         </div>
