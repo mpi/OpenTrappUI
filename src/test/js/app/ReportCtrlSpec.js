@@ -202,6 +202,32 @@ describe('Report Controller', function () {
             expect(scope.filter.isActiveProject("ApolloProgram")).toBeFalsy();
         });
 
+        it('setting active employee',function(){
+            scope.init();
+            scope.filter.activeEmployees = [];
+
+            scope.filter.toggleActiveEmployee("homer.simpson");
+
+            expect(scope.filter.activeEmployees).toContain("homer.simpson");
+        });
+
+        it('resetting active employee',function(){
+            scope.init();
+            scope.filter.activeEmployees = ["homer.simpson"];
+
+            scope.filter.toggleActiveEmployee("homer.simpson");
+
+            expect(scope.filter.activeEmployees).not.toContain("homer.simpson");
+        });
+
+        it('asking for active employee',function(){
+            scope.init();
+            scope.filter.activeEmployees = ["homer.simpson"];
+
+            expect(scope.filter.isActiveEmployee("homer.simpson")).toBeTruthy();
+            expect(scope.filter.isActiveEmployee("bart.simpson")).toBeFalsy();
+        });
+
 
     });
 

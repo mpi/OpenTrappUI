@@ -16,14 +16,22 @@ angular.module('openTrApp').controller('ReportCtrl',
                     $scope.fetchItems(month);
                 },
                 toggleActiveProject: function (project) {
-                    if (_.contains(this.activeProjects, project)) {
-                        this.activeProjects = _.without(this.activeProjects, project);
+                    this.toggleElementOnList('activeProjects', project);
+                },
+                toggleElementOnList: function (list, entry) {
+                    if (_.contains(this[list], entry)) {
+                        this[list] = _.without(this[list], entry);
                     } else {
-                        this.activeProjects.push(project);
+                        this[list].push(entry);
                     }
+                }, toggleActiveEmployee: function (employee) {
+                    this.toggleElementOnList('activeEmployees', employee);
                 },
                 isActiveProject: function (project) {
                     return _.contains(this.activeProjects, project);
+                },
+                isActiveEmployee: function (employee) {
+                    return _.contains(this.activeEmployees, employee);
                 }
 
             };

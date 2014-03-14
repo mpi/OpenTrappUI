@@ -33,8 +33,8 @@
             <div class="col-md-6">
                 <h4>Employees:</h4>
                 <ul class="nav nav-pills small" ng-repeat="employee in employees">
-                    <li class="active">
-                        <a href="#">
+                    <li ng-class="{active: filter.isActiveEmployee(employee)}">
+                        <a href="#" ng-click="filter.toggleActiveEmployee(employee)">
                             {{employee}}
                             <span class="badge badge-default">h12 15m</span>
                         </a>
