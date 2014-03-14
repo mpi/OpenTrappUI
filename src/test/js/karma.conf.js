@@ -11,8 +11,7 @@ module.exports = function (config) {
         ],
 
         browsers: [
-            'PhantomJS',
-            'Chrome'
+            'PhantomJS'
         ],
         autoWatch: true
     });

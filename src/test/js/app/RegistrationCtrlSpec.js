@@ -26,6 +26,18 @@ describe('Registration Controller should', function() {
 		httpBackend.flush();
 	});
 
+    it('should log work for today by default in simplified way', function() {
+        scope.workLogExpression = '2h on #ProjectManhattan';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '2h',
+            day: '2014/03/14'
+        }).respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+    });
+
 	it('clear input after successfull submit', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
 		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
@@ -40,25 +52,32 @@ describe('Registration Controller should', function() {
 		expect(scope.workLogExpression).toBe('');
 	});
 	
-	it('display feedback to user in case of successfull request', function() {
+	it('should replace alert on second request', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
-		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
-			projectName: 'ProjectManhattan',
-			workload: '2h',
-			day: '2014/01/03'
-		}).respond({
-			status: "SUCCESS",
-			link: "/endpoints/v1/work-log/entries/WL.0001"
-		});
+		scope.alert = { type: 'success', message: '1' };
+        httpBackend.expectPOST().respond(200);
 		
 		scope.logWork();
 		httpBackend.flush();
-		
-		expect(scope.alerts).toContain({ 
-			type: 'success', 
+
+		expect(scope.alert).toEqual({
+			type: 'success',
 			message: 'Worklog entry <strong>WL.0001</strong> has been successfully created!'
 		});
 	});
+
+    it('display feedback to user in case of failed request', function() {
+        scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+        httpBackend.expectPOST().respond(503);
+
+        scope.logWork();
+		httpBackend.flush();
+
+        expect(scope.alert).toEqual({
+            type: 'error',
+            message: 'Server not responding'
+        });
+    });
 	
 	it('does not log work to server if invalid expression', function() {
 
@@ -77,6 +96,15 @@ describe('Registration Controller should', function() {
 		
 		expect(scope.status).toBe('success');
 	});
+
+    it('should be valid for worklog without date', function() {
+
+        scope.workLogExpression = '2h on #ProjectManhattan';
+
+        scope.update();
+
+        expect(scope.status).toBe('success');
+    });
 
 	it('shows error fedback if expression is not valid', function() {
 		

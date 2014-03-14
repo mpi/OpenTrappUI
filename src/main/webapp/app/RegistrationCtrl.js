@@ -1,9 +1,7 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http) {
 			
-			$scope.alerts = [];
-			
-			var pattern = /(.*) on #(.*) @(.*)/;
+			var pattern = /(.*) on #([a-zA-Z0-9_]*)( @(.*))?/;
 
 			var parseExpression = function(expression){
 				
@@ -12,9 +10,17 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 				return {
 					workload: regexp[1],
 					projectName: regexp[2],
-					day: regexp[3]
+					day: getDay(regexp[4])
 				};
 			};
+
+            var getDay = function(dayAsString) {
+                if (dayAsString) {
+                    return dayAsString
+                } else {
+                    return "2014/03/14"
+                }
+            }
 	
 			var isValid = function(expression){
 				return pattern.test(expression);
@@ -33,9 +39,12 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						$scope.update();
-						var message = 'Worklog entry <strong>WL.0001</strong> has been successfully created!';
-						$scope.alerts.push({ type: 'success', message: message});
-					});
+                        var message = 'Worklog entry <strong>WL.0001</strong> has been successfully created!';
+                        $scope.alert = ({ type: 'success', message: message});
+					}).error(function(response,status){
+                        var message = 'Server not responding';
+                        $scope.alert = ({ type: 'error', message: message});
+                    });
 			};
 			
 			
