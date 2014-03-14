@@ -1,14 +1,14 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http) {
-			
+
 			var projectPattern = /#([a-zA-Z0-9_]*)?/;
-			var workloadPattern = /\dh/;
+			var workloadPattern = /(\d(d|h)( )?)+/;
 			var dayPattern = /@([0-9\/]*)/;
 
 			var parseExpression = function(expression){
 
                 return {
-                    workload: workloadPattern.exec(expression)[0],
+                    workload: workloadPattern.exec(expression)[0].trim(),
                     projectName: projectPattern.exec(expression)[1],
                     day: getDayFromExpression(expression)
                 };

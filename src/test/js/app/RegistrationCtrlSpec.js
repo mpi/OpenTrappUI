@@ -38,6 +38,18 @@ describe('Registration Controller should', function() {
         httpBackend.flush();
     });
 
+    it('log work with days workload by default in simplified way', function() {
+        scope.workLogExpression = '1d on #ProjectManhattan';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '1d',
+            day: '2014/03/14'
+        }).respond(200);
+
+        scope.logWork();
+        httpBackend.flush();
+    });
+
     it('be invalid when date is not a proper format', function() {
         scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
 
