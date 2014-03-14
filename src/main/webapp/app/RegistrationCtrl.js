@@ -13,7 +13,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						$scope.update();
-                        var message = sprintf("%s logged on %s at %s", data.workload, data.projectName, data.day);
+                        var message = sprintf("%s logged on project '%s' at %s", data.workload, data.projectName, data.day);
                         $scope.alert = ({ type: 'success', message: message});
 					}).error(function(response,status){
                         var message = 'Server not responding';

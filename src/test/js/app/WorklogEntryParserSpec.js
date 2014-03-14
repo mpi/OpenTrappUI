@@ -79,4 +79,18 @@ describe('WorkLogEntry Parser should', function() {
         expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
     });
 
+    it('not parse empty project', function() {
+        workLogExpression = '#';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+    });
+
+    it('not parse workload at the end of project name', function() {
+        workLogExpression = '#project2d';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(true);
+        expect(worklogEntryParser.parse(workLogExpression).workload).toEqual("1d");
+        expect(worklogEntryParser.parse(workLogExpression).projectName).toEqual("project2d");
+    });
+
 });

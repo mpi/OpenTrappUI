@@ -1,7 +1,7 @@
 angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider){
 
-    var projectPattern = /#([a-zA-Z0-9_]*)?/;
-    var workloadPattern = /(\d+(d|h|m)( )?)+/;
+    var projectPattern = /#([a-zA-Z0-9_]+)/;
+    var workloadPattern = /( |^)(\d+(d|h|m)( )?)+/;
     var dayPattern = /@([0-9\/]*)/;
     var daysAgoPattern = /@t-(\d*)/;
 

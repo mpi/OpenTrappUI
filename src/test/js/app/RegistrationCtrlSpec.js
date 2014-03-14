@@ -64,7 +64,7 @@ describe('Registration Controller should', function() {
 
         expect(scope.alert).toEqual({
             type: 'success',
-            message: '1d 2h 5m logged on ProjectManhattan at '+currentDateString
+            message: '1d 2h 5m logged on project \'ProjectManhattan\' at '+currentDateString
         });
     });
 	
@@ -78,7 +78,7 @@ describe('Registration Controller should', function() {
 
 		expect(scope.alert).toEqual({
 			type: 'success',
-			message: '2h logged on ProjectManhattan at 2014/01/03'
+			message: '2h logged on project \'ProjectManhattan\' at 2014/01/03'
 		});
 	});
 
