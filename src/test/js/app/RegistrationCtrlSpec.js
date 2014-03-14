@@ -26,7 +26,7 @@ describe('Registration Controller should', function() {
 		httpBackend.flush();
 	});
 
-    it('should log work for today by default in simplified way', function() {
+    it('log work for today by default in simplified way', function() {
         scope.workLogExpression = '2h on #ProjectManhattan';
         httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
             projectName: 'ProjectManhattan',
@@ -36,6 +36,14 @@ describe('Registration Controller should', function() {
 
         scope.logWork();
         httpBackend.flush();
+    });
+
+    it('be invalid when date is not a proper format', function() {
+        scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+
+        scope.logWork();
+
+        httpBackend.verifyNoOutstandingRequest();
     });
 
 	it('clear input after successfull submit', function() {
@@ -52,7 +60,7 @@ describe('Registration Controller should', function() {
 		expect(scope.workLogExpression).toBe('');
 	});
 	
-	it('should replace alert on second request', function() {
+	it('replace alert on second request', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
 		scope.alert = { type: 'success', message: '1' };
         httpBackend.expectPOST().respond(200);
@@ -78,15 +86,24 @@ describe('Registration Controller should', function() {
             message: 'Server not responding'
         });
     });
-	
+
 	it('does not log work to server if invalid expression', function() {
 
-		scope.workLogExpression = 'invalidExpresion';
-		
+		scope.workLogExpression = 'invalid';
+
 		scope.logWork();
-		
-		httpBackend.verifyNoOutstandingRequest();
+
+		httpBackend.verifyNoOutstandingExpectation();
 	});
+
+    it('does not log work to server if invalid date', function() {
+
+        scope.workLogExpression = '2h on #ProjectManhattan @invalid';
+
+        scope.logWork();
+
+        httpBackend.verifyNoOutstandingExpectation();
+    });
 	
 	it('shows success fedback if expression is valid', function() {
 
@@ -97,7 +114,7 @@ describe('Registration Controller should', function() {
 		expect(scope.status).toBe('success');
 	});
 
-    it('should be valid for worklog without date', function() {
+    it('be valid for worklog without date', function() {
 
         scope.workLogExpression = '2h on #ProjectManhattan';
 

@@ -1,29 +1,48 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http) {
 			
-			var pattern = /(.*) on #([a-zA-Z0-9_]*)( @(.*))?/;
+			var projectPattern = /#([a-zA-Z0-9_]*)?/;
+			var workloadPattern = /\dh/;
+			var dayPattern = /@([0-9\/]*)/;
 
 			var parseExpression = function(expression){
-				
-				var regexp = pattern.exec(expression);
-				
-				return {
-					workload: regexp[1],
-					projectName: regexp[2],
-					day: getDay(regexp[4])
-				};
+
+                return {
+                    workload: workloadPattern.exec(expression)[0],
+                    projectName: projectPattern.exec(expression)[1],
+                    day: getDayFromExpression(expression)
+                };
 			};
 
-            var getDay = function(dayAsString) {
-                if (dayAsString) {
-                    return dayAsString
+            function matchesDayRegex(expression) {
+                return dayPattern.test(expression);
+            }
+
+            function dayRegexHasValidDate(expression) {
+                return moment(dayPattern.exec(expression)[1]).isValid();
+            }
+
+            var getDayFromExpression = function(expression) {
+                if(matchesDayRegex(expression) && dayRegexHasValidDate(expression)) {
+                    return dayPattern.exec(expression)[1]
                 } else {
                     return moment().format("YYYY/MM/DD");
                 }
             }
-	
+
+            function hasDayExpression(expression) {
+                return /@/.test(expression);
+            }
+
+            var dayValid = function(expression) {
+                return (hasDayExpression(expression) && dayRegexHasValidDate(expression)) ||
+                    !hasDayExpression(expression)
+            }
+
 			var isValid = function(expression){
-				return pattern.test(expression);
+				return projectPattern.test(expression) &&
+                    workloadPattern.test(expression) &&
+                    dayValid(expression)
 			};
 	
 			//	2h on #ProjectManhattan @2014/01/03
