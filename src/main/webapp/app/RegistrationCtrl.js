@@ -1,14 +1,24 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http) {
 
+//            1d 3h
+
 			var projectPattern = /#([a-zA-Z0-9_]*)?/;
-			var workloadPattern = /(\d(d|h)( )?)+/;
+			var workloadPattern = /(\d(d|h) )+/;
 			var dayPattern = /@([0-9\/]*)/;
+
+            var getWorkloadFromExpression = function(expression) {
+                if (workloadPattern.test(expression)) {
+                    return workloadPattern.exec(expression)[0].trim()
+                } else {
+                    return "";
+                }
+            }
 
 			var parseExpression = function(expression){
 
                 return {
-                    workload: workloadPattern.exec(expression)[0].trim(),
+                    workload: getWorkloadFromExpression(expression),
                     projectName: projectPattern.exec(expression)[1],
                     day: getDayFromExpression(expression)
                 };
