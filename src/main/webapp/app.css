@@ -49,6 +49,32 @@ code{
 .view.ng-leave.ng-leave-active{
     left: -100%;
 }
+
+.worklog-entry {
+  list-style:none;
+  box-sizing:border-box;
+}
+ 
+.worklog-entry.ng-move,
+.worklog-entry.ng-enter,
+.worklog-entry.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+ 
+.worklog-entry.ng-leave.ng-leave-active,
+.worklog-entry.ng-move,
+.worklog-entry.ng-enter {
+  opacity:0;
+}
+ 
+.worklog-entry.ng-leave,
+.worklog-entry.ng-move.ng-move-active,
+.worklog-entry.ng-enter.ng-enter-active {
+  opacity:1;
+}
+<!-- -->
+
 .small.nav > li > a {
     padding: 6px 12px;
     min-height: 30px;

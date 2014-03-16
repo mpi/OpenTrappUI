@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-md-2">
                 <h4>Month:</h4>
-                <ul class="nav nav-pills small" ng-repeat="month in filter.months">
-                    <li ng-class="filter.isActive(month) ? 'active' : ''">
+                <ul class="nav nav-pills small">
+                    <li ng-repeat="month in filter.months" ng-class="filter.isActive(month) ? 'active' : ''">
                         <a href="#" ng-click="filter.setActive(month)">
                             {{month}}
                             <span ng-if="filter.isActive(month)" class="badge badge-default" onclick="return false;">
@@ -22,8 +22,8 @@
             </div>
             <div class="col-md-4">
                 <h4>Projects:</h4>
-                <ul class="nav nav-pills small" ng-repeat="project in projects">
-                    <li ng-class="{active: filter.isActiveProject(project)}">
+                <ul class="nav nav-pills small">
+                    <li ng-repeat="project in projects" ng-class="{active: filter.isActiveProject(project)}">
                         <a href="#" ng-click="filter.toggleActiveProject(project)">
                             {{project}}
                             <span ng-if="filter.isActiveProject(project)" class="badge badge-default" onclick="return false;">
@@ -36,8 +36,8 @@
             </div>
             <div class="col-md-6">
                 <h4>Employees:</h4>
-                <ul class="nav nav-pills small" ng-repeat="employee in employees">
-                    <li ng-class="{active: filter.isActiveEmployee(employee)}">
+                <ul class="nav nav-pills small">
+                    <li ng-repeat="employee in employees" ng-class="{active: filter.isActiveEmployee(employee)}">
                         <a href="#" ng-click="filter.toggleActiveEmployee(employee)">
                             {{employee}}
                             <span ng-if="filter.isActiveEmployee(employee)" class="badge badge-default" onclick="return false;">
@@ -332,7 +332,7 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <tr ng-repeat="item in workLog.items | filter:satisfies">
+                <tr class="worklog-entry" ng-repeat="item in workLog.items | filter:satisfies">
                     <td>{{item.projectName}}</td>
                     <td>{{item.workload}}</td>
                     <td>{{item.employee}}</td>

@@ -261,7 +261,7 @@ describe('Report Controller', function () {
         });
     });
 
-    ddescribe("aggregates", function(){
+    describe("aggregates", function(){
     	
     	it("calculates total workload for active month", function(){
     		
