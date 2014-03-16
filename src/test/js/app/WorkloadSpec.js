@@ -16,6 +16,11 @@ describe('Workload', function(){
 	
 	describe("printing", function(){
 		
+		it("prints null workload as 0h", function(){
+			
+			expect(new Workload(0).print()).toEqual("0h");
+		});
+		
 		it("prints minutes", function(){
 			
 			expect(new Workload(15).print()).toEqual("15m");

@@ -17,6 +17,11 @@ var Workload = function(workload){
 		return (m - m%60)/60;
 	};
 	var printHours = function(){
+		
+		if(minutes == 0){
+			return "0h";
+		}
+		
 		var hours = h(minutes)%8;
 		return hours == 0 ? "" : hours + "h";
 	};

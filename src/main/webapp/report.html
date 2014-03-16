@@ -13,7 +13,9 @@
                     <li ng-class="filter.isActive(month) ? 'active' : ''">
                         <a href="#" ng-click="filter.setActive(month)">
                             {{month}}
-                            <span ng-if="filter.isActive(month)" class="badge badge-default">h124 30m</span>
+                            <span ng-if="filter.isActive(month)" class="badge badge-default" onclick="return false;">
+                                {{totalForMonth()}}
+                            </span>
                         </a>
                     </li> 
                 </ul>
@@ -24,7 +26,9 @@
                     <li ng-class="{active: filter.isActiveProject(project)}">
                         <a href="#" ng-click="filter.toggleActiveProject(project)">
                             {{project}}
-                            <span class="badge badge-default">h4</span>
+                            <span ng-if="filter.isActiveProject(project)" class="badge badge-default" onclick="return false;">
+                                {{totalForProject(project)}}
+                            </span>
                         </a>
                     </li>
 
@@ -36,7 +40,9 @@
                     <li ng-class="{active: filter.isActiveEmployee(employee)}">
                         <a href="#" ng-click="filter.toggleActiveEmployee(employee)">
                             {{employee}}
-                            <span class="badge badge-default">h12 15m</span>
+                            <span ng-if="filter.isActiveEmployee(employee)" class="badge badge-default" onclick="return false;">
+                                {{totalForEmployee(employee)}}
+                            </span>
                         </a>
                     </li>
 

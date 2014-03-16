@@ -261,6 +261,112 @@ describe('Report Controller', function () {
         });
     });
 
+    ddescribe("aggregates", function(){
+    	
+    	it("calculates total workload for active month", function(){
+    		
+    		scope.init();
+    		scope.filter.activeEmployees = ["active"];
+    		scope.filter.activeProjects = ["active"];
+    		scope.filter.activeMonth = ["2014/01"];
+    		
+    		scope.workLog = { 
+    				items: [
+    		                 {
+    		                	 "workload": "1h",
+    		                	 "projectName": "active",
+    		                	 "employee": "active",
+    		                	 "day": "2014/01/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "2h",
+    		                	 "projectName": "active",
+    		                	 "employee": "active",
+    		                	 "day": "2014/02/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "3h",
+    		                	 "projectName": "active",
+    		                	 "employee": "active",
+    		                	 "day": "2014/01/01"		 
+    		                 } 
+    		                ]
+    		};
+    		
+    		expect(scope.totalForMonth()).toEqual("4h");
+    	});
+
+    	it("calculates total workload for active employees", function(){
+    		
+    		scope.init();
+    		scope.filter.activeEmployees = ["homer.simpson", "bart.simpson"];
+    		scope.filter.activeProjects = ["active"];
+    		scope.filter.activeMonth = ["2014/01"];
+    		
+    		scope.workLog = { 
+    				items: [
+    		                 {
+    		                	 "workload": "1h",
+    		                	 "projectName": "active",
+    		                	 "employee": "homer.simpson",
+    		                	 "day": "2014/01/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "2h",
+    		                	 "projectName": "active",
+    		                	 "employee": "bart.simpson",
+    		                	 "day": "2014/01/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "3h",
+    		                	 "projectName": "active",
+    		                	 "employee": "homer.simpson",
+    		                	 "day": "2014/01/01"		 
+    		                 } 
+    		                ]
+    		};
+    		
+    		expect(scope.totalForEmployee("homer.simpson")).toEqual("4h");
+    		expect(scope.totalForEmployee("marge.simpson")).toEqual("0h");
+    		
+    	});
+    	
+    	it("calculates total workload for active projects", function(){
+    		
+    		scope.init();
+    		scope.filter.activeEmployees = ["active"];
+    		scope.filter.activeProjects = ["ProjectManhattan", "ApolloProgram"];
+    		scope.filter.activeMonth = ["2014/01"];
+    		
+    		scope.workLog = { 
+    				items: [
+    		                 {
+    		                	 "workload": "1h",
+    		                	 "projectName": "ProjectManhattan",
+    		                	 "employee": "active",
+    		                	 "day": "2014/01/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "2h",
+    		                	 "projectName": "ApolloProgram",
+    		                	 "employee": "active",
+    		                	 "day": "2014/01/01"		 
+    		                 }, 
+    		                 {
+    		                	 "workload": "3h",
+    		                	 "projectName": "ProjectManhattan",
+    		                	 "employee": "active",
+    		                	 "day": "2014/01/01"		 
+    		                 } 
+    		                 ]
+    		};
+    		
+    		expect(scope.totalForProject("ProjectManhattan")).toEqual("4h");
+    		expect(scope.totalForProject("OtherProject")).toEqual("0h");
+    	});
+    	
+    });
+    
     function worklogForMonthContains(month, items) {
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
             "items": items

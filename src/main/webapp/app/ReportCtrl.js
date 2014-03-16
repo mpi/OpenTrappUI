@@ -17,6 +17,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                 },
                 toggleActiveProject: function (project) {
                     this.toggleElementOnList('activeProjects', project);
+                    return false;
                 },
                 toggleElementOnList: function (list, entry) {
                     if (_.contains(this[list], entry)) {
@@ -46,6 +47,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                 $scope.employees = distinct('employee');
                 $scope.filter.activeProjects = $scope.projects;
                 $scope.filter.activeEmployees = $scope.employees;
+                
             });
 
             function distinct(property) {
@@ -55,7 +57,35 @@ angular.module('openTrApp').controller('ReportCtrl',
 
         $scope.satisfies = function (item) {
             return $scope.filter.isActiveProject(item.projectName) && $scope.filter.isActiveEmployee(item.employee);
-        }
+        };
 
+        var totalByFilter = function(filter){
+
+        	var x = _($scope.workLog.items)
+	    		.filter($scope.satisfies)
+	    		.filter(filter)
+	    		.map(function(x){ 
+	    			return new Workload(x.workload); 
+	    		})
+	    		.reduce(function(a, b){
+	    			return a.add(b);
+	    		}, new Workload(0));
+        	return x.print();
+        };
+        
+        $scope.totalForMonth = function(){
+        	
+        	return totalByFilter(function(x){ return x.day.indexOf($scope.filter.activeMonth) == 0});
+        };
+
+        $scope.totalForEmployee = function(employee){
+        	
+        	return totalByFilter(function(x){ return x.employee == employee});
+        };
+
+        $scope.totalForProject = function(project){
+        	
+        	return totalByFilter(function(x){ return x.projectName == project});
+        };
     })
 ;
