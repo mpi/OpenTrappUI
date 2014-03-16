@@ -34,9 +34,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                 isActiveEmployee: function (employee) {
                     return _.contains(this.activeEmployees, employee);
                 }
-
             };
-
             $scope.filter.setActive($scope.filter.activeMonth);
         };
 
@@ -47,7 +45,6 @@ angular.module('openTrApp').controller('ReportCtrl',
                 $scope.employees = distinct('employee');
                 $scope.filter.activeProjects = $scope.projects;
                 $scope.filter.activeEmployees = $scope.employees;
-                
             });
 
             function distinct(property) {
@@ -74,17 +71,14 @@ angular.module('openTrApp').controller('ReportCtrl',
         };
         
         $scope.totalForMonth = function(){
-        	
         	return totalByFilter(function(x){ return x.day.indexOf($scope.filter.activeMonth) == 0});
         };
 
         $scope.totalForEmployee = function(employee){
-        	
         	return totalByFilter(function(x){ return x.employee == employee});
         };
 
         $scope.totalForProject = function(project){
-        	
         	return totalByFilter(function(x){ return x.projectName == project});
         };
     })
