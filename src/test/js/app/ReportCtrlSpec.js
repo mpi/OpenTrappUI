@@ -259,7 +259,6 @@ describe('Report Controller', function () {
                 }
             )).toBeFalsy();
         });
-
     });
 
     function worklogForMonthContains(month, items) {
