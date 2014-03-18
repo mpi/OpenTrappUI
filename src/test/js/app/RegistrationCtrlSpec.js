@@ -1,13 +1,14 @@
-describe('Registration Controller should', function() {
+ddescribe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
 
     var timeProvider;
     var projectList;
-    var currentDateString = "2014/01/02"
-    var yesterdayDateString = "2014/01/01"
+    var currentDateString = "2014/01/02";
+    var yesterdayDateString = "2014/01/01";
+    var employeeUsername = 'homer.simpson';
 
 	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _timeProvider_,_projectList_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectList_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
@@ -15,7 +16,9 @@ describe('Registration Controller should', function() {
 		httpBackend = $httpBackend;
         timeProvider = _timeProvider_;
         projectList = _projectList_;
-        spyOn(timeProvider,'getCurrentDate').and.returnValue(new Date(currentDateString));
+        currentEmployee = _currentEmployee_;
+        spyOn(timeProvider, 'getCurrentDate').andReturn(new Date(currentDateString));
+        spyOn(currentEmployee, 'username').andReturn(employeeUsername);
         projectList.projectList.push("ProjectManhattan")
 	}));
 
@@ -25,7 +28,7 @@ describe('Registration Controller should', function() {
 
 	it('logs work to server', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
-		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
 			projectName: 'ProjectManhattan',
 			workload: '2h',
 			day: '2014/01/03'
@@ -64,7 +67,7 @@ describe('Registration Controller should', function() {
 
 	it('clear input after successfull submit', function() {
 		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
-		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/1/work-log/entries", {
+		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
 			projectName: 'ProjectManhattan',
 			workload: '2h',
 			day: '2014/01/03'

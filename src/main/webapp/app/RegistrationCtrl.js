@@ -1,5 +1,5 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
-		function($scope, $http, worklogEntryParser, projectList) {
+		function($scope, $http, currentEmployee, worklogEntryParser, projectList) {
             $scope.projectList = projectList.projectList;
 			$scope.logWork = function(){
 				
@@ -14,7 +14,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                 }
 
 				$http
-					.post('http://localhost:8080/endpoints/v1/employee/1/work-log/entries', data)
+					.post('http://localhost:8080/endpoints/v1/employee/' + currentEmployee.username() + '/work-log/entries', data)
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						$scope.update();
