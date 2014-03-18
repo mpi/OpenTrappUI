@@ -124,3 +124,17 @@ li.h10{
 li.h12{
     background-color: #275379;
 }
+.not-implemented{
+	text-decoration: line-through;
+}
+.example{
+	padding-left: 20px;
+	font-size: 16px;
+}
+.available-projects .panel-heading{
+	font-size: 18px;
+}
+.available-projects .panel-body{
+	font-size: 16px;
+	color: #999;
+}

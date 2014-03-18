@@ -4,7 +4,6 @@ angular.module('openTrApp').factory('authInterceptor', function($cookies){
 		
 		request: function(config){
 
-			config.headers = config.headers || {};
 			if($cookies.JSESSIONID){
 				config.url = config.url + ';jsessionid=' + $cookies.JSESSIONID;
 			}
