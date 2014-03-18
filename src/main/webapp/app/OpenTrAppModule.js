@@ -1,1 +1,1 @@
-angular.module('openTrApp', ['ngRoute', 'ngAnimate']);
+angular.module('openTrApp', ['ngRoute', 'ngAnimate','ngCookies']);

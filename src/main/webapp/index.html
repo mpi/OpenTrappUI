@@ -10,12 +10,14 @@
     <script type="text/javascript" src="lib/angular.js"></script>
     <script type="text/javascript" src="lib/angular-route.min.js"></script>
     <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular-cookies.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
     <script type="text/javascript" src="lib/moment.min.js" ></script>
     <script type="text/javascript" src="lib/sprintf.min.js" ></script>
     <script type="text/javascript" src="lib/lodash.min.js" ></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app/OpenTrAppModule.js"></script>
+    <script type="text/javascript" src="app/AuthInterceptor.js"></script>
     <script type="text/javascript" src="app/NgEnterDirective.js"></script>
     <script type="text/javascript" src="app/RouterCtrl.js"></script>
     <script type="text/javascript" src="app/TimeProvider.js"></script>
@@ -66,11 +68,11 @@
                         <span class="glyphicon glyphicon-user"></span>
                         Signed in as {{displayName}}
                     </span>
-                    <a ng-if="authenticated" href="http://localhost:8080{{logoutUrl}}">
+                    <a ng-if="authenticated" href="http://localhost:8080{{logoutUrl}}?redirect_to=http://localhost:8081/">
                         <span class="glyphicon glyphicon-off"></span>
                         Sign Out
                     </a>
-                    <a ng-if="!authenticated" href="http://localhost:8080{{loginUrl}}">
+                    <a ng-if="!authenticated" href="http://localhost:8080{{loginUrl}}?redirect_to=http://localhost:8081/">
                         <span class="glyphicon glyphicon-user"></span>
                         Sign In
                     </a>
