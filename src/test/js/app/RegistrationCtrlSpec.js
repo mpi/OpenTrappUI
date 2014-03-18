@@ -1,4 +1,4 @@
-ddescribe('Registration Controller should', function() {
+describe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
 
     var timeProvider;

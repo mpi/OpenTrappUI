@@ -1,5 +1,5 @@
 <!-- ConfigurationCtrl -->
-<div>
+<div ng-controller="SettingsCtrl" ng-init="init()">
     <div class="container">
         <div class="row" style="height:70px;">
             <div ng-repeat="alert in alerts" class="fade in alert alert-{{alert.type}} alert-dismissable">
@@ -20,19 +20,19 @@
                   <div class="form-group">
                     <label for="serverUrl" class="col-sm-3 control-label">OpenTrApp Server</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="serverUrl" value="http://open-trapp.heroku.com/">
+                      <input type="text" class="form-control" id="serverUrl" ng-model="apiServerUrl">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="defaultProject" class="col-sm-3 control-label">Default Project</label>
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="defaultProject" placeholder="#defaultProject">
+                      <input disabled="disabled" type="password" class="form-control" id="defaultProject" placeholder="#defaultProject">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                      <button type="submit" class="btn btn-primary pull-right">Update</button>
-                      <button type="reset" class="btn btn-link pull-right">Cancel</button>
+                      <button type="submit" ng-click="save()" class="btn btn-primary pull-right">Update</button>
+                      <button type="reset" ng-click="cancel()"  class="btn btn-link pull-right">Cancel</button>
                     </div>
                   </div>
                 </form>
