@@ -71,11 +71,11 @@
                         <span class="glyphicon glyphicon-user"></span>
                         Signed in as {{displayName}}
                     </span>
-                    <a ng-if="authenticated" href="http://localhost:8080{{logoutUrl}}?redirect_to=http://localhost:8081/">
+                    <a ng-if="authenticated" href="{{logoutUrl}}">
                         <span class="glyphicon glyphicon-off"></span>
                         Sign Out
                     </a>
-                    <a ng-if="!authenticated" href="http://localhost:8080{{loginUrl}}?redirect_to=http://localhost:8081/">
+                    <a ng-if="!authenticated" href="{{loginUrl}}">
                         <span class="glyphicon glyphicon-user"></span>
                         Sign In
                     </a>
