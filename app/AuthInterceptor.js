@@ -7,7 +7,7 @@ angular.module('openTrApp').factory('authInterceptor', function($cookies, $locat
 			if($location.search()['authToken']){
 				$cookies.authToken = $location.search()['authToken'];
 			}
-			if($cookies.authToken){
+			if($cookies.authToken && config.url.indexOf('/endpoints/') != -1){
 				config.url = config.url + ';jsessionid=' + $cookies.authToken;
 			}
 			return config;
