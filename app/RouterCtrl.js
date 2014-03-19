@@ -9,9 +9,9 @@ angular.module('openTrApp')
   $routeProvider.when('/config', {
 	  templateUrl: 'configuration.html'
   });
-//  $routeProvider.otherwise({
-//	redirectTo: 'registration'
-//  });
+  $routeProvider.otherwise({
+	  templateUrl: 'home.html'
+  });
   
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(false);
