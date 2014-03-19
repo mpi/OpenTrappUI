@@ -1,5 +1,5 @@
 <!-- ConfigurationCtrl -->
-<div ng-controller="SettingsCtrl" ng-init="init()">
+<div ng-controller="SettingsCtrl" ng-init="init()" class="config">
     <div class="container">
         <div class="row" style="height:70px;">
             <div ng-repeat="alert in alerts" class="fade in alert alert-{{alert.type}} alert-dismissable">
@@ -11,7 +11,7 @@
         </div>    
         <div class="row">    
             <div class="col-md-offset-2 col-md-8">
-                <h2>Settings <small>are stored in your browser's cookies.</small></h2>
+                <h2 class="page-header">Settings <small>are stored in your browser's cookies.</small></h2>
             </div>
         </div>
         <div class="row">
