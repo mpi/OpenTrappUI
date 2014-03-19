@@ -11,7 +11,7 @@
                 <h4>Month:</h4>
                 <ul class="nav nav-pills small">
                     <li ng-repeat="month in filter.months" ng-class="filter.isActive(month) ? 'active' : ''">
-                        <a ng-click="filter.setActive(month)">
+                        <a ng-click="filter.setActive(month)" href="#" onclick="return false;">
                             {{month}}
                             <span ng-if="filter.isActive(month)" class="badge badge-default">
                                 {{totalForMonth()}}
@@ -24,7 +24,7 @@
                 <h4>Projects:</h4>
                 <ul class="nav nav-pills small">
                     <li ng-repeat="project in projects" ng-class="{active: filter.isActiveProject(project)}">
-                        <a ng-click="filter.toggleActiveProject(project)">
+                        <a ng-click="filter.toggleActiveProject(project)" href="#" onclick="return false;">
                             {{project}}
                             <span ng-if="filter.isActiveProject(project)" class="badge badge-default">
                                 {{totalForProject(project)}}
@@ -38,7 +38,7 @@
                 <h4>Employees:</h4>
                 <ul class="nav nav-pills small">
                     <li ng-repeat="employee in employees" ng-class="{active: filter.isActiveEmployee(employee)}">
-                        <a ng-click="filter.toggleActiveEmployee(employee)">
+                        <a ng-click="filter.toggleActiveEmployee(employee)" href="#" onclick="return false;">
                             {{employee}}
                             <span ng-if="filter.isActiveEmployee(employee)" class="badge badge-default">
                                 {{totalForEmployee(employee)}}
@@ -54,12 +54,12 @@
                 <h2>2014/01</h2>
                 <ul class="nav nav-pills small">
                     <li ng-class="{active: display=='table'}" ng-click="display='table'">
-                        <a>
+                        <a href="#" onclick="return false;">
                             <span class="glyphicon glyphicon-th-list"></span>
                         </a>
                     </li>
                     <li ng-class="{active: display=='calendar'}" ng-click="display='calendar'">
-                        <a>
+                        <a href="#" onclick="return false;">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </a>
                     </li>
