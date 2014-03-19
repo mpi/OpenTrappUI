@@ -1,0 +1,104 @@
+<!-- RegistrationCtrl -->
+<div ng-controller="RegistrationCtrl">
+    <div class="container">
+        <div class="row" style="height:70px;">
+            <div ng-if="alert" class="fade in alert alert-{{alert.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                {{alert.message}}
+            </div>
+        </div>    
+        <div class="row">    
+            <div class="col-md-10 col-md-offset-1">
+                <h2>Report your time <small>using our expression language, to make it quick!</small></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="form-inline" role="form" style="width:100%">
+                    <div class="input-group has-feedback has-{{status}}">
+                        
+                        <span class="input-group-btn">
+                            <button
+                                ng-click="logWork()" 
+                                class="btn btn-lg btn-primary" 
+                                style="height:46px;" 
+                                type="button">
+                                
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                        </span>
+                        
+                        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        <span class="glyphicon glyphicon-ban-circle form-control-feedback"></span>
+    
+                        <input 
+                            class="form-control input-lg" 
+                            ng-model="workLogExpression"
+                            ng-change="update()" 
+                            type="text"
+                            ng-enter="logWork()"
+                            placeholder="1d #my-project">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div style="color:#999;" class="col-md-7 col-md-offset-1">
+                <h3 class="page-header">Examples:</h3>
+                
+                <div class="example">
+                    <code>1d #my-project</code>
+                    <p class="lead">Report <strong>8h</strong> to <strong>my-project</strong> for <strong>today</strong>.</p>
+                </div>
+                <div class="example">
+                    <code>1d #my-project @t-1</code>
+                    <p class="lead">Report <strong>8 hours</strong> to <strong>my-project</strong> for <strong>yesterday</strong>. </p>
+                </div>
+                <div class="example">
+                    <code>1d 2h 15m #my-project</code>
+                    <p class="lead">Report <strong>10 hours and 15 minutes</strong> to <strong>my-project</strong> for <strong>today</strong>. </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default available-projects" style="margin-top: 30px;">
+                    <div class="panel-heading">Available projects</div>
+                    <div class="panel-body">                
+                        <ul>
+                            <li ng-repeat="project in projectList">{{project}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div style="color:#999;" class="col-md-10 col-md-offset-1">
+                <div class="example">
+                    <code>1d on #my-project @1966/02/26</code>
+                    <p class="lead">Report <strong>8h</strong> to <strong>my-project</strong> on <strong>Feburary 26, 1966</strong>.</p>
+                <div class="example">
+                </div>
+                    <code>1d #my-project @monday</code>
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>last monday</strong>.</p>
+                </div>
+                <div class="example not-implemented">
+                    <code>1d</code>
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>your default project</strong> for <strong>today</strong>. (not yet implemented)</p>
+                </div>
+                <div class="example not-implemented">
+                    <code>1d #my-project @1 apr</code>
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>1st of April</strong>. (not yet implemented)</p>
+                </div>
+                <div class="example not-implemented">
+                    <code>1d #my-project @monday~1</code>
+                    <p class="lead">Report <strong>8 hours </strong> to <strong>my project</strong> for <strong>monday and tuesday</strong>. (not yet implemented)</p>
+                </div>                
+            
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- /RegistrationCtrl -->
