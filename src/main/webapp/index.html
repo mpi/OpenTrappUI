@@ -45,20 +45,20 @@
           </a>
         </div>
     
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{active: isActive('/registration')}">
+          <ul class="nav navbar-nav navbar-right" ng-controller="SignInCtrl" ng-init="init()">
+            <li ng-if="authenticated" ng-class="{active: isActive('/registration')}">
                 <a href="#/registration">
                     <span class="glyphicon glyphicon-plus"></span>
                     Register time
                 </a>
             </li>
-            <li ng-class="{active: isActive('/report')}">
+            <li ng-if="authenticated" ng-class="{active: isActive('/report')}">
                 <a href="#/report">
                     <span class="glyphicon glyphicon-stats"></span>
                     Reports
                 </a>
             </li>
-            <li ng-class="{active: isActive('/config')}">
+            <li ng-if="authenticated" ng-class="{active: isActive('/config')}">
                 <a href="#/config">
                     <span class="glyphicon glyphicon-wrench"></span>
                     <!-- <span class="glyphicon glyphicon-cog"></span> -->
@@ -66,10 +66,10 @@
                 </a>
             </li>
             <li>
-                <p class="navbar-text" ng-controller="SignInCtrl" ng-init="init()">
+                <p class="navbar-text sign-in">
                     <span ng-if="authenticated">
                         <span class="glyphicon glyphicon-user"></span>
-                        Signed in as {{displayName}}
+                        {{username}}
                     </span>
                     <a ng-if="authenticated" href="{{logoutUrl}}">
                         <span class="glyphicon glyphicon-off"></span>
