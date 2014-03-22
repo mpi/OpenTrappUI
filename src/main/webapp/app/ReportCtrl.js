@@ -25,6 +25,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                     } else {
                         this[list].push(entry);
                     }
+                    updateChart();
                 }, toggleActiveEmployee: function (employee) {
                     this.toggleElementOnList('activeEmployees', employee);
                 },
@@ -38,6 +39,9 @@ angular.module('openTrApp').controller('ReportCtrl',
             $scope.filter.setActive($scope.filter.activeMonth);
         };
 
+        $scope.projects = [];
+        $scope.workLog = {items: []};
+        
         $scope.fetchItems = function (month) {
             $http.get('http://localhost:8080/endpoints/v1/calendar/' + month + '/work-log/entries').success(function (data) {
                 $scope.workLog = data;
@@ -45,6 +49,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                 $scope.employees = distinct('employee');
                 $scope.filter.activeProjects = $scope.projects;
                 $scope.filter.activeEmployees = $scope.employees;
+                updateChart();
             });
 
             function distinct(property) {
@@ -81,5 +86,41 @@ angular.module('openTrApp').controller('ReportCtrl',
         $scope.totalForProject = function(project){
         	return totalByFilter(function(x){ return x.projectName == project});
         };
-    })
-;
+
+        $scope.shareForProject = function(project){
+        	var p = new Workload($scope.totalForProject(project)).minutes;
+        	var t = new Workload($scope.totalForMonth()).minutes;
+        	return Math.round(p/t * 100) + "%";
+        };
+        
+        var colors = ['#F7464A', '#E2EAE9', '#D4CCC5', '#949FB1', '#4D5360', '#F38630', '#E0E4CC', '#69D2E7'];
+
+        $scope.colorFor = function(project){
+        	return colors[$scope.projects.indexOf(project)];
+        };
+        
+        var updateChart = function(){
+
+        	var chartElement = document.getElementById("projectShare");
+        	
+        	if(!chartElement){
+        		return;
+        	}
+        	
+        	var ctx = chartElement.getContext("2d");
+        	var data = [];
+        	
+        	for(i=0; i<$scope.filter.activeProjects.length; i++){
+        		var p = $scope.filter.activeProjects[i];
+        		var wl = $scope.totalForProject(p);
+        		var share = new Workload(wl).minutes;
+        		data.push({
+        			value: share,
+        			color: $scope.colorFor(p),
+        			label: wl
+        		});
+        	}
+        	
+        	var chart = new Chart(ctx).Doughnut(data);                        
+        };
+    });
