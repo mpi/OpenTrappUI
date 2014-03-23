@@ -1,5 +1,10 @@
 describe('Registration Controller should', function() {
 	beforeEach(module('openTrApp'));
+    beforeEach(inject(function(_enviromentInterceptor_){
+    	_enviromentInterceptor_.request = function(x){
+    		return x;
+    	};
+    }));
 
     var timeProvider;
     var projectList;

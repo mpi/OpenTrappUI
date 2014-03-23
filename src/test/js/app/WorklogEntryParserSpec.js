@@ -10,7 +10,7 @@ describe('WorkLogEntry Parser should', function() {
 	beforeEach(inject(function(_worklogEntryParser_, _timeProvider_) {
         timeProvider = _timeProvider_;
         worklogEntryParser = _worklogEntryParser_
-        spyOn(timeProvider,'getCurrentDate').and.returnValue(new Date(currentDateString));
+        spyOn(timeProvider,'getCurrentDate').andReturn(new Date(currentDateString));
 	}));
 
 	it('parse full worklog', function() {

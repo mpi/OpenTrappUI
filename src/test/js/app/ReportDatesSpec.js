@@ -10,7 +10,7 @@ describe('Report dates', function () {
     }));
 
     it('returns 3 last months', function () {
-        spyOn(timeProvider,'getCurrentDate').and.returnValue(new Date("2014-02-01"));
+        spyOn(timeProvider,'getCurrentDate').andReturn(new Date("2014-02-01"));
 
         var reportMonths = reportDates.getMonths();
 

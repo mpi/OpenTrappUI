@@ -94,8 +94,8 @@ angular.module('openTrApp').controller('ReportCtrl',
         };
         
 //        var colors = ['#F7464A', '#E2EAE9', '#D4CCC5', '#949FB1', '#4D5360', '#F38630', '#E0E4CC', '#69D2E7'];
-
 //        var colors = ['88', 'AA', 'CC'];
+
         var colors = ['88', 'AA', 'CC'];
         
         $scope.colorFor = function(project){

@@ -1,7 +1,12 @@
-ddescribe("SignIn", function(){
+describe("SignIn", function(){
 	
     beforeEach(module('openTrApp'));
-
+    beforeEach(inject(function(_enviromentInterceptor_){
+    	_enviromentInterceptor_.request = function(x){
+    		return x;
+    	};
+    }));
+    
     var scope, httpBackend;
     var currentEmployee;
     var location; 
@@ -53,5 +58,4 @@ ddescribe("SignIn", function(){
     	
     	expect(currentEmployee.signedInAs).toHaveBeenCalledWith('homer.simpson');
     });
-    
 });

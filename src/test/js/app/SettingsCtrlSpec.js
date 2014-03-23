@@ -1,4 +1,4 @@
-ddescribe("Settings", function(){
+describe("Settings", function(){
 	
     beforeEach(module('openTrApp'));
 

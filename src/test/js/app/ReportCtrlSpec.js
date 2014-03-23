@@ -1,6 +1,11 @@
 describe('Report Controller', function () {
 
     beforeEach(module('openTrApp'));
+    beforeEach(inject(function(_enviromentInterceptor_){
+    	_enviromentInterceptor_.request = function(x){
+    		return x;
+    	};
+    }));
 
     var scope, httpBackend, reportDates;
 
@@ -18,14 +23,14 @@ describe('Report Controller', function () {
     });
 
     it('fetch items for active month', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
+        spyOn(reportDates, 'getMonths').andReturn(["2014/02", "2014/01"]);
         worklogForMonthContains("2014/02", items);
 
         expect(scope.workLog.items).toEqual(items);
     });
 
     it('fetch report dates', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/01"]);
+        spyOn(reportDates, 'getMonths').andReturn(["2014/01"]);
 
         scope.init();
 
@@ -33,7 +38,7 @@ describe('Report Controller', function () {
     });
 
     it('first month is active by default', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
+        spyOn(reportDates, 'getMonths').andReturn(["2014/02", "2014/01"]);
 
         scope.init();
 
@@ -41,7 +46,7 @@ describe('Report Controller', function () {
     });
 
     it('should set active month', function () {
-        spyOn(reportDates, 'getMonths').and.returnValue(["2014/02", "2014/01"]);
+        spyOn(reportDates, 'getMonths').andReturn(["2014/02", "2014/01"]);
         scope.init();
 
         scope.filter.setActive("2013/12");
@@ -377,6 +382,6 @@ describe('Report Controller', function () {
     }
 
     function currentMonthIs(currentMonth) {
-        spyOn(reportDates, 'getMonths').and.returnValue([currentMonth]);
+        spyOn(reportDates, 'getMonths').andReturn([currentMonth]);
     }
 });
