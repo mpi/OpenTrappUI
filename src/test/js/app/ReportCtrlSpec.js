@@ -336,7 +336,7 @@ describe('Report Controller', function () {
     		
     	});
     	
-    	it("calculates total workload for active projects", function(){
+    	it("calculates share for active project", function(){
     		
     		scope.init();
     		scope.filter.activeEmployees = ["active"];
@@ -366,8 +366,8 @@ describe('Report Controller', function () {
     		                 ]
     		};
     		
-    		expect(scope.totalForProject("ProjectManhattan")).toEqual("4h");
-    		expect(scope.totalForProject("OtherProject")).toEqual("0h");
+    		expect(scope.shareForProject("ProjectManhattan")).toEqual("67%");
+    		expect(scope.shareForProject("ApolloProgram")).toEqual("33%");
     	});
     	
     });
