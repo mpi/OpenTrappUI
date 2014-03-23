@@ -93,10 +93,21 @@ angular.module('openTrApp').controller('ReportCtrl',
         	return Math.round(p/t * 100) + "%";
         };
         
-        var colors = ['#F7464A', '#E2EAE9', '#D4CCC5', '#949FB1', '#4D5360', '#F38630', '#E0E4CC', '#69D2E7'];
+//        var colors = ['#F7464A', '#E2EAE9', '#D4CCC5', '#949FB1', '#4D5360', '#F38630', '#E0E4CC', '#69D2E7'];
+//        var colors = ['88', 'AA', 'CC'];
 
+        var colors = ['88', 'AA', 'CC'];
+        
         $scope.colorFor = function(project){
-        	return colors[$scope.projects.indexOf(project)];
+        
+        	var i = $scope.projects.indexOf(project);
+        	var num = (i * 11 + 5) % 27;
+			
+			c1 = Math.floor(num/9);
+			c2 = Math.floor((num - c1*9)/3);
+			c3 = num % 3;
+			
+			return '#' + colors[c1] + colors[c2] + colors[c3];
         };
         
         var updateChart = function(){
@@ -121,6 +132,8 @@ angular.module('openTrApp').controller('ReportCtrl',
         		});
         	}
         	
-        	var chart = new Chart(ctx).Doughnut(data);                        
+        	var chart = new Chart(ctx).Doughnut(data, {
+        		animationEasing : "easeOutQuart"
+        	});                        
         };
     });
