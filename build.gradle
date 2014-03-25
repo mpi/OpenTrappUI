@@ -16,11 +16,26 @@ task karmaTest(type:Exec) {
 }
 
 githubPages {
-    repoUri = 'git@github.com:mpi/OpenTrappUI.git'
     pages {
         from 'src/main/webapp'
     }
 }
+
+task useTest << {
+    githubPages.repoUri = 'git@github.com:mpi/OpenTrAppUI.git'
+    println "Publishing to Test($githubPages.repoUri)"
+}
+task useProd << {
+    githubPages.repoUri = 'git@github.com:Pragmatists/OpenTrappUI.git'
+    println "Publishing to Prod($githubPages.repoUri)"
+}
+
+
+task publishTest(dependsOn: [useTest, publishGhPages]) {}
+task publishProd(dependsOn: [useProd, publishGhPages]) {}
+
+publishGhPages.mustRunAfter useProd
+publishGhPages.mustRunAfter useTest
 
 jettyRun.contextPath = ''
 jettyRun.httpPort = 8081
