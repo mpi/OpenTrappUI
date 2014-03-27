@@ -61,6 +61,13 @@ angular.module('openTrApp').controller('ReportCtrl',
             return $scope.filter.isActiveProject(item.projectName) && $scope.filter.isActiveEmployee(item.employee);
         };
 
+        $scope.remove = function (entry) {
+        	
+        	$http({method: 'DELETE', url: 'http://localhost:8080/endpoints/v1/work-log/entries/' + entry.id}).success(function (data) {
+        		$scope.fetchItems($scope.filter.activeMonth);
+        	});
+        }
+        
         var totalByFilter = function(filter){
 
         	var x = _($scope.workLog.items)
