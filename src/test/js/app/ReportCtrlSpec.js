@@ -371,6 +371,24 @@ describe('Report Controller', function () {
     	});
     	
     });
+
+    it('should delete entry', function () {
+
+    	scope.init();
+        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + "2014/03" + "/work-log/entries").respond(200, {
+            "items": items
+        });
+        httpBackend.expectDELETE("http://localhost:8080/endpoints/v1/work-log/entries/WL.1234").respond(204);
+        httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + "2014/03" + "/work-log/entries").respond(200, {
+            "items": []
+        });
+
+        scope.remove({
+        	"id": "WL.1234"
+        });
+        httpBackend.flush();
+    });
+
     
     function worklogForMonthContains(month, items) {
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + month + "/work-log/entries").respond(200, {
