@@ -59,17 +59,19 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 				}
 			};
 			
+			
+			// AngularUI sucks
+			var tmp = '';
+			
 			$scope.$watch('workLogExpression', function(newVal, oldVal){
+				tmp = newVal;
 				calculateSuggestions(newVal);
 				update();
 			});
 			
 			$scope.selectSuggestion = function(suggestion){
 				
-				console.log(suggestion);
-				console.log($scope.workLogExpression);
-				
-				var prefix = editingProjectName($scope.workLogExpression);
-				$scope.workLogExpression = $scope.workLogExpression.replace(prefix, suggestion + ' '); 
+				var prefix = editingProjectName(tmp);
+				$scope.workLogExpression = tmp.replace('#' + prefix, '#' + suggestion + ' '); 
 			};
 		});

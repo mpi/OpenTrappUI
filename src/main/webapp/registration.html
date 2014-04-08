@@ -16,15 +16,15 @@
         </div>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+                <form ng-submit="logWork()">
                 <div class="form-inline" role="form" style="width:100%">
                     <div class="input-group has-feedback has-{{status}}">
                         
                         <span class="input-group-btn">
                             <button
-                                ng-click="logWork()"
                                 class="btn btn-lg btn-primary"
                                 style="height:46px;" 
-                                type="button">
+                                type="submit">
                                 <span class="glyphicon glyphicon-time"></span>
                             </button>
                         </span>
@@ -39,11 +39,11 @@
                             typeahead="s for s in suggestions"
                             typeahead-wait-ms="100"
                             typeahead-on-select="selectSuggestion($item)"
-                            ng-enter="logWork()"
                             placeholder="1d #my-project">
                         </input>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
