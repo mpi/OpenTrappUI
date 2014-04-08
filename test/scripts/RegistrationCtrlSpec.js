@@ -150,7 +150,7 @@ describe('Registration Controller should', function() {
 	it('shows success fedback if expression is valid', function() {
 
 		userTypes('2h #ProjectManhattan @2014/01/03');
-		
+
 		expect(scope.status).toBe('success');
 	});
 

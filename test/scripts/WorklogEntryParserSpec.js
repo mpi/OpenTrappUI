@@ -145,8 +145,22 @@ describe('WorkLogEntry Parser should', function() {
         expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
     });
 
-    it('not parse worklog with double workload info', function() {
+    it('not parse worklog with double workload hours info', function() {
         workLogExpression = '#Project-Manhattan 2h 3h';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+        expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse worklog with double workload days info', function() {
+        workLogExpression = '#Project-Manhattan 1d 1d';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+        expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse worklog with double workload minutes info', function() {
+        workLogExpression = '#Project-Manhattan 30m 45m';
 
         expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
         expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
@@ -157,5 +171,33 @@ describe('WorkLogEntry Parser should', function() {
 
         expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
         expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse entry with invalid number', function() {
+        workLogExpression = '1h #Project-Manhattan 2h 3h @t-123456789';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+        expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse entry with long worload', function() {
+        workLogExpression = '17h #Project-Manhattan';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+        expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse entry with long worload', function() {
+        workLogExpression = '-10h #Project-Manhattan';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
+        expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
+    });
+
+    it('not parse entry with wrong date', function() {
+        workLogExpression = '4h 30m #Project-Manhattan @2014/1/1';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(true);
+        expect(worklogEntryParser.parse(workLogExpression).day).toEqual(yesterdayDateString);
     });
 });
