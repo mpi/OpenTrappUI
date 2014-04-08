@@ -142,39 +142,36 @@ describe('Registration Controller should', function() {
 
         httpBackend.verifyNoOutstandingExpectation();
     });
-	
+
+    var userTypes = function(input){
+    	scope.workLogExpression = input;
+    	scope.$digest();
+    };
+    
 	it('shows success fedback if expression is valid', function() {
 
-		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
-		
-		scope.update();
+		userTypes('2h on #ProjectManhattan @2014/01/03');
 		
 		expect(scope.status).toBe('success');
 	});
 
     it('be valid for worklog without date', function() {
 
-        scope.workLogExpression = '2h on #ProjectManhattan';
-
-        scope.update();
+    	userTypes('2h on #ProjectManhattan');
 
         expect(scope.status).toBe('success');
     });
 
 	it('shows error fedback if expression is not valid', function() {
 		
-		scope.workLogExpression = 'not valid';
-		
-		scope.update();
+		userTypes('not valid');
 		
 		expect(scope.status).toBe('error');
 	});
 	
 	it('shows no fedback if expression is empty', function() {
 		
-		scope.workLogExpression = '';
-		
-		scope.update();
+		userTypes('');
 		
 		expect(scope.status).toBe('');
 	});

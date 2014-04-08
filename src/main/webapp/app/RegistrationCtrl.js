@@ -1,6 +1,7 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http, currentEmployee, worklogEntryParser, projectList) {
             $scope.projectList = projectList.projectList;
+            $scope.suggestions = projectList.projectList;
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
@@ -17,7 +18,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					.post('http://localhost:8080/endpoints/v1/employee/' + currentEmployee.username() + '/work-log/entries', data)
 					.success(function(response, status){
 						$scope.workLogExpression = '';
-						$scope.update();
+						update();
                         var message = sprintf("%s logged on project '%s' at %s", data.workload, data.projectName, data.day);
                         $scope.alert = ({ type: 'success', message: message});
 					}).error(function(response,status){
@@ -25,9 +26,25 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                         $scope.alert = ({ type: 'danger', message: message});
                     });
 			};
+
+			var isEditingProjectName = function(input){
+				
+				var r = /.*#[^\s]*$/;
+				
+				return r.test(input);
+			};
+			var calculateSuggestions = function(){
+				
+				if (isEditingProjectName($scope.workLogExpression)){
+					$scope.suggestions = projectList.projectList;
+				} else{
+					$scope.suggestions = [];
+				}
+			};
 			
-			
-			$scope.update = function(){
+			var update = function(){
+				
+				
 				
 				if($scope.workLogExpression == ''){
 					$scope.status = '';
@@ -41,4 +58,8 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 				}
 			};
 			
+			$scope.$watch('workLogExpression', function(newVal, oldVal){
+				calculateSuggestions();
+				update();
+			});
 		});
