@@ -50,12 +50,31 @@ module.exports = function (grunt) {
 
                 runInBackground: false
             }
+        },
+        'gh-pages': {
+            options: {
+                base: 'app',
+                message: 'Publish to github pages from grunt'
+            },
+            'prod': {
+                options: {
+                    repo: 'git@github.com:Pragmatists/OpenTrappUI.git'
+                },
+                src: '**/*'
+            },
+            'dev-mpi': {
+                options: {
+                    repo: 'git@github.com:mpi/OpenTrappUI.git'
+                },
+                src: '**/*'
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-bower');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-gh-pages');
 
     grunt.registerTask('default', ['bower', 'karma:unit']);
 
