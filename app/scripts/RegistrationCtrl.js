@@ -1,6 +1,7 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
 		function($scope, $http, currentEmployee, worklogEntryParser, projectNames, $q) {
 
+			$scope.workLogExpression = '';
 			$scope.suggestions = [];
 			$scope.logWork = function(){
 				
@@ -51,7 +52,6 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 					$scope.status = 'error';
 				}
 			};
-			
 			
 			// AngularUI sucks
 			var tmp = '';
