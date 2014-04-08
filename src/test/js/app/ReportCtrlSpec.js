@@ -152,6 +152,7 @@ describe('Report Controller', function () {
 
     describe('filters',function(){
         it('all project are active by default',function(){
+            currentMonthIs("2014/03");
             worklogForMonthContains("2014/03", [
                 {
                     "projectName": "ProjectManhattan"
@@ -167,6 +168,7 @@ describe('Report Controller', function () {
         });
 
         it('all employees are selected by default',function(){
+            currentMonthIs("2014/03");
             worklogForMonthContains("2014/03", [
                 {
                     "employee": "bart.simpson"
@@ -373,6 +375,7 @@ describe('Report Controller', function () {
     });
 
     it('should delete entry', function () {
+        currentMonthIs("2014/03");
 
     	scope.init();
         httpBackend.expectGET("http://localhost:8080/endpoints/v1/calendar/" + "2014/03" + "/work-log/entries").respond(200, {

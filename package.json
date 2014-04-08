@@ -1,9 +1,8 @@
 {
     "devDependencies": {
-        "karma": "~0.8",
-        "angular": "~1.0.5"
-    },
-    "scripts": {
-        "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS src/test/js/karma.conf.js"
+        "karma": "^0.12.4",
+        "karma-phantomjs-launcher": "^0.1.4",
+        "karma-chrome-launcher": "^0.1.3",
+        "karma-jasmine": "^0.1.5"
     }
 }

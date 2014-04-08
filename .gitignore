@@ -28,3 +28,7 @@ gradle/
 gradle*
 
 /local.properties
+
+#node
+node_modules/
+npm-debug.log

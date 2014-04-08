@@ -1,6 +1,6 @@
 module.exports = function (config) {
     config.set({
-        basePath: '../../../',
+        basePath: '../../../src/',
         exclude: ['**/bootstrap.js', '**/bootstrap.min.js'],
         frameworks: ['jasmine'],
         files: [
@@ -13,6 +13,6 @@ module.exports = function (config) {
         browsers: [
             'PhantomJS'
         ],
-        autoWatch: true
+        autoWatch: false
     });
 };
