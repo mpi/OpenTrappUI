@@ -14,10 +14,23 @@ Open Time Registration Application
     npm install -g grunt-cli # you might need root privilges
     npm install
 
-### run tests
-
+### Run tests
     grunt
 
-### run server
-
+### Run local server
     grunt server
+
+### Other available tasks
+
+Run unit tests in 'single run' mode
+
+    grunt karma:unit
+
+Run unit tests in 'continuous run' mode with 'autoWatch'
+
+    grunt karma:dev
+
+Publish on Github on PROD
+
+    grunt gh-pages:prod
+
