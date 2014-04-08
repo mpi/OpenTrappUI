@@ -9,7 +9,6 @@ describe('Registration Controller should', function() {
     var timeProvider;
     var projectList;
     var currentDateString = "2014/01/02";
-    var yesterdayDateString = "2014/01/01";
     var employeeUsername = 'homer.simpson';
 
 	var scope, httpBackend;
