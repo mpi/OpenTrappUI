@@ -12,6 +12,9 @@ Open Time Registration Application
 ### Install node modules (run in project directory)
 
 > * npm install
+> * npm install -g grunt-cli bower
+> * bower install
+> * grunt
 
 ### run tests   
 

@@ -12,7 +12,7 @@ apply plugin: 'jetty'
 apply plugin: 'github-pages'
 
 task karmaTest(type:Exec) {
-    commandLine './node_modules/karma/bin/karma start --singleRun true --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
+    commandLine './node_modules/karma/bin/karma start --singleRun true --browsers PhantomJS test/karma.conf.js'.tokenize()
 }
 
 githubPages {

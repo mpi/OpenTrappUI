@@ -1,0 +1,48 @@
+<!-- ConfigurationCtrl -->
+<div ng-controller="SettingsCtrl" ng-init="init()" class="config">
+    <div class="container">
+        <div class="row" style="height:70px;">
+            <div ng-repeat="alert in alerts" class="fade in alert alert-{{alert.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                {{alert.message}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h2 class="page-header">Settings
+                    <small>are stored in your browser's cookies.</small>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="serverUrl" class="col-sm-3 control-label">OpenTrApp Server</label>
+
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="serverUrl" ng-model="apiServerUrl">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="defaultProject" class="col-sm-3 control-label">Default Project</label>
+
+                        <div class="col-sm-9">
+                            <input disabled="disabled" type="password" class="form-control" id="defaultProject"
+                                   placeholder="#defaultProject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" ng-click="save()" class="btn btn-primary pull-right">Update</button>
+                            <button type="reset" ng-click="cancel()" class="btn btn-link pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ConfigurationCtrl -->

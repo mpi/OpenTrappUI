@@ -1,0 +1,265 @@
+a {
+    cursor: pointer;
+}
+
+code {
+    font-size: 18px;
+    line-height: 200%;
+}
+
+.has-feedback .glyphicon-remove,
+.has-feedback .glyphicon-ban-circle {
+    padding: 7px;
+    margin-right: 10px;
+    font-size: 2em;
+    z-index: 3;
+}
+
+.has-feedback .glyphicon-ok {
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 2em;
+    z-index: 3;
+}
+
+.has-feedback.has-error .glyphicon-remove,
+.has-feedback.has-error .glyphicon-ban-circle,
+.has-feedback.has-success .glyphicon-ok {
+    display: inline-block;
+}
+
+.has-feedback .glyphicon-ok,
+.has-feedback .glyphicon-remove,
+.has-feedback .glyphicon-ban-circle {
+    display: none;
+}
+
+.content {
+    position: relative;
+}
+
+.view.ng-enter, .view.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    width: 100%;
+}
+
+.view.ng-enter {
+    position: absolute;
+    left: 100%;
+}
+
+.view.ng-enter.ng-enter-active {
+    left: 0px;
+}
+
+.view.ng-leave {
+    position: absolute;
+    left: 0px;
+}
+
+.view.ng-leave.ng-leave-active {
+    left: -100%;
+}
+
+.worklog-entry {
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.worklog-entry.ng-move,
+.worklog-entry.ng-enter,
+.worklog-entry.ng-leave {
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+
+.worklog-entry.ng-leave.ng-leave-active,
+.worklog-entry.ng-move,
+.worklog-entry.ng-enter {
+    opacity: 0;
+}
+
+.worklog-entry.ng-leave,
+.worklog-entry.ng-move.ng-move-active,
+.worklog-entry.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+<!--
+-->
+
+.small.nav > li > a {
+    padding: 6px 12px;
+    min-height: 30px;
+}
+
+.small.nav-pills > li {
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.badge.badge-primary {
+    background-color: #428bca;
+    color: #fff;
+}
+
+.week > div {
+    min-height: 100px;
+    border: 1px solid #e1e1e8;
+    border-collapse: collapse;
+}
+
+.week > div.weekend {
+    background-color: #f7f7f9;
+}
+
+ul.work-log-entries {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.work-log-entries > li {
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    display: inline-block;
+}
+
+li.h2 {
+    background-color: #b3d0e9;
+}
+
+li.h4 {
+    background-color: #8db9df;
+}
+
+li.h6 {
+    background-color: #67a2d4;
+}
+
+li.h8 {
+    background-color: #428bca;
+}
+
+li.h10 {
+    background-color: #346fa1;
+}
+
+li.h12 {
+    background-color: #275379;
+}
+
+.not-implemented {
+    text-decoration: line-through;
+}
+
+.example {
+    padding-left: 20px;
+    font-size: 16px;
+}
+
+.available-projects .panel-heading {
+    font-size: 18px;
+}
+
+.available-projects .panel-body {
+    font-size: 16px;
+    color: #999;
+}
+
+.sign-in {
+    margin-left: 36px;
+}
+
+.sign-in a {
+    margin-left: 16px;
+}
+
+.welcome {
+    background-color: #2d6ca2;
+    background-position: 0px -100px;
+    background-image: linear-gradient(to bottom, #428bca 0, #2d6ca2 100%);
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    padding-top: 120px;
+    padding-bottom: 30px;
+    box-shadow: inset 0 1px 15px rgba(0, 0, 0, .3);
+}
+
+.registration {
+    margin-top: 50px;
+}
+
+.config {
+    margin-top: 50px;
+}
+
+.report {
+    margin-top: 50px;
+}
+
+.welcome h1 {
+    font-size: 50px;
+}
+
+.welcome span.brand {
+    font-size: 56px;
+}
+
+.navbar-default {
+    background-image: none;
+}
+
+.features {
+    padding-top: 50px;
+    text-align: center;
+}
+
+.features .glyphicon {
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #2d6ca2;
+}
+
+.features p.lead {
+    color: #999999;
+}
+
+.calendar td.weekend, .calendar th.weekend {
+    abackground-color: #ddd !important;
+    background-color: #f0f0f0 !important;
+}
+
+.calendar td {
+    width: 30px;
+    font-size: 11px;
+    text-align: right;
+    padding-right: 12px !important;
+}
+
+.calendar th {
+    width: 30px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.calendar th > div {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.calendar td.employee,
+.calendar td.total {
+    font-size: 14px;
+    text-align: left;
+}
+
+.calendar th.employee,
+.calendar th.total {
+    font-size: 14px;
+    text-align: left;
+}
+
