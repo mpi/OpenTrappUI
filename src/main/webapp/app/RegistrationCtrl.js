@@ -27,24 +27,25 @@ angular.module('openTrApp').controller('RegistrationCtrl',
                     });
 			};
 
-			var isEditingProjectName = function(input){
-				
-				var r = /.*#[^\s]*$/;
-				
-				return r.test(input);
+			var r = /.*#([^\s]*)$/;
+			var editingProjectName = function(input){
+				return r.exec(input)[1];
 			};
-			var calculateSuggestions = function(){
-				
-				if (isEditingProjectName($scope.workLogExpression)){
-					$scope.suggestions = projectList.projectList;
+			var isEditingProjectName = function(input){
+				return r.test(input)
+			};
+			var calculateSuggestions = function(input){
+				if (isEditingProjectName(input)){
+					var prefix = editingProjectName(input);
+					$scope.suggestions = _(projectList.projectList).filter(function(x){
+						return x.indexOf(prefix) == 0;
+					}).value();
 				} else{
 					$scope.suggestions = [];
 				}
 			};
 			
 			var update = function(){
-				
-				
 				
 				if($scope.workLogExpression == ''){
 					$scope.status = '';
@@ -59,7 +60,16 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 			};
 			
 			$scope.$watch('workLogExpression', function(newVal, oldVal){
-				calculateSuggestions();
+				calculateSuggestions(newVal);
 				update();
 			});
+			
+			$scope.selectSuggestion = function(suggestion){
+				
+				console.log(suggestion);
+				console.log($scope.workLogExpression);
+				
+				var prefix = editingProjectName($scope.workLogExpression);
+				$scope.workLogExpression = $scope.workLogExpression.replace(prefix, suggestion + ' '); 
+			};
 		});

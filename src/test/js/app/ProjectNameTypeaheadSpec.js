@@ -27,9 +27,10 @@ describe("ProjectNameTypeahead", function(){
 		scope.workLogExpression = input;
 		scope.$digest();
 	};
-//	var userTypedBefore = function(input){
-//		userTypes(input);
-//	}
+	
+	var userConfirmFirstSuggestion = function(){
+		scope.selectSuggestion(scope.suggestions[0]);
+	};
 	
 	it("suggests all available projects after typing #", function(){
 
@@ -66,9 +67,20 @@ describe("ProjectNameTypeahead", function(){
 		// given:
 		followingProjectsAreAvailable('ProjectManhattan', 'ApolloProgram');
 		// when:
-		userTypes('#App')
+		userTypes('#Ap')
 		// then:
 		expect(suggestedProjectNames()).toEqual(['ApolloProgram']);
+	});
+	
+	it("complete project name on selecting suggestions", function(){
+		
+		// given:
+		followingProjectsAreAvailable('ProjectManhattan', 'ApolloProgram');
+		// when:
+		userTypes('1d #ApolloPro')
+		userConfirmFirstSuggestion();
+		// then:
+		expect(scope.workLogExpression).toEqual('1d #ApolloProgram ');
 	});
 	
 });

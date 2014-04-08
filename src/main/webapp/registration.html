@@ -21,11 +21,10 @@
                         
                         <span class="input-group-btn">
                             <button
-                                ng-click="logWork()" 
-                                class="btn btn-lg btn-primary" 
+                                ng-click="logWork()"
+                                class="btn btn-lg btn-primary"
                                 style="height:46px;" 
                                 type="button">
-                                
                                 <span class="glyphicon glyphicon-time"></span>
                             </button>
                         </span>
@@ -37,6 +36,9 @@
                             class="form-control input-lg" 
                             ng-model="workLogExpression"
                             type="text"
+                            typeahead="s for s in suggestions"
+                            typeahead-wait-ms="100"
+                            typeahead-on-select="selectSuggestion($item)"
                             ng-enter="logWork()"
                             placeholder="1d #my-project">
                         </input>
