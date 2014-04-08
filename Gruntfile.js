@@ -1,12 +1,12 @@
 module.exports = function (grunt) {
 
-    const lib = 'app/lib';
+    const libPath = 'app/lib';
 
     grunt.initConfig({
         bower: {
             dev: {
-                dest: lib,
-                css_dest: lib + '/css',
+                dest: libPath,
+                css_dest: libPath + '/css',
                 options: {
                     stripAffix: true,
                     packageSpecific: {
@@ -17,8 +17,8 @@ module.exports = function (grunt) {
                             ]
                         },
                         bootstrap: {
-                            dest: lib + '/fonts',
-                            js_dest: lib,
+                            dest: libPath + '/fonts',
+                            js_dest: libPath,
                             files: [
                                 'dist/css/bootstrap-theme.css'
                             ]
@@ -71,13 +71,21 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('cleanLib', function () {
+        var rimraf = require('rimraf');
+        var done = this.async();
+        rimraf(libPath, function () {
+            grunt.log.writeln('Directory ' + libPath + ' removed.');
+            done();
+        });
+    });
+
     grunt.loadNpmTasks('grunt-bower');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-http-server');
     grunt.loadNpmTasks('grunt-gh-pages');
 
-    grunt.registerTask('default', ['bower', 'karma:unit']);
+    grunt.registerTask('default', ['cleanLib', 'bower', 'karma:unit']);
 
     grunt.registerTask('server', ["default", 'http-server:dev']);
-
 };
