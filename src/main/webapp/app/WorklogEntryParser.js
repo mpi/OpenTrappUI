@@ -1,7 +1,8 @@
 angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider) {
 
+    var maxDaysForDiff = 365;
     var projectPattern = /#([a-zA-Z0-9_-]+)/;
-    var workloadPattern = /^(\d+d)? *(\d+h(?![1-9]h))? *(\d+m)?$/;
+    var workloadPattern = /^(\d+d)? *(\d+h)? *(\d+m)?$/;
     var dayPattern = /@([0-9\/]*)/;
     var daysAgoPattern = /@t([-+]\d*)/;
     var dayOfWeekPattern = /@(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i;
@@ -53,25 +54,39 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
         return /@yesterday/.test(expression);
     }
 
+    function fitsDaysDiffLimit(expression) {
+        return Math.abs(daysAgoPattern.exec(expression)[1]) <= maxDaysForDiff;
+    }
+
     function isForDaysAgo(expression) {
-        return daysAgoPattern.test(expression);
+        return daysAgoPattern.test(expression) && fitsDaysDiffLimit(expression);
     }
 
     function isForDayOfWeek(expression) {
         return dayOfWeekPattern.test(expression);
     }
 
-    var dayValid = function (expression) {
+    function dayValid(expression) {
         return hasValidDateExpression(expression) || forYesterday(expression) || isForDaysAgo(expression) || isForDayOfWeek(expression)
-    };
+    }
 
     function projectValid(expression) {
         return projectPattern.test(expression);
     }
 
-    var workloadValid = function (expression) {
+    function workloadValid(expression) {
         return workloadPattern.test(expression);
-    };
+    }
+
+    function workloadIsTooLong(workload) {
+        var days = parseInt(workloadPattern.exec(workload)[1]) || 0;
+        var hours = parseInt(workloadPattern.exec(workload)[2]) || 0;
+        var minutes = parseInt(workloadPattern.exec(workload)[3]) || 0;
+
+        var allMinutes = 8*60*days + 60*hours + minutes;
+        return allMinutes > 960
+    }
+
     var doParse = function (expression) {
         var projectName;
         var day;
@@ -90,7 +105,7 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
                 return undefined
             }
         }
-        if (!projectName) {
+        if (!projectName || workloadIsTooLong(workload)) {
             return undefined
         }
         return {

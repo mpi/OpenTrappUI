@@ -31,7 +31,7 @@ describe('Registration Controller should', function() {
 	});
 
 	it('logs work to server', function() {
-		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
 		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
 			projectName: 'ProjectManhattan',
 			workload: '2h',
@@ -43,7 +43,7 @@ describe('Registration Controller should', function() {
 	});
 
     it('should not log work for not existing project', function() {
-        scope.workLogExpression = '2h on #notexisting @2014/01/03';
+        scope.workLogExpression = '2h #notexisting @2014/01/03';
 
         scope.logWork();
 
@@ -51,7 +51,7 @@ describe('Registration Controller should', function() {
     });
 
     it('should show warning about not existing project', function() {
-        scope.workLogExpression = '2h on #notexisting @2014/01/03';
+        scope.workLogExpression = '2h #notexisting @2014/01/03';
 
         scope.logWork();
 
@@ -70,7 +70,7 @@ describe('Registration Controller should', function() {
     });
 
 	it('clear input after successfull submit', function() {
-		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
 		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
 			projectName: 'ProjectManhattan',
 			workload: '2h',
@@ -97,8 +97,8 @@ describe('Registration Controller should', function() {
         });
     });
 	
-	it('replace alert on second request', function() {
-		scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+	it('replace alert second request', function() {
+		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
 		scope.alert = { type: 'success', message: '1' };
         httpBackend.expectPOST().respond(200);
 		
@@ -112,7 +112,7 @@ describe('Registration Controller should', function() {
 	});
 
     it('display feedback to user in case of failed request', function() {
-        scope.workLogExpression = '2h on #ProjectManhattan @2014/01/03';
+        scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
         httpBackend.expectPOST().respond(503);
 
         scope.logWork();
@@ -135,7 +135,7 @@ describe('Registration Controller should', function() {
 
     it('does not log work to server if invalid date', function() {
 
-        scope.workLogExpression = '2h on #ProjectManhattan @invalid';
+        scope.workLogExpression = '2h #ProjectManhattan @invalid';
 
         scope.logWork();
 
@@ -149,14 +149,14 @@ describe('Registration Controller should', function() {
     
 	it('shows success fedback if expression is valid', function() {
 
-		userTypes('2h on #ProjectManhattan @2014/01/03');
+		userTypes('2h #ProjectManhattan @2014/01/03');
 		
 		expect(scope.status).toBe('success');
 	});
 
     it('be valid for worklog without date', function() {
 
-    	userTypes('2h on #ProjectManhattan');
+    	userTypes('2h #ProjectManhattan');
 
         expect(scope.status).toBe('success');
     });
