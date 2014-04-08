@@ -7,15 +7,17 @@ Open Time Registration Application
 
 ### Install Nodejs
 
-> https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+[https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
 
 ### Install node modules (run in project directory)
 
-> * npm install
-> * npm install -g grunt-cli bower
-> * bower install
-> * grunt
+    npm install -g grunt-cli # you might need root privilges
+    npm install
 
-### run tests   
+### run tests
 
-> gradle karmaTest
+    grunt
+
+### run server
+
+    grunt server

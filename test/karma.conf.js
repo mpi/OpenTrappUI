@@ -15,6 +15,7 @@ module.exports = function (config) {
         browsers: [
             'PhantomJS'
         ],
-        autoWatch: false
+        autoWatch: false,
+        singleRun: true
     });
 };
