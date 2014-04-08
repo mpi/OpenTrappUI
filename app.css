@@ -264,6 +264,6 @@ li.h12 {
 }
 
 .worklog-expression-input {
-	border-top-right-radius: 6px;
-	border-bottom-right-radius: 6px
+	border-top-right-radius: 6px !important;
+	border-bottom-right-radius: 6px !important;
 }
