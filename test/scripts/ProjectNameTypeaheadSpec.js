@@ -68,6 +68,16 @@ describe("ProjectNameTypeahead", function(){
 		expect(suggestedProjectNames()).toEqual([]);
 	});
 	
+	it("does not suggest any projects if # is recently added character", function(){
+		
+		// given:
+		followingProjectsAreAvailable('ProjectManhattan', 'ApolloProgram');
+		// when:
+		userTypes('1d #AppolloProject ')
+		// then:
+		expect(suggestedProjectNames()).toEqual([]);
+	});
+	
 	it("suggest project starts with pattern", function(){
 		
 		// given:
