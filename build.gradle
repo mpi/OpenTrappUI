@@ -15,6 +15,10 @@ task karmaTest(type:Exec) {
     commandLine './node_modules/karma/bin/karma start --singleRun true --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
 }
 
+task karmaTestContinous(type:Exec) {
+    commandLine './node_modules/karma/bin/karma start --singleRun false --autoWatch true --browsers PhantomJS src/test/js/karma.conf.js'.tokenize()
+}
+
 githubPages {
     pages {
         from 'src/main/webapp'

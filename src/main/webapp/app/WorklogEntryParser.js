@@ -4,7 +4,7 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
     var workloadPattern = /( |^)(\d+(d|h|m)( )?)+/;
     var dayPattern = /@([0-9\/]*)/;
     var daysAgoPattern = /@t-(\d*)/;
-    var dayOfWeekPattern = /@(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/;
+    var dayOfWeekPattern = /@(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i;
 
     var getWorkloadFromExpression = function(expression) {
         if (workloadPattern.test(expression)) {
@@ -30,7 +30,11 @@ angular.module('openTrApp').factory('worklogEntryParser', function(timeProvider)
         } else if (isForDaysAgo(expression)) {
             return moment(timeProvider.getCurrentDate()).subtract('days', daysAgoPattern.exec(expression)[1]).format("YYYY/MM/DD")
         } else if (isForDayOfWeek(expression)) {
-            return moment(timeProvider.getCurrentDate()).day(dayOfWeekPattern.exec(expression)[1]).format("YYYY/MM/DD")
+        	var dayOfWeek = moment(timeProvider.getCurrentDate()).day(dayOfWeekPattern.exec(expression)[1]);
+        	if(dayOfWeek.isAfter(moment(timeProvider.getCurrentDate()))){
+        		dayOfWeek.subtract('days', 7);
+        	}
+            return dayOfWeek.format("YYYY/MM/DD");
         } else {
             return moment(timeProvider.getCurrentDate()).format("YYYY/MM/DD");
         }
