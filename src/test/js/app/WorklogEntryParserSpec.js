@@ -193,4 +193,11 @@ describe('WorkLogEntry Parser should', function() {
         expect(worklogEntryParser.isValid(workLogExpression)).toBe(false);
         expect(worklogEntryParser.parse(workLogExpression)).toEqual(undefined);
     });
+
+    it('not parse entry with wrong date', function() {
+        workLogExpression = '4h 30m #Project-Manhattan @2014/1/1';
+
+        expect(worklogEntryParser.isValid(workLogExpression)).toBe(true);
+        expect(worklogEntryParser.parse(workLogExpression).day).toEqual(yesterdayDateString);
+    });
 });

@@ -7,6 +7,8 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
     var daysAgoPattern = /@t([-+]\d*)/;
     var dayOfWeekPattern = /@(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i;
 
+    var dateFormat = "YYYY/MM/DD";
+
     var getWorkloadFromExpression = function (expression) {
         if (workloadPattern.test(expression)) {
             return workloadPattern.exec(expression)[0].trim()
@@ -25,20 +27,20 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
 
     var getDayFromExpression = function (expression) {
         if (matchesDayRegex(expression) && dayRegexHasValidDate(expression)) {
-            return dayPattern.exec(expression)[1]
+            return moment(dayPattern.exec(expression)[1]).format(dateFormat)
         } else if (forYesterday(expression)) {
-            return moment(timeProvider.getCurrentDate()).subtract('days', 1).format("YYYY/MM/DD")
+            return moment(timeProvider.getCurrentDate()).subtract('days', 1).format(dateFormat)
         } else if (isForDaysAgo(expression)) {
         	var daysToAdd = daysAgoPattern.exec(expression)[1];
-            return moment(timeProvider.getCurrentDate()).add('days', daysToAdd).format("YYYY/MM/DD")
+            return moment(timeProvider.getCurrentDate()).add('days', daysToAdd).format(dateFormat)
         } else if (isForDayOfWeek(expression)) {
         	var dayOfWeek = moment(timeProvider.getCurrentDate()).day(dayOfWeekPattern.exec(expression)[1]);
         	if(dayOfWeek.isAfter(moment(timeProvider.getCurrentDate()))){
         		dayOfWeek.subtract('days', 7);
         	}
-            return dayOfWeek.format("YYYY/MM/DD");
+            return dayOfWeek.format(dateFormat);
         } else {
-            return moment(timeProvider.getCurrentDate()).format("YYYY/MM/DD");
+            return moment(timeProvider.getCurrentDate()).format(dateFormat);
         }
     };
 
