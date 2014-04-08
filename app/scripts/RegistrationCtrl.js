@@ -1,18 +1,13 @@
 angular.module('openTrApp').controller('RegistrationCtrl',
-		function($scope, $http, currentEmployee, worklogEntryParser, projectList) {
-            $scope.projectList = projectList.projectList;
-            $scope.suggestions = projectList.projectList;
+		function($scope, $http, currentEmployee, worklogEntryParser, projectNames, $q) {
+
+			$scope.suggestions = [];
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
 					return;
 				}
 				var data = worklogEntryParser.parse($scope.workLogExpression);
-                if(!projectList.contains(data.projectName)){
-                    var message = sprintf("no project '%s' defined - contact CEO ;-)",data.projectName);
-                    $scope.alert = ({ type: 'danger', message: message});
-                    return;
-                }
 
 				$http
 					.post('http://localhost:8080/endpoints/v1/employee/' + currentEmployee.username() + '/work-log/entries', data)
@@ -37,9 +32,7 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 			var calculateSuggestions = function(input){
 				if (isEditingProjectName(input)){
 					var prefix = editingProjectName(input);
-					$scope.suggestions = _(projectList.projectList).filter(function(x){
-						return x.indexOf(prefix) == 0;
-					}).value();
+					$scope.suggestions = projectNames.startingWith(prefix).list();
 				} else{
 					$scope.suggestions = [];
 				}

@@ -4,19 +4,25 @@ describe("ProjectNameTypeahead", function(){
 	
 	beforeEach(module('openTrApp'));
 	
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectList_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ , _projectNames_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
 		});
-        projectList = _projectList_;
+        projectNames = _projectNames_;
 	}));
 	
 	var followingProjectsAreAvailable = function(){
-		projectList.projectList.splice(0, projectList.projectList.length);
-		for(i =0; i<arguments.length; i++){
-			projectList.projectList.push(arguments[i]);
-		}
+		
+		var args = arguments;
+		
+		spyOn(projectNames, 'fetchFromServer').andReturn({
+			then: function(callback){
+				return callback({
+					data: _.toArray(args)
+				});
+			}
+		});
 	};
 	
 	var suggestedProjectNames = function (){

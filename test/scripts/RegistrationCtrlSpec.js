@@ -12,18 +12,23 @@ describe('Registration Controller should', function() {
     var employeeUsername = 'homer.simpson';
 
 	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectList_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectNames_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
 		});
 		httpBackend = $httpBackend;
         timeProvider = _timeProvider_;
-        projectList = _projectList_;
         currentEmployee = _currentEmployee_;
         spyOn(timeProvider, 'getCurrentDate').andReturn(new Date(currentDateString));
         spyOn(currentEmployee, 'username').andReturn(employeeUsername);
-        projectList.projectList.push("ProjectManhattan")
+		spyOn(_projectNames_, 'fetchFromServer').andReturn({
+			then: function(callback){
+				return callback({
+					data: []
+				});
+			}
+		});        
 	}));
 
     it('create scope', function() {
@@ -41,25 +46,6 @@ describe('Registration Controller should', function() {
 		scope.logWork();
 		httpBackend.flush();
 	});
-
-    it('should not log work for not existing project', function() {
-        scope.workLogExpression = '2h #notexisting @2014/01/03';
-
-        scope.logWork();
-
-        httpBackend.verifyNoOutstandingExpectation();
-    });
-
-    it('should show warning about not existing project', function() {
-        scope.workLogExpression = '2h #notexisting @2014/01/03';
-
-        scope.logWork();
-
-        expect(scope.alert).toEqual({
-            type: 'danger',
-            message: 'no project \'notexisting\' defined - contact CEO ;-)'
-        });
-    });
 
     it('be invalid when date is not a proper format', function() {
         scope.workLogExpression = 'invalid';
