@@ -1,380 +1,333 @@
 <!-- ReportCtrl -->
 <div ng-controller="ReportCtrl" ng-init="init();display='table'" class="report">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="page-header">Review reports <small>by month, project and employee</small></h2>
-            </div>
-        </div>    
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Month:</h4>
-                <ul class="nav nav-pills small">
-                    <li ng-repeat="month in filter.months" ng-class="filter.isActive(month) ? 'active' : ''">
-                        <a ng-click="filter.setActive(month)">
-                            {{month}}
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header">Review reports
+            <small>by month, project and employee</small>
+        </h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <h4>Month:</h4>
+        <ul class="nav nav-pills small">
+            <li ng-repeat="month in filter.months" ng-class="filter.isActive(month) ? 'active' : ''">
+                <a ng-click="filter.setActive(month)">
+                    {{month}}
                             <span ng-if="filter.isActive(month)" class="badge badge-default">
                                 {{totalForMonth()}}
                             </span>
-                        </a>
-                    </li> 
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h4>Projects:</h4>
-                <ul class="nav nav-pills small">
-                    <li ng-repeat="project in projects" ng-class="{active: filter.isActiveProject(project)}">
-                        <a ng-click="filter.toggleActiveProject(project)">
-                            {{project}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h4>Projects:</h4>
+        <ul class="nav nav-pills small">
+            <li ng-repeat="project in projects" ng-class="{active: filter.isActiveProject(project)}">
+                <a ng-click="filter.toggleActiveProject(project)">
+                    {{project}}
                             <span ng-if="filter.isActiveProject(project)" class="badge badge-default">
                                 {{totalForProject(project)}}
                             </span>
-                        </a>
-                    </li>
+                </a>
+            </li>
 
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h4>Employees:</h4>
-                <ul class="nav nav-pills small">
-                    <li ng-repeat="employee in employees" ng-class="{active: filter.isActiveEmployee(employee)}">
-                        <a ng-click="filter.toggleActiveEmployee(employee)">
-                            {{employee}}
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Employees:</h4>
+        <ul class="nav nav-pills small">
+            <li ng-repeat="employee in employees" ng-class="{active: filter.isActiveEmployee(employee)}">
+                <a ng-click="filter.toggleActiveEmployee(employee)">
+                    {{employee}}
                             <span ng-if="filter.isActiveEmployee(employee)" class="badge badge-default">
                                 {{totalForEmployee(employee)}}
                             </span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>    
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{{filter.activeMonth}}</h2>
-                <ul class="nav nav-pills small">
-                    <li ng-class="{active: display=='table'}" ng-click="display='table'">
-                        <a>
-                            <span class="glyphicon glyphicon-th-list"></span>
-                        </a>
-                    </li>
-                    <!-- li ng-class="{active: display=='calendar'}" ng-click="display='calendar'">
-                        <a>
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </a>
-                    </li-->
-                    <li ng-class="{active: display=='pie-chart'}" ng-click="display='pie-chart'">
-                        <a>
-                            <span class="glyphicon glyphicon-stats"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row" ng-if="display=='calendar'">
-            <table class="table table-striped" style="table-layout: fixed">
-                <thead>
-                    <tr>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Weekend</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="week">    
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <h5>2014/01/01</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/02</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/03</h5>
-                            <ul class="work-log-entries">
-                                <li class="h6"></li>
-                                <li class="h4"></li>
-                                <li class="h10"></li>
-                            </ul>
-                        </td>
-                        <td class="weekend">
-                            <h5>2014/01/04, 2014/01/05</h5>
-                        </td>
-                    </tr>                    
-                    <tr class="week">    
-                        <td>
-                            <h5>2014/01/06</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                                <li class="h10"></li>
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/07</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/08</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/09</h5>
-                            <ul class="work-log-entries">
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/10</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h10"></li>
-                                <li class="h12"></li>
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td class="weekend">
-                            <h5>2014/01/11, 2014/01/12</h5>
-                        </td>
-                    </tr>                    
-                    <tr class="week">    
-                        <td>
-                            <h5>2014/01/13</h5>
-                            <ul class="work-log-entries">
-                                <li class="h2"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                                <li class="h4"></li>
-                                <li class="h2"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/14</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/15</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/16</h5>
-                            <ul class="work-log-entries">
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/17</h5>
-                            <ul class="work-log-entries">
-                                <li class="h6"></li>
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td class="weekend">
-                            <h5>2014/01/18, 2014/01/19</h5>
-                        </td>
-                    </tr>                    
-                    <tr class="week">    
-                        <td>
-                            <h5>2014/01/20</h5>
-                            <ul class="work-log-entries">
-                                <li class="h10"></li>
-                                <li class="h10"></li>
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/21</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/22</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/23</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h6"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/24</h5>
-                            <ul class="work-log-entries">
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td class="weekend">
-                            <h5>2014/01/25, 2014/01/26</h5>
-                        </td>
-                    </tr>                    
-                    <tr class="week">    
-                        <td>
-                            <h5>2014/01/27</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/28</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h12"></li>
-                                <li class="h10"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/29</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/30</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h12"></li>
-                                <li class="h6"></li>
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                                <li class="h4"></li>
-                            </ul>
-                        </td>
-                        <td>
-                            <h5>2014/01/31</h5>
-                            <ul class="work-log-entries">
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h8"></li>
-                                <li class="h4"></li>
-                                <li class="h12"></li>
-                            </ul>
-                        </td>
-                        <td class="weekend">
-                        </td>
-                    </tr>                    
-                </tbody>
-            </table>
-        </div>
-        <div class="row" ng-if="display=='table'">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Project</th>
-                        <th>Workload</th>
-                        <th>Employee</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tr class="worklog-entry" ng-repeat="item in workLog.items | filter:satisfies | orderBy: 'day'">
-                    <td align="right">
-                        <a ng-click="remove(item)" ng-if="item.employee == currentUser">
-                            <span class="glyphicon glyphicon-trash"/>
-                        </a>
-                    </td>
-                    <td>{{item.projectName}}</td>
-                    <td>{{item.workload}}</td>
-                    <td>{{item.employee}}</td>
-                    <td>{{item.day}}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="row" ng-show="display=='pie-chart'">
-            
-            <div class="col-md-5 col-md-offset-1">                     
-                <canvas id="projectShare" width="400" height="400"></canvas>
-            </div>
-            <div class="col-md-5">                     
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Project</th>
-                            <th>Workload</th>
-                            <th>Share</th>
-                        </tr>
-                    </thead>
-                    <tr class="worklog-entry" ng-repeat="project in filter.activeProjects">
-                        <td><div style="margin-left:auto;margin-right:auto;width: 16px; height:16px; background-color:{{colorFor(project)}}"></div></td>
-                        <td>{{project}}</td>
-                        <td>{{totalForProject(project)}}</td>
-                        <td>{{shareForProject(project)}}</td>
-                    </tr>
-                </table>
-            </div>				
-        </div>
+                </a>
+            </li>
+        </ul>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{filter.activeMonth}}</h2>
+        <ul class="nav nav-pills small">
+            <li ng-class="{active: display=='table'}" ng-click="display='table'">
+                <a>
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </a>
+            </li>
+            <li ng-class="{active: display=='calendar'}" ng-click="display='calendar'">
+                <a>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </a>
+            </li>
+            <li ng-class="{active: display=='pie-chart'}" ng-click="display='pie-chart'">
+                <a>
+                    <span class="glyphicon glyphicon-stats"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row" ng-if="display=='calendar'">
+    <table class="table table-striped table-condensed calendar">
+        <thead>
+        <tr>
+            <th class="employee">Employee</th>
+            <th>
+                <div>01</div>
+                Tue
+            </th>
+            <th>
+                <div>02</div>
+                Wed
+            </th>
+            <th>
+                <div>03</div>
+                Thu
+            </th>
+            <th>
+                <div>04</div>
+                Fri
+            </th>
+            <th class="weekend">
+                <div>05</div>
+                Sat
+            </th>
+            <th class="weekend">
+                <div>06</div>
+                Sun
+            </th>
+            <th>
+                <div>07</div>
+                Mon
+            </th>
+            <th>
+                <div>08</div>
+                Tue
+            </th>
+            <th>
+                <div>09</div>
+                Wed
+            </th>
+            <th>
+                <div>10</div>
+                Thu
+            </th>
+            <th>
+                <div>11</div>
+                Fri
+            </th>
+            <th class="weekend">
+                <div>12</div>
+                Sat
+            </th>
+            <th class="weekend">
+                <div>13</div>
+                Sun
+            </th>
+            <th>
+                <div>14</div>
+                Mon
+            </th>
+            <th>
+                <div>15</div>
+                Tue
+            </th>
+            <th>
+                <div>16</div>
+                Wed
+            </th>
+            <th>
+                <div>17</div>
+                Thu
+            </th>
+            <th>
+                <div>18</div>
+                Fri
+            </th>
+            <th class="weekend">
+                <div>19</div>
+                Sat
+            </th>
+            <th class="weekend">
+                <div>20</div>
+                Sun
+            </th>
+            <th>
+                <div>21</div>
+                Mon
+            </th>
+            <th>
+                <div>22</div>
+                Tue
+            </th>
+            <th>
+                <div>23</div>
+                Wed
+            </th>
+            <th>
+                <div>24</div>
+                Thu
+            </th>
+            <th>
+                <div>25</div>
+                Fri
+            </th>
+            <th class="weekend">
+                <div>26</div>
+                Sat
+            </th>
+            <th class="weekend">
+                <div>27</div>
+                Sun
+            </th>
+            <th>
+                <div>28</div>
+                Mon
+            </th>
+            <th>
+                <div>29</div>
+                Tue
+            </th>
+            <th>
+                <div>30</div>
+                Wed
+            </th>
+            <th>
+                <div>31</div>
+                Thu
+            </th>
+            <th class="employee">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="employee">homer.simpson</td>
+            <td>8</td>
+            <td>7.5</td>
+            <td>8.1</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td></td>
+            <td></td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>7.75</td>
+            <td>8.25</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>8</td>
+            <td>8</td>
+            <td>6</td>
+            <td>8.33</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total">150h</td>
+        </tr>
+        <tr>
+            <td class="employee">bart.simpson</td>
+            <td>8.5</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>7</td>
+            <td>7</td>
+            <td>8</td>
+            <td>8.2</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td>8</td>
+            <td class="weekend"></td>
+            <td class="weekend"></td>
+            <td>6h</td>
+            <td>6h</td>
+            <td>8.6</td>
+            <td>8</td>
+            <td class="total">163h</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row" ng-if="display=='table'">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Project</th>
+            <th>Workload</th>
+            <th>Employee</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tr class="worklog-entry" ng-repeat="item in workLog.items | filter:satisfies | orderBy: 'day'">
+            <td align="right">
+                <a ng-click="remove(item)" ng-if="item.employee == currentUser">
+                    <span class="glyphicon glyphicon-trash"/>
+                </a>
+            </td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.workload}}</td>
+            <td>{{item.employee}}</td>
+            <td>{{item.day}}</td>
+        </tr>
+    </table>
+</div>
+<div class="row" ng-show="display=='pie-chart'">
+
+    <div class="col-md-5 col-md-offset-1">
+        <canvas id="projectShare" width="400" height="400"></canvas>
+    </div>
+    <div class="col-md-5">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Project</th>
+                <th>Workload</th>
+                <th>Share</th>
+            </tr>
+            </thead>
+            <tr class="worklog-entry" ng-repeat="project in filter.activeProjects">
+                <td>
+                    <div style="margin-left:auto;margin-right:auto;width: 16px; height:16px; background-color:{{colorFor(project)}}"></div>
+                </td>
+                <td>{{project}}</td>
+                <td>{{totalForProject(project)}}</td>
+                <td>{{shareForProject(project)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
 </div>
 <!-- /ReportCtrl -->

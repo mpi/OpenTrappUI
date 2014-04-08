@@ -8,7 +8,7 @@ angular.module('openTrApp').factory('reportDates', function (timeProvider) {
                 return currentMoment.subtract('months', monthsToSubtract).format(dateFormat);
             }
 
-            return [formattedDateMinusMonths(0), formattedDateMinusMonths(1),formattedDateMinusMonths(2)];
+            return [formattedDateMinusMonths(0), formattedDateMinusMonths(1), formattedDateMinusMonths(2)];
         }
     }
 });

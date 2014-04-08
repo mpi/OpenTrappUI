@@ -117,6 +117,8 @@ angular.module('openTrApp').controller('ReportCtrl',
 			return '#' + colors[c1] + colors[c2] + colors[c3];
         };
         
+        var chartObject = false;
+        
         var updateChart = function(){
 
         	var chartElement = document.getElementById("projectShare");
@@ -139,7 +141,11 @@ angular.module('openTrApp').controller('ReportCtrl',
         		});
         	}
         	
-        	var chart = new Chart(ctx).Doughnut(data, {
+        	if(!chartObject){
+        		chartObject = new Chart(ctx);
+        	}
+        	
+        	var chart = chartObject.Doughnut(data, {
         		animationEasing : "easeOutQuart"
         	});                        
         };
