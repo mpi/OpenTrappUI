@@ -263,3 +263,7 @@ li.h12 {
     text-align: left;
 }
 
+.worklog-expression-input {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px
+}
