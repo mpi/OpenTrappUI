@@ -33,7 +33,10 @@ angular.module('openTrApp').controller('RegistrationCtrl',
 			var calculateSuggestions = function(input){
 				if (isEditingProjectName(input)){
 					var prefix = editingProjectName(input);
-					$scope.suggestions = projectNames.startingWith(prefix).list();
+					$scope.suggestions = [];
+					projectNames.startingWith(prefix).forEach(function(x){
+						$scope.suggestions.push(x);
+					});
 				} else{
 					$scope.suggestions = [];
 				}

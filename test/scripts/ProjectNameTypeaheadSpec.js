@@ -18,7 +18,7 @@ describe("ProjectNameTypeahead", function(){
 		
 		spyOn(projectNames, 'fetchFromServer').andReturn({
 			then: function(callback){
-				return callback({
+				callback({
 					data: _.toArray(args)
 				});
 			}
