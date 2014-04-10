@@ -1,28 +1,30 @@
 describe("ProjectNameTypeahead", function(){
 	
-	var scope;
+	var scope, http, projectNames;
 	
 	beforeEach(module('openTrApp'));
+    beforeEach(inject(function(_enviromentInterceptor_){
+    	_enviromentInterceptor_.request = function(x){
+    		return x;
+    	};
+    }));
 	
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ , _projectNames_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _projectNames_) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
 		});
-        projectNames = _projectNames_;
+		http = $httpBackend;
+		projectNames = _projectNames_;
 	}));
 	
 	var followingProjectsAreAvailable = function(){
 		
-		var args = arguments;
-		
-		spyOn(projectNames, 'fetchFromServer').andReturn({
-			then: function(callback){
-				callback({
-					data: _.toArray(args)
-				});
-			}
-		});
+		var args = _.toArray(arguments);
+
+        http.expectGET("http://localhost:8080/endpoints/v1/projects/").respond(200, args);
+        projectNames.forEach(function(){});
+        http.flush();
 	};
 	
 	var suggestedProjectNames = function (){
@@ -43,7 +45,7 @@ describe("ProjectNameTypeahead", function(){
 		// given:
 		followingProjectsAreAvailable('ProjectManhattan', 'ApolloProgram');
 		// when:
-		userTypes('#')
+		userTypes('#');
 		// then:
 		expect(suggestedProjectNames()).toContain('ProjectManhattan', 'AppolloProgram');
 	});
@@ -73,7 +75,7 @@ describe("ProjectNameTypeahead", function(){
 		// given:
 		followingProjectsAreAvailable('ProjectManhattan', 'ApolloProgram');
 		// when:
-		userTypes('1d #AppolloProject ')
+		userTypes('1d #ApolloProject ')
 		// then:
 		expect(suggestedProjectNames()).toEqual([]);
 	});

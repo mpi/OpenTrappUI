@@ -22,12 +22,8 @@ describe('Registration Controller should', function() {
         currentEmployee = _currentEmployee_;
         spyOn(timeProvider, 'getCurrentDate').andReturn(new Date(currentDateString));
         spyOn(currentEmployee, 'username').andReturn(employeeUsername);
-		spyOn(_projectNames_, 'fetchFromServer').andReturn({
-			then: function(callback){
-				return callback({
-					data: []
-				});
-			}
+		spyOn(_projectNames_, 'startingWith').andReturn({
+			forEach: function(callback){}
 		});        
 	}));
 

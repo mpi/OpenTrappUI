@@ -9,9 +9,14 @@ angular.module('openTrApp').factory('projectNames', function ($http) {
 			fetchFromServer: function(){
 
 				if(!cached){
-					return $http.get('http://localhost:8080/endpoints/v1/projects/').then(function(x){
+
+					var promise = $http.get('http://localhost:8080/endpoints/v1/projects/');
+					
+					promise.then(function(x){
 						cached = x;
 					});
+					return promise;
+					
 				}
 				return {
 					then: function(callback){
