@@ -1,9 +1,9 @@
-describe('Registration Controller should', function() {
-	beforeEach(module('openTrApp'));
-    beforeEach(inject(function(_enviromentInterceptor_){
-    	_enviromentInterceptor_.request = function(x){
-    		return x;
-    	};
+describe('Registration Controller should', function () {
+    beforeEach(module('openTrapp'));
+    beforeEach(inject(function (_enviromentInterceptor_) {
+        _enviromentInterceptor_.request = function (x) {
+            return x;
+        };
     }));
 
     var timeProvider;
@@ -11,43 +11,43 @@ describe('Registration Controller should', function() {
     var currentDateString = "2014/01/02";
     var employeeUsername = 'homer.simpson';
 
-	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectNames_) {
-		scope = $rootScope.$new();
-		$controller('RegistrationCtrl', {
-			$scope : scope
-		});
-		httpBackend = $httpBackend;
+    var scope, httpBackend;
+    beforeEach(inject(function ($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_, _projectNames_) {
+        scope = $rootScope.$new();
+        $controller('RegistrationCtrl', {
+            $scope: scope
+        });
+        httpBackend = $httpBackend;
         timeProvider = _timeProvider_;
         currentEmployee = _currentEmployee_;
         spyOn(timeProvider, 'getCurrentDate').andReturn(new Date(currentDateString));
         spyOn(currentEmployee, 'username').andReturn(employeeUsername);
-		spyOn(_projectNames_, 'fetchFromServer').andReturn({
-			then: function(callback){
-				return callback({
-					data: []
-				});
-			}
-		});        
-	}));
+        spyOn(_projectNames_, 'fetchFromServer').andReturn({
+            then: function (callback) {
+                return callback({
+                    data: []
+                });
+            }
+        });
+    }));
 
-    it('create scope', function() {
-		expect(scope).toBeDefined();
-	});
+    it('create scope', function () {
+        expect(scope).toBeDefined();
+    });
 
-	it('logs work to server', function() {
-		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
-		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
-			projectName: 'ProjectManhattan',
-			workload: '2h',
-			day: '2014/01/03'
-		}).respond(200);
+    it('logs work to server', function () {
+        scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '2h',
+            day: '2014/01/03'
+        }).respond(200);
 
-		scope.logWork();
-		httpBackend.flush();
-	});
+        scope.logWork();
+        httpBackend.flush();
+    });
 
-    it('be invalid when date is not a proper format', function() {
+    it('be invalid when date is not a proper format', function () {
         scope.workLogExpression = 'invalid';
 
         scope.logWork();
@@ -55,21 +55,21 @@ describe('Registration Controller should', function() {
         httpBackend.verifyNoOutstandingExpectation();
     });
 
-	it('clear input after successfull submit', function() {
-		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
-		httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
-			projectName: 'ProjectManhattan',
-			workload: '2h',
-			day: '2014/01/03'
-		}).respond(200);
-		
-		scope.logWork();
-		httpBackend.flush();
+    it('clear input after successfull submit', function () {
+        scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
+        httpBackend.expectPOST("http://localhost:8080/endpoints/v1/employee/homer.simpson/work-log/entries", {
+            projectName: 'ProjectManhattan',
+            workload: '2h',
+            day: '2014/01/03'
+        }).respond(200);
 
-		expect(scope.workLogExpression).toBe('');
-	});
+        scope.logWork();
+        httpBackend.flush();
 
-    it('show succesfull alert with actual data', function() {
+        expect(scope.workLogExpression).toBe('');
+    });
+
+    it('show succesfull alert with actual data', function () {
         scope.workLogExpression = '#ProjectManhattan 1d 2h 5m';
         scope.alert = { type: 'success', message: '1' };
         httpBackend.expectPOST().respond(200);
@@ -79,30 +79,30 @@ describe('Registration Controller should', function() {
 
         expect(scope.alert).toEqual({
             type: 'success',
-            message: '1d 2h 5m logged on project \'ProjectManhattan\' at '+currentDateString
+            message: '1d 2h 5m logged on project \'ProjectManhattan\' at ' + currentDateString
         });
     });
-	
-	it('replace alert on second request', function() {
-		scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
-		scope.alert = { type: 'success', message: '1' };
+
+    it('replace alert on second request', function () {
+        scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
+        scope.alert = { type: 'success', message: '1' };
         httpBackend.expectPOST().respond(200);
-		
-		scope.logWork();
-		httpBackend.flush();
 
-		expect(scope.alert).toEqual({
-			type: 'success',
-			message: '2h logged on project \'ProjectManhattan\' at 2014/01/03'
-		});
-	});
+        scope.logWork();
+        httpBackend.flush();
 
-    it('display feedback to user in case of failed request', function() {
+        expect(scope.alert).toEqual({
+            type: 'success',
+            message: '2h logged on project \'ProjectManhattan\' at 2014/01/03'
+        });
+    });
+
+    it('display feedback to user in case of failed request', function () {
         scope.workLogExpression = '2h #ProjectManhattan @2014/01/03';
         httpBackend.expectPOST().respond(503);
 
         scope.logWork();
-		httpBackend.flush();
+        httpBackend.flush();
 
         expect(scope.alert).toEqual({
             type: 'danger',
@@ -110,16 +110,16 @@ describe('Registration Controller should', function() {
         });
     });
 
-	it('does not log work to server if invalid expression', function() {
+    it('does not log work to server if invalid expression', function () {
 
-		scope.workLogExpression = 'invalid';
+        scope.workLogExpression = 'invalid';
 
-		scope.logWork();
+        scope.logWork();
 
-		httpBackend.verifyNoOutstandingExpectation();
-	});
+        httpBackend.verifyNoOutstandingExpectation();
+    });
 
-    it('does not log work to server if invalid date', function() {
+    it('does not log work to server if invalid date', function () {
 
         scope.workLogExpression = '2h #ProjectManhattan @invalid';
 
@@ -128,37 +128,37 @@ describe('Registration Controller should', function() {
         httpBackend.verifyNoOutstandingExpectation();
     });
 
-    var userTypes = function(input){
-    	scope.workLogExpression = input;
-    	scope.$digest();
+    var userTypes = function (input) {
+        scope.workLogExpression = input;
+        scope.$digest();
     };
-    
-	it('shows success fedback if expression is valid', function() {
 
-		userTypes('2h #ProjectManhattan @2014/01/03');
+    it('shows success fedback if expression is valid', function () {
 
-		expect(scope.status).toBe('success');
-	});
-
-    it('be valid for worklog without date', function() {
-
-    	userTypes('2h #ProjectManhattan');
+        userTypes('2h #ProjectManhattan @2014/01/03');
 
         expect(scope.status).toBe('success');
     });
 
-	it('shows error fedback if expression is not valid', function() {
-		
-		userTypes('not valid');
-		
-		expect(scope.status).toBe('error');
-	});
-	
-	it('shows no fedback if expression is empty', function() {
-		
-		userTypes('');
-		
-		expect(scope.status).toBe('');
-	});
-	
+    it('be valid for worklog without date', function () {
+
+        userTypes('2h #ProjectManhattan');
+
+        expect(scope.status).toBe('success');
+    });
+
+    it('shows error fedback if expression is not valid', function () {
+
+        userTypes('not valid');
+
+        expect(scope.status).toBe('error');
+    });
+
+    it('shows no fedback if expression is empty', function () {
+
+        userTypes('');
+
+        expect(scope.status).toBe('');
+    });
+
 });

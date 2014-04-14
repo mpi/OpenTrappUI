@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('enviromentInterceptor', function ($cookies) {
+angular.module('openTrapp').factory('enviromentInterceptor', function ($cookies) {
 
     return {
 
@@ -20,6 +20,6 @@ angular.module('openTrApp').factory('enviromentInterceptor', function ($cookies)
 
 });
 
-angular.module('openTrApp').config(function ($httpProvider) {
+angular.module('openTrapp').config(function ($httpProvider) {
     $httpProvider.interceptors.push('enviromentInterceptor');
 });

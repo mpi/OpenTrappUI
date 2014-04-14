@@ -3,7 +3,7 @@ describe('Report dates', function () {
     var timeProvider;
     var reportDates;
 
-    beforeEach(module('openTrApp'));
+    beforeEach(module('openTrapp'));
     beforeEach(inject(function (_reportDates_, _timeProvider_) {
         reportDates = _reportDates_;
         timeProvider = _timeProvider_;

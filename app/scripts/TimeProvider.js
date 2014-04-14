@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('timeProvider', function () {
+angular.module('openTrapp').factory('timeProvider', function () {
     return{
         getCurrentDate: function () {
             return new Date();
