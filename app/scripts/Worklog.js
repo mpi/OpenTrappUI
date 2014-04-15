@@ -78,6 +78,12 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 			});
 			apply();
 		},
+		remove: function(id){
+            $http({method: 'DELETE', url: 'http://localhost:8080/endpoints/v1/work-log/entries/' + id})
+            	.success(function (data) {
+            		that.setMonth(that.month);
+            	});
+		},
 		reset: function(){
 			that.month = new String('');
 			that.employees = {};

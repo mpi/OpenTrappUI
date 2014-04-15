@@ -360,6 +360,23 @@ describe('Worklog', function() {
 		});
 	});
 	
+	describe('deleting', function(){
+		
+		it('deleting', function(){
+			
+			// given:
+			worklogWith();
+			httpBackend
+				.expectDELETE('http://localhost:8080/endpoints/v1/work-log/entries/WL.001')
+				.respond(204);
+			// when:
+			worklog.remove('WL.001');
+			// then:
+			httpBackend.flush();
+		});
+		
+	});
+	
 	// --
 	
 	var toggleAll = function(){

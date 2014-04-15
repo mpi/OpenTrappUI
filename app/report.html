@@ -110,7 +110,7 @@
         </thead>
         <tr class="worklog-entry" ng-repeat="item in worklog.entries | filter:satisfies | orderBy: 'day'">
             <td align="right">
-                <a ng-click="remove(item)" ng-if="item.employee == currentUser">
+                <a ng-click="worklog.remove(item.id)" ng-if="item.employee == currentUser">
                     <span class="glyphicon glyphicon-trash"/>
                 </a>
             </td>
