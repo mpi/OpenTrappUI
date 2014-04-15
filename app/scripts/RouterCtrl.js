@@ -4,7 +4,7 @@ angular.module('openTrApp')
             templateUrl: 'registration.html'
         });
         $routeProvider.when('/report', {
-            templateUrl: 'report.html'
+            templateUrl: 'report2.html'
         });
         $routeProvider.when('/config', {
             templateUrl: 'configuration.html'

@@ -1,5 +1,5 @@
 <!-- ReportCtrl -->
-<div ng-controller="ReportCtrl" ng-init="init();display='table'" class="report">
+<div ng-controller="ReportFiltersCtrl" ng-init="init();display='table'" class="report">
 <div class="container">
 <div class="row">
     <div class="col-md-12">
@@ -11,13 +11,13 @@
 <div class="row">
     <div class="col-md-2">
         <h4>Month:</h4>
-        <ul class="nav nav-pills small">
-            <li ng-repeat="month in filter.months" ng-class="filter.isActive(month) ? 'active' : ''">
-                <a ng-click="filter.setActive(month)">
+        <ul class="nav nav-pills small months">
+            <li ng-repeat="month in months" ng-class="month == report.month ? 'active' : ''">
+                <a ng-click="report.setMonth(month)">
                     {{month}}
-                            <span ng-if="filter.isActive(month)" class="badge badge-default">
-                                {{totalForMonth()}}
-                            </span>
+                    <span ng-if="month == report.month" class="badge badge-default">
+                        {{report.month.total}}
+                    </span>
                 </a>
             </li>
         </ul>
@@ -25,11 +25,11 @@
     <div class="col-md-4">
         <h4>Projects:</h4>
         <ul class="nav nav-pills small">
-            <li ng-repeat="project in projects" ng-class="{active: filter.isActiveProject(project)}">
-                <a ng-click="filter.toggleActiveProject(project)">
+            <li ng-repeat="(project, status) in report.projects" ng-class="{active: status.active}">
+                <a ng-click="report.toggleProject(project)">
                     {{project}}
-                            <span ng-if="filter.isActiveProject(project)" class="badge badge-default">
-                                {{totalForProject(project)}}
+                            <span ng-if="status.active" class="badge badge-default">
+                                {{status.total}}
                             </span>
                 </a>
             </li>
@@ -39,11 +39,11 @@
     <div class="col-md-6">
         <h4>Employees:</h4>
         <ul class="nav nav-pills small">
-            <li ng-repeat="employee in employees" ng-class="{active: filter.isActiveEmployee(employee)}">
-                <a ng-click="filter.toggleActiveEmployee(employee)">
+            <li ng-repeat="(employee, status) in report.employees" ng-class="{active: status.active}">
+                <a ng-click="report.toggleEmployee(employee)">
                     {{employee}}
-                            <span ng-if="filter.isActiveEmployee(employee)" class="badge badge-default">
-                                {{totalForEmployee(employee)}}
+                            <span ng-if="status.active" class="badge badge-default">
+                                {{status.total}}
                             </span>
                 </a>
             </li>
@@ -52,7 +52,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <h2>{{filter.activeMonth}}</h2>
+        <h2>{{report.month.toString()}}</h2>
         <ul class="nav nav-pills small">
             <li ng-class="{active: display=='table'}" ng-click="display='table'">
                 <a>
@@ -300,7 +300,7 @@
             <th>Date</th>
         </tr>
         </thead>
-        <tr class="worklog-entry" ng-repeat="item in workLog.items | filter:satisfies | orderBy: 'day'">
+        <tr class="worklog-entry" ng-repeat="item in report.worklog | filter:satisfies | orderBy: 'day'">
             <td align="right">
                 <a ng-click="remove(item)" ng-if="item.employee == currentUser">
                     <span class="glyphicon glyphicon-trash"/>

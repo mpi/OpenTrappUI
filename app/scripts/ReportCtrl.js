@@ -14,6 +14,7 @@ angular.module('openTrApp').controller('ReportCtrl',
                 setActive: function (month) {
                     this.activeMonth = month;
                     $scope.fetchItems(month);
+                    $scope.changeMonth();
                 },
                 toggleActiveProject: function (project) {
                     this.toggleElementOnList('activeProjects', project);
@@ -67,6 +68,19 @@ angular.module('openTrApp').controller('ReportCtrl',
         		$scope.fetchItems($scope.filter.activeMonth);
         	});
         }
+        
+        var daysInMonth = false;
+        
+        $scope.changeMonth = function(month){
+            	
+    		console.log("REQ");
+    		 $http.get('http://localhost:8080/endpoints/v1/calendar/' + $scope.filter.activeMonth).then(function(request){
+    			$scope.daysInMonth = request.data.days;
+    		});
+            
+        };
+        
+        $scope.daysInMonth = [];
         
         var totalByFilter = function(filter){
 
