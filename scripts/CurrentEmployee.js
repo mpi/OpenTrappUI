@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('currentEmployee', function () {
+angular.module('openTrapp').factory('currentEmployee', function () {
 
     var username = 'Anonymous';
 

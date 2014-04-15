@@ -35,6 +35,7 @@
                         <input
                             class="form-control input-lg worklog-expression-input"
                             ng-model="workLogExpression"
+                            ng-trim="false"
                             type="text"
                             typeahead="s for s in suggestions"
                             typeahead-wait-ms="100"
@@ -65,7 +66,7 @@
                     <p class="lead">Report <strong>10 hours and 15 minutes</strong> to <strong>my-project</strong> for <strong>today</strong>. </p>
                 </div>
                 <div class="example">
-                    <code>1d on #my-project @1966/02/26</code>
+                    <code>1d #my-project @1966/02/26</code>
                     <p class="lead">Report <strong>8h</strong> to <strong>my-project</strong> on <strong>Feburary 26, 1966</strong>.</p>
                 </div>
                 <div class="example">

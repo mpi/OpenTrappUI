@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('authInterceptor', function ($cookies, $location) {
+angular.module('openTrapp').factory('authInterceptor', function ($cookies, $location) {
 
     return {
 
@@ -16,6 +16,6 @@ angular.module('openTrApp').factory('authInterceptor', function ($cookies, $loca
 
 });
 
-angular.module('openTrApp').config(function ($httpProvider) {
+angular.module('openTrapp').config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 });

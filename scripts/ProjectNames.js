@@ -1,31 +1,42 @@
-angular.module('openTrApp').factory('projectNames', function ($http) {
+angular.module('openTrapp').factory('projectNames', function ($http) {
+
+	var cached;
+
+	var ProjectNames = function(prefix){
+
+		return {
+	    	
+			fetchFromServer: function(){
+
+				if(!cached){
+
+					var promise = $http.get('http://localhost:8080/endpoints/v1/projects/');
+					
+					promise.then(function(x){
+						cached = x;
+					});
+					return promise;
+					
+				}
+				return {
+					then: function(callback){
+						callback(cached);
+					}
+				};
+			},
+			startingWith: function(prefix){
+				return new ProjectNames(prefix);
+	    	},
+	    	forEach: function(callback){
+	    		
+	    		this.fetchFromServer().then(function(response){
+	    			_(response.data).filter(function(x){
+	    				return x.indexOf(prefix) == 0;
+	    			}).forEach(callback);
+	    		});
+	    	}
+	    }
+	};
 	
-	var namePrefix = '';
-	
-	return {
-    	
-		fetchFromServer: function(){
-			return $http.get('http://localhost:8080/endpoints/v1/projects/');
-		},
-		startingWith: function(prefix){
-			namePrefix = prefix;
-			return this;
-    	},
-    	list: function(){
-    		return this.fetchFromServer().then(function(response){
-    			
-    			return _(response.data).filter(function(x){
-    				return x.indexOf(namePrefix) == 0;
-    			}).value();
-    		});
-    	},
-    	forEach: function(callback){
-    		
-    		this.fetchFromServer().then(function(response){
-    			_(response.data).filter(function(x){
-    				return x.indexOf(namePrefix) == 0;
-    			}).forEach(callback);
-    		});
-    	}
-    }
+	return new ProjectNames('');	
 });

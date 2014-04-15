@@ -267,3 +267,7 @@ li.h12 {
 	border-top-right-radius: 6px !important;
 	border-bottom-right-radius: 6px !important;
 }
+
+.months > li {
+	min-width: 80px;
+}

@@ -1,4 +1,4 @@
-angular.module('openTrApp')
+angular.module('openTrapp')
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider.when('/registration', {
             templateUrl: 'registration.html'
