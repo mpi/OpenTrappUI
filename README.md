@@ -11,7 +11,7 @@ Open Time Registration Application
 
 ### Install node modules (run in project directory)
 
-    npm install -g grunt-cli # you might need root privilges
+    npm install -g grunt-cli # you might need root privileges
     npm install
 
 ### Run tests
