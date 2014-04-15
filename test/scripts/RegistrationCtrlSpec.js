@@ -12,7 +12,7 @@ describe('Registration Controller should', function() {
     var employeeUsername = 'homer.simpson';
 
 	var scope, httpBackend;
-	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectNames_) {
+	beforeEach(inject(function($rootScope, $controller, $httpBackend, _currentEmployee_, _timeProvider_ ,_projectNames_, $sce) {
 		scope = $rootScope.$new();
 		$controller('RegistrationCtrl', {
 			$scope : scope
@@ -24,7 +24,8 @@ describe('Registration Controller should', function() {
         spyOn(currentEmployee, 'username').andReturn(employeeUsername);
 		spyOn(_projectNames_, 'startingWith').andReturn({
 			forEach: function(callback){}
-		});        
+		});       
+		spyOn($sce, 'trustAsHtml').andCallFake(function(x){return x;});
 	}));
 
     it('create scope', function() {
@@ -73,9 +74,9 @@ describe('Registration Controller should', function() {
         scope.logWork();
         httpBackend.flush();
 
-        expect(scope.alert).toEqual({
+        expect(scope.alerts).toContain({
             type: 'success',
-            message: '1d 2h 5m logged on project \'ProjectManhattan\' at '+currentDateString
+            message: '<b>Hurray!</b> You  have successfully logged <b>1d 2h 5m</b> on project <b>ProjectManhattan</b> at <b>' + currentDateString+ '</b>.'
         });
     });
 	
@@ -87,9 +88,9 @@ describe('Registration Controller should', function() {
 		scope.logWork();
 		httpBackend.flush();
 
-		expect(scope.alert).toEqual({
+		expect(scope.alerts).toContain({
 			type: 'success',
-			message: '2h logged on project \'ProjectManhattan\' at 2014/01/03'
+			message: '<b>Hurray!</b> You  have successfully logged <b>2h</b> on project <b>ProjectManhattan</b> at <b>2014/01/03</b>.'
 		});
 	});
 
@@ -100,10 +101,10 @@ describe('Registration Controller should', function() {
         scope.logWork();
 		httpBackend.flush();
 
-        expect(scope.alert).toEqual({
-            type: 'danger',
-            message: 'Server not responding'
-        });
+		expect(scope.alerts).toContain({
+			type: 'danger',
+			message: '<b>Upps...</b> Server is not responding.'
+		});
     });
 
 	it('does not log work to server if invalid expression', function() {
