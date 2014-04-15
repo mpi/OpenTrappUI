@@ -3,7 +3,7 @@ var openTrapp = angular.module('openTrapp');
 openTrapp
 	.controller('ReportFiltersCtrl', function ($scope, $http, worklog, currentMonth, currentEmployee) {
 	
-		$scope.report = worklog;
+		$scope.worklog = worklog;
 		$scope.months = [];
 
 		$scope.init = function(){

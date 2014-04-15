@@ -1,4 +1,4 @@
-ddescribe('Worklog', function() {
+describe('Worklog', function() {
 	
 	beforeEach(module('openTrapp'));
     beforeEach(inject(function(_enviromentInterceptor_){
@@ -7,11 +7,11 @@ ddescribe('Worklog', function() {
     	};
     }));
 
-	var httpBackend, report;
+	var httpBackend, worklog;
 	
 	beforeEach(inject(function($httpBackend, _worklog_) {
 		httpBackend = $httpBackend;
-		report = _worklog_;
+		worklog = _worklog_;
 	}));
 
 	it('fetches data for given month', function(){
@@ -22,7 +22,7 @@ ddescribe('Worklog', function() {
 			.respond(200);
 		
 		// when:
-		report.setMonth('2014/01');
+		worklog.setMonth('2014/01');
 		httpBackend.flush();
 	});
 	
@@ -32,10 +32,10 @@ ddescribe('Worklog', function() {
 		monthContainsFollowingItems('2014/01', []); 
 		
 		// when:
-		reportFor('2014/01');
+		worklogFor('2014/01');
 		
 		// then:
-		expect(report.month).toEqual('2014/01');
+		expect(worklog.month).toEqual('2014/01');
 	});
 	
 	it('exposes project names', function(){
@@ -47,11 +47,11 @@ ddescribe('Worklog', function() {
 				 { projectName: 'ApolloProgram' } 
 			    ]);
 		// when:
-		reportFor('2014/01');
+		worklogFor('2014/01');
 		
 		// then:
-		expect(report.projects['ProjectManhattan']).toBeDefined();
-		expect(report.projects['ApolloProgram']).toBeDefined()
+		expect(worklog.projects['ProjectManhattan']).toBeDefined();
+		expect(worklog.projects['ApolloProgram']).toBeDefined()
 	});
 
 	it('exposes employee usernames', function(){
@@ -63,145 +63,145 @@ ddescribe('Worklog', function() {
 				 { employee: 'homer.simpson' } 
 			    ]);
 		// when:
-		reportFor('2014/01');
+		worklogFor('2014/01');
 		
 		// then:
-		expect(report.employees['bart.simpson']).toBeDefined();
-		expect(report.employees['homer.simpson']).toBeDefined()
+		expect(worklog.employees['bart.simpson']).toBeDefined();
+		expect(worklog.employees['homer.simpson']).toBeDefined()
 	});
 
 	it('enables project', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 			projectName: 'ProjectManhattan' 
 		});
 		
 		// when:
-		report.enableProject('ProjectManhattan');
+		worklog.enableProject('ProjectManhattan');
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeTruthy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeTruthy();
 	});
 	
 	it('enables project twice', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 			projectName: 'ProjectManhattan' 
 		});
 		
 		// when:
-		report.enableProject('ProjectManhattan');
-		report.enableProject('ProjectManhattan');
+		worklog.enableProject('ProjectManhattan');
+		worklog.enableProject('ProjectManhattan');
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeTruthy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeTruthy();
 	});
 	
 	it('enables employee', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 				employee: 'bart.simpson' 
 			});
 		
 		// when:
-		report.enableEmployee('bart.simpson');
+		worklog.enableEmployee('bart.simpson');
 		
 		// then:
-		expect(report.employees['bart.simpson'].active).toBeTruthy();
+		expect(worklog.employees['bart.simpson'].active).toBeTruthy();
 	});
 
 	it('enables employee twice', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 			employee: 'bart.simpson' 
 		});
 		
 		// when:
-		report.enableEmployee('bart.simpson');
-		report.enableEmployee('bart.simpson');
+		worklog.enableEmployee('bart.simpson');
+		worklog.enableEmployee('bart.simpson');
 		
 		// then:
-		expect(report.employees['bart.simpson'].active).toBeTruthy();
+		expect(worklog.employees['bart.simpson'].active).toBeTruthy();
 	});
 	
 	it('toggles project', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 				projectName: 'ProjectManhattan' 
 			});
 		
 		// when:
-		report.toggleProject('ProjectManhattan');
+		worklog.toggleProject('ProjectManhattan');
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeTruthy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeTruthy();
 	});
 	
 	it('toggles project twice', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 				projectName: 'ProjectManhattan' 
 			});
 
 		// when:
-		report.toggleProject('ProjectManhattan');
-		report.toggleProject('ProjectManhattan');
+		worklog.toggleProject('ProjectManhattan');
+		worklog.toggleProject('ProjectManhattan');
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeFalsy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeFalsy();
 	});
 	
 	it('toggles employee', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 				employee: 'bart.simpson' 
 			});
 		
 		// when:
-		report.toggleEmployee('bart.simpson');
+		worklog.toggleEmployee('bart.simpson');
 		
 		// then:
-		expect(report.employees['bart.simpson'].active).toBeTruthy();
+		expect(worklog.employees['bart.simpson'].active).toBeTruthy();
 	});
 
 	it('toggles employee twice', function(){
 		
 		// given:
-		reportWith({ 
+		worklogWith({ 
 				employee: 'bart.simpson' 
 			});
 		
 		// when:
-		report.toggleEmployee('bart.simpson');
-		report.toggleEmployee('bart.simpson');
+		worklog.toggleEmployee('bart.simpson');
+		worklog.toggleEmployee('bart.simpson');
 		
 		// then:
-		expect(report.employees['bart.simpson'].active).toBeFalsy();
+		expect(worklog.employees['bart.simpson'].active).toBeFalsy();
 	});
 	
 	it('enable employee projects', function(){
 		
 		// given:
-		reportWith(
+		worklogWith(
 				{ employee: 'bart.simpson', projectName: 'ProjectManhattan'},
 				{ employee: 'bart.simpson', projectName: 'ApolloProgram'},
 				{ employee: 'homer.simpson', projectName: 'OtherProject'}
 			);
 		
 		// when:
-		report.enableEmployeeProjects('bart.simpson');
+		worklog.enableEmployeeProjects('bart.simpson');
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeTruthy();
-		expect(report.projects['ApolloProgram'].active).toBeTruthy();
-		expect(report.projects['OtherProject'].active).toBeFalsy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeTruthy();
+		expect(worklog.projects['ApolloProgram'].active).toBeTruthy();
+		expect(worklog.projects['OtherProject'].active).toBeFalsy();
 	});
 	
 	it('list empty workload after changing month', function(){
@@ -210,43 +210,43 @@ ddescribe('Worklog', function() {
 		monthContainsFollowingItems('2014/02', []); 
 
 		// when:
-		reportWith(
+		worklogWith(
 				{ employee: 'bart.simpson', projectName: 'ProjectManhattan' });
 		toggleAll();
-		reportFor('2014/02');
+		worklogFor('2014/02');
 		
 		// then:
-		expect(report.worklog).toEqual([]);
+		expect(worklog.entries).toEqual([]);
 	});
 	
 	it('maintains active employees after changing month', function(){
 		
 		// given:
-		report.toggleEmployee('bart.simpson');
+		worklog.toggleEmployee('bart.simpson');
 		
 		// when:
-		reportWith({ employee: 'bart.simpson', projectName: 'ProjectManhattan' });
+		worklogWith({ employee: 'bart.simpson', projectName: 'ProjectManhattan' });
 		
 		// then:
-		expect(report.employees['bart.simpson'].active).toBeTruthy();
+		expect(worklog.employees['bart.simpson'].active).toBeTruthy();
 	});
 
 	it('maintains active projects after changing month', function(){
 		
 		// given:
-		report.toggleProject('ProjectManhattan');
+		worklog.toggleProject('ProjectManhattan');
 		
 		// when:
-		reportWith({ employee: 'bart.simpson', projectName: 'ProjectManhattan' });
+		worklogWith({ employee: 'bart.simpson', projectName: 'ProjectManhattan' });
 		
 		// then:
-		expect(report.projects['ProjectManhattan'].active).toBeTruthy();
+		expect(worklog.projects['ProjectManhattan'].active).toBeTruthy();
 	});
 	
 	it('list all eligible workload entries', function(){
 		
 		// given:
-		reportWith(
+		worklogWith(
 				{ employee: 'bart.simpson', projectName: 'ProjectManhattan' },
 				{ employee: 'homer.simpson', projectName: 'ProjectManhattan' },
 				{ employee: 'bart.simpson', projectName: 'ApolloProgram' },
@@ -254,11 +254,11 @@ ddescribe('Worklog', function() {
 			);
 		
 		// when:
-		report.toggleEmployee('bart.simpson');
-		report.toggleProject('ApolloProgram');
+		worklog.toggleEmployee('bart.simpson');
+		worklog.toggleProject('ApolloProgram');
 		
 		// then:
-		expect(report.worklog).toEqual([{ employee: 'bart.simpson', projectName: 'ApolloProgram' }]);
+		expect(worklog.entries).toEqual([{ employee: 'bart.simpson', projectName: 'ApolloProgram' }]);
 	});
 	
 	describe('totals', function(){
@@ -266,7 +266,7 @@ ddescribe('Worklog', function() {
 		beforeEach(function(){
 
 			// given:
-			reportWith(
+			worklogWith(
 					{ employee: 'bart.simpson', projectName: 'ProjectManhattan', workload: '1m' },
 					{ employee: 'homer.simpson', projectName: 'ProjectManhattan', workload: '1h' },
 					{ employee: 'bart.simpson', projectName: 'ApolloProgram', workload: '1d' },
@@ -276,33 +276,33 @@ ddescribe('Worklog', function() {
 			);
 			
 			// when:
-			report.toggleEmployee('bart.simpson');
-			report.toggleEmployee('homer.simpson');
-			report.toggleProject('ProjectManhattan');
-			report.toggleProject('ApolloProgram');
+			worklog.toggleEmployee('bart.simpson');
+			worklog.toggleEmployee('homer.simpson');
+			worklog.toggleProject('ProjectManhattan');
+			worklog.toggleProject('ApolloProgram');
 			
 		});
 		
 		it('is calculated for active month', function(){
 			
 			// then:
-			expect(report.month.total).toEqual("1d 1h 8m");
+			expect(worklog.month.total).toEqual("1d 1h 8m");
 		});
 
 		it('is calculated for every active employee', function(){
 			
 			// then:
-			expect(report.employees['bart.simpson'].total).toEqual("1d 1m");
-			expect(report.employees['homer.simpson'].total).toEqual("1h 7m");
-			expect(report.employees['inactive.employee'].total).toEqual("0h");
+			expect(worklog.employees['bart.simpson'].total).toEqual("1d 1m");
+			expect(worklog.employees['homer.simpson'].total).toEqual("1h 7m");
+			expect(worklog.employees['inactive.employee'].total).toEqual("0h");
 		});
 		
 		it('is calculated for every active project', function(){
 			
 			// then:
-			expect(report.projects['ProjectManhattan'].total).toEqual("1h 1m");
-			expect(report.projects['ApolloProgram'].total).toEqual("1d 7m");
-			expect(report.projects['InactiveProject'].total).toEqual("0h");
+			expect(worklog.projects['ProjectManhattan'].total).toEqual("1h 1m");
+			expect(worklog.projects['ApolloProgram'].total).toEqual("1d 7m");
+			expect(worklog.projects['InactiveProject'].total).toEqual("0h");
 		});
 	
 	});
@@ -316,9 +316,44 @@ ddescribe('Worklog', function() {
 			monthContainsFollowingItems('2014/01', []); 
 	
 			// when:
-			report.setMonth('2014/01', callback);
+			worklog.setMonth('2014/01', callback);
 			expect(callback).not.toHaveBeenCalled();
 			httpBackend.flush();
+			
+			// then:
+			expect(callback).toHaveBeenCalled();
+		});
+
+		it('executes callback when worklog is changed (month)', function(){
+			
+			// given:
+			var callback = jasmine.createSpy('callback');
+			worklogWith({
+				projectName: "ProjectManhattan"
+			});
+			
+			// when:
+			worklog.onUpdate(callback);
+			expect(callback).not.toHaveBeenCalled();
+			worklog.setMonth('2014/01');
+			httpBackend.flush();
+			
+			// then:
+			expect(callback).toHaveBeenCalled();
+		});
+
+		it('executes callback when worklog is changed (employee)', function(){
+			
+			// given:
+			var callback = jasmine.createSpy('callback');
+			worklogWith({
+					projectName: "ProjectManhattan"
+				});
+			
+			// when:
+			worklog.onUpdate(callback);
+			expect(callback).not.toHaveBeenCalled();
+			worklog.enableProject("ProjectManhattan");
 			
 			// then:
 			expect(callback).toHaveBeenCalled();
@@ -329,11 +364,11 @@ ddescribe('Worklog', function() {
 	
 	var toggleAll = function(){
 		
-		_(report.employees).forEach(function(_, x){
-			report.toggleEmployee(x);
+		_(worklog.employees).forEach(function(_, x){
+			worklog.toggleEmployee(x);
 		});
-		_(report.projects).forEach(function(_, x){
-			report.toggleProject(x);
+		_(worklog.projects).forEach(function(_, x){
+			worklog.toggleProject(x);
 		});
 	};
 
@@ -343,15 +378,15 @@ ddescribe('Worklog', function() {
 			.respond(200, { items: items });
 	};
 	
-	var reportFor = function(month){
-		report.setMonth(month);
+	var worklogFor = function(month){
+		worklog.setMonth(month);
 		httpBackend.flush();
 	};
 	
-	var reportWith = function(items){
+	var worklogWith = function(items){
 
 		monthContainsFollowingItems('2014/01', _.toArray(arguments));
-		reportFor('2014/01');
+		worklogFor('2014/01');
 	};
 
 });

@@ -8,7 +8,7 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 		month: new String(''),
 		employees: {},
 		projects: {},
-		worklog: [],
+		entries: [],
 
 		setMonth: function(month, callback){
 			$http.get('http://localhost:8080/endpoints/v1/calendar/' + month + '/work-log/entries')
@@ -82,7 +82,10 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 			that.month = new String('');
 			that.employees = {};
 			that.projects = {};
-			that.worklog = [];
+			that.entries = [];
+		},
+		onUpdate: function(listener){
+			listeners.push(listener);
 		}
 		
 	};
@@ -91,11 +94,12 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 
 		buildWorklog();
 		calculateTotals();
+		notifyListeners();
 	};
 
 	var buildWorklog = function(){
 
-		that.worklog = _(worklog)
+		that.entries = _(worklog)
 			.filter(function(x){ return that.employees[x.employee].active })
 			.filter(function(x){ return that.projects[x.projectName].active })
 			.value();
@@ -110,7 +114,7 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 		_(that.projects).forEach(resetTotal);
 		_([that.month]).forEach(resetTotal);
 		
-		_(that.worklog).forEach(function(x){
+		_(that.entries).forEach(function(x){
 			if(x.workload){
 				var workload = new Workload(x.workload);
 				that.month.total = that.month.total.add(workload);
@@ -122,6 +126,12 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 		_([that.month]).forEach(normalizeTotal);
 		_(that.employees).forEach(normalizeTotal);
 		_(that.projects).forEach(normalizeTotal);
+	};
+	
+	var notifyListeners = function(){
+		_(listeners).forEach(function(listener){
+			listener.call();
+		});
 	};
 	
 	return that;

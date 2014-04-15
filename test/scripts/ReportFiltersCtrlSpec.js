@@ -1,4 +1,4 @@
-ddescribe('Report Filters Controller', function () {
+describe('Report Filters Controller', function () {
 	
     beforeEach(module('openTrapp'));
 
