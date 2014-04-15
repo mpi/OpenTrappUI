@@ -1,4 +1,4 @@
-angular.module('openTrApp').controller('SignInCtrl',
+angular.module('openTrapp').controller('SignInCtrl',
     function ($scope, $rootScope, $http, $location, currentEmployee) {
         $scope.init = function () {
             $http.get('http://localhost:8080/endpoints/v1/authentication/status').success(function (data) {

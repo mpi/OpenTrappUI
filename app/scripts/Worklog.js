@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('worklog', function ($http) {
+angular.module('openTrapp').factory('worklog', function ($http) {
 	
 	var worklog = [];
 	var listeners = [];

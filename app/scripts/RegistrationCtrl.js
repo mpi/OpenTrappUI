@@ -1,4 +1,4 @@
-angular.module('openTrApp').controller('RegistrationCtrl',
+angular.module('openTrapp').controller('RegistrationCtrl',
 		function($scope, $http, currentEmployee, worklogEntryParser, projectNames, $q) {
 
 			$scope.workLogExpression = '';

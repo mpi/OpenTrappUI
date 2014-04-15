@@ -6,7 +6,7 @@ module.exports = function (config) {
         files: [
             'app/lib/angular.js',
             'app/lib/*.js',
-            'app/scripts/OpenTrAppModule.js',
+            'app/scripts/OpenTrappModule.js',
             'app/scripts/*.js',
             'test/lib/*.js',
             'test/**/*.js'

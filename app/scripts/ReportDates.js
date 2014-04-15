@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('reportDates', function (timeProvider) {
+angular.module('openTrapp').factory('reportDates', function (timeProvider) {
     return{
         getMonths: function () {
             const dateFormat = "YYYY/MM";

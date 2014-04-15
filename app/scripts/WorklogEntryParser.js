@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider) {
+angular.module('openTrapp').factory('worklogEntryParser', function (timeProvider) {
 
     var maxDaysForDiff = 365;
     var projectPattern = /#([a-zA-Z0-9_-]+)/;
@@ -31,13 +31,13 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
         } else if (forYesterday(expression)) {
             return moment(timeProvider.getCurrentDate()).subtract('days', 1).format(dateFormat)
         } else if (isForDaysAgo(expression)) {
-        	var daysToAdd = daysAgoPattern.exec(expression)[1];
+            var daysToAdd = daysAgoPattern.exec(expression)[1];
             return moment(timeProvider.getCurrentDate()).add('days', daysToAdd).format(dateFormat)
         } else if (isForDayOfWeek(expression)) {
-        	var dayOfWeek = moment(timeProvider.getCurrentDate()).day(dayOfWeekPattern.exec(expression)[1]);
-        	if(dayOfWeek.isAfter(moment(timeProvider.getCurrentDate()))){
-        		dayOfWeek.subtract('days', 7);
-        	}
+            var dayOfWeek = moment(timeProvider.getCurrentDate()).day(dayOfWeekPattern.exec(expression)[1]);
+            if (dayOfWeek.isAfter(moment(timeProvider.getCurrentDate()))) {
+                dayOfWeek.subtract('days', 7);
+            }
             return dayOfWeek.format(dateFormat);
         } else {
             return moment(timeProvider.getCurrentDate()).format(dateFormat);
@@ -85,7 +85,7 @@ angular.module('openTrApp').factory('worklogEntryParser', function (timeProvider
         var hours = parseInt(workloadPattern.exec(workload)[2]) || 0;
         var minutes = parseInt(workloadPattern.exec(workload)[3]) || 0;
 
-        var allMinutes = 8*60*days + 60*hours + minutes;
+        var allMinutes = 8 * 60 * days + 60 * hours + minutes;
         return allMinutes > 960
     }
 

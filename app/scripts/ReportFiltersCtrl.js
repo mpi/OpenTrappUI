@@ -1,4 +1,4 @@
-var openTrapp = angular.module('openTrApp'); 
+var openTrapp = angular.module('openTrapp'); 
 
 openTrapp
 	.controller('ReportFiltersCtrl', function ($scope, $http, worklog, currentMonth, currentEmployee) {

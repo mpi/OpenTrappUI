@@ -1,6 +1,6 @@
 ddescribe('Report Filters Controller', function () {
 	
-    beforeEach(module('openTrApp'));
+    beforeEach(module('openTrapp'));
 
     var currentMonth;
     var currentEmployee;

@@ -1,6 +1,6 @@
 describe("Settings", function () {
 
-    beforeEach(module('openTrApp'));
+    beforeEach(module('openTrapp'));
 
     var scope, httpBackend;
     var currentEmployee;

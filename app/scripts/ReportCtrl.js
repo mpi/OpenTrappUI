@@ -1,4 +1,4 @@
-angular.module('openTrApp').controller('ReportCtrl',
+angular.module('openTrapp').controller('ReportCtrl',
     function ($scope, $http, reportDates) {
 
         $scope.init = function () {

@@ -1,4 +1,4 @@
-angular.module('openTrApp').factory('projectNames', function ($http) {
+angular.module('openTrapp').factory('projectNames', function ($http) {
 
 	var cached;
 
@@ -40,5 +40,3 @@ angular.module('openTrApp').factory('projectNames', function ($http) {
 	
 	return new ProjectNames('');	
 });
-
-

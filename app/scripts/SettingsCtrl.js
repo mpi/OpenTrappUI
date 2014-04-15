@@ -1,4 +1,4 @@
-angular.module('openTrApp').controller('SettingsCtrl',
+angular.module('openTrapp').controller('SettingsCtrl',
     function ($scope, $cookies) {
         $scope.init = function () {
 

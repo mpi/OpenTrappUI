@@ -2,7 +2,7 @@ describe("ProjectNameTypeahead", function(){
 	
 	var scope, http, projectNames;
 	
-	beforeEach(module('openTrApp'));
+	beforeEach(module('openTrapp'));
     beforeEach(inject(function(_enviromentInterceptor_){
     	_enviromentInterceptor_.request = function(x){
     		return x;
