@@ -62,6 +62,31 @@ code {
     left: -100%;
 }
 
+<!-- -->
+.alert.ng-enter, .alert.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    width: 100%;
+}
+
+.alert.ng-enter {
+    position: absolute;
+    left: 200%;
+}
+
+.alert.ng-enter.ng-enter-active {
+    left: 0px;
+}
+
+.alert.ng-leave {
+    position: absolute;
+    left: 0px;
+}
+
+.alert.ng-leave.ng-leave-active {
+    left: -100%;
+}
+
 .worklog-entry {
     list-style: none;
     box-sizing: border-box;
@@ -189,7 +214,7 @@ li.h12 {
 }
 
 .registration {
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 .config {
@@ -270,4 +295,8 @@ li.h12 {
 
 .months > li {
 	min-width: 80px;
+}
+
+.alert-success, .alert-failure, .alert-danger {
+	background-image: none;
 }

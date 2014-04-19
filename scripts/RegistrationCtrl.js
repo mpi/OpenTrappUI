@@ -1,8 +1,12 @@
 angular.module('openTrapp').controller('RegistrationCtrl',
-		function($scope, $http, currentEmployee, worklogEntryParser, projectNames, $q) {
+		function($scope, $http, currentEmployee, worklogEntryParser, projectNames, $sce) {
 
+			$scope.alerts = [];
 			$scope.workLogExpression = '';
 			$scope.suggestions = [];
+			$scope.clearAlerts = function(){
+				$scope.alerts = [];
+			};
 			$scope.logWork = function(){
 				
 				if(!worklogEntryParser.isValid($scope.workLogExpression)){
@@ -15,11 +19,11 @@ angular.module('openTrapp').controller('RegistrationCtrl',
 					.success(function(response, status){
 						$scope.workLogExpression = '';
 						update();
-                        var message = sprintf("%s logged on project '%s' at %s", data.workload, data.projectName, data.day);
-                        $scope.alert = ({ type: 'success', message: message});
+                        var message = sprintf("<b>Hurray!</b> You  have successfully logged <b>%s</b> on project <b>%s</b> at <b>%s</b>.", data.workload, data.projectName, data.day);
+                        $scope.alerts = [{ type: 'success', message: $sce.trustAsHtml(message)}];
 					}).error(function(response,status){
-                        var message = 'Server not responding';
-                        $scope.alert = ({ type: 'danger', message: message});
+                        var message = '<b>Upps...</b> Server is not responding.';
+                        $scope.alerts = [{ type: 'danger', message: $sce.trustAsHtml(message)}];
                     });
 			};
 
