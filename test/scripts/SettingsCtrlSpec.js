@@ -23,13 +23,6 @@ describe("Settings", function () {
 
     });
 
-    it('loads default serverUrl', function () {
-
-        scope.init();
-
-        expect(scope.apiServerUrl).toEqual('http://open-trapp.herokuapp.com');
-    });
-
     it('stores serverUrl to cookies on save', function () {
 
         scope.init();
