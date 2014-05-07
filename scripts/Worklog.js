@@ -32,6 +32,18 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 							employees[employee] = statusOf(that.employees[employee]); 
 						});
 						
+						_(that.projects).forEach(function(status, project){
+							if(status.active && projects[project] == undefined){
+								projects[project] = { hidden: true, active: true };	
+							}
+						});
+
+						_(that.employees).forEach(function(status, employee){
+							if(status.active && employees[employee] == undefined){
+								employees[employee] = { hidden: true, active: true };	
+							}
+						});
+
 						that.employees = employees;
 						that.projects = projects;
 						
@@ -64,11 +76,35 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 			that.employees[employee] = { active: true };
 			apply();
 		},
+		enableAllEmployees: function(){
+			_(that.employees).forEach(function(status){
+				status.active = true;
+			});
+			apply();
+		},
+		disableAllEmployees: function(){
+			_(that.employees).forEach(function(status){
+				status.active = false;
+			});
+			apply();
+		},
 		enableProject: function(project){
 			
 			that.projects[project] = { active: true };
 			apply();
 		}, 
+		enableAllProjects: function(){
+			_(that.projects).forEach(function(status){
+				status.active = true;
+			});
+			apply();
+		},
+		disableAllProjects: function(){
+			_(that.projects).forEach(function(status){
+				status.active = false;
+			});
+			apply();
+		},
 		enableEmployeeProjects: function(employee){
 
 			_(worklog).forEach(function(x){
@@ -120,12 +156,18 @@ angular.module('openTrapp').factory('worklog', function ($http) {
 		_(that.projects).forEach(resetTotal);
 		_([that.month]).forEach(resetTotal);
 		
-		_(that.entries).forEach(function(x){
+		_(worklog).forEach(function(x){
 			if(x.workload){
 				var workload = new Workload(x.workload);
-				that.month.total = that.month.total.add(workload);
-				that.employees[x.employee].total = that.employees[x.employee].total.add(workload); 
-				that.projects[x.projectName].total = that.projects[x.projectName].total.add(workload); 
+				if(that.employees[x.employee].active && that.projects[x.projectName].active){
+					that.month.total = that.month.total.add(workload);
+				}
+				if(that.projects[x.projectName].active){
+					that.employees[x.employee].total = that.employees[x.employee].total.add(workload); 
+				}
+				if(that.employees[x.employee].active){
+					that.projects[x.projectName].total = that.projects[x.projectName].total.add(workload); 
+				}
 			}
 		});
 

@@ -20,7 +20,7 @@
                         {{worklog.month.total}}
                     </span>
                 </a>
-		<a ng-if="month == worklog.month" ng-click="worklog.setMonth(month)" class="refresh">
+		<a ng-click="worklog.setMonth(month)" class="refresh">
 			<span class="glyphicon glyphicon-refresh"></span>
 		</a>
             </li>
@@ -32,7 +32,7 @@
             <li ng-repeat="(project, status) in worklog.projects" ng-class="{active: status.active && !status.hidden, disabled: status.hidden}">
                 <a ng-click="status.hidden || worklog.toggleProject(project)">
                     {{project}}
-                            <span ng-class="{badge: true, 'badge-primary': !status.hidden, 'badge-default': status.hidden}">
+                            <span ng-if="status.active" class="badge badge-default">
                                 {{status.total}}
                             </span>
                 </a>
@@ -54,10 +54,10 @@
     <div class="col-md-6">
         <h4>Employees:</h4>
         <ul class="nav nav-pills small">
-            <li ng-repeat="(employee, status) in worklog.employees" ng-class="{active: status.active && !status.hidden && status.total != '0h', disabled: status.hidden || status.total == '0h', hidden: status.total == '0h' && !status.active}">
+            <li ng-repeat="(employee, status) in worklog.employees" ng-class="{active: status.active && !status.hidden, disabled: status.hidden}">
                 <a ng-click="status.hidden || worklog.toggleEmployee(employee)">
                     {{employee}}
-                            <span ng-class="{badge: true, 'badge-primary': !status.hidden && status.total != '0h', 'badge-default': status.hidden || status.total == '0h'}">
+                            <span ng-if="status.active" class="badge badge-default">
                                 {{status.total}}
                             </span>
                 </a>

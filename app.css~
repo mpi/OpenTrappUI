@@ -325,11 +325,8 @@ li.h12 {
 	padding-left: 5px;
 	padding-right: 5px;
 	position:absolute;
-	left: -25px;
+	right: -25px;
 	top: 0px;
 	background-color: #ffffff;
 	color: #2d6ca2;
-}
-.nav > li.hidden {
-	display: none;
 }
